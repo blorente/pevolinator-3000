@@ -1,5 +1,7 @@
 package model.solvers;
 
-public interface Fitness {
+import model.population.Genome;
 
+public interface Fitness {
+	double calculate(Genome genome);
 }
