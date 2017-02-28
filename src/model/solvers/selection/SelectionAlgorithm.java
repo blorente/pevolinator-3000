@@ -1,4 +1,4 @@
-package model.solvers;
+package model.solvers.selection;
 
 import model.population.Population;
 

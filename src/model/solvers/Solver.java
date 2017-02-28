@@ -1,6 +1,8 @@
 package model.solvers;
 
 import model.population.Population;
+import model.solvers.cross.CrossAlgorithm;
+import model.solvers.selection.SelectionAlgorithm;
 
 public class Solver {
 	private SolverParameters parameters;
@@ -22,7 +24,7 @@ public class Solver {
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
 			population.evaluate(problem.getFitness());
 			population = selection.select(population);
-			population = cross.cross(population, parameters.getCrossPercent());
+			population = cross.cross(population);
 			population = mutation.mutate(population,parameters.getMutationPercent());
 		}
 	}

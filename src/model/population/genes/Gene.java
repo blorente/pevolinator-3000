@@ -1,4 +1,4 @@
-package model.population;
+package model.population.genes;
 
 public interface Gene {
 	int size();
