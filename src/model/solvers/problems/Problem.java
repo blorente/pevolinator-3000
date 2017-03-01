@@ -1,4 +1,6 @@
-package model.solvers;
+package model.solvers.problems;
+
+import model.solvers.fitness.Fitness;
 
 public abstract class Problem {
 	protected int populationSize;

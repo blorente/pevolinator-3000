@@ -1,4 +1,6 @@
-package model.solvers;
+package model.solvers.problems;
+
+import model.solvers.fitness.FirstFunctionFitness;
 
 public class FirstFunction extends Problem {
 	

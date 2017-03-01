@@ -3,7 +3,7 @@ package model.population;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.solvers.Fitness;
+import model.solvers.fitness.Fitness;
 
 public class Population {
 	private List<Individual> individuals;

@@ -3,7 +3,7 @@ package model.population;
 import java.util.Set;
 import java.util.SortedSet;
 
-import model.solvers.Fitness;
+import model.solvers.fitness.Fitness;
 
 public class Individual {
 	private Genome genome;

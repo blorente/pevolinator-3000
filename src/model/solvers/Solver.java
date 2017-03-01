@@ -2,6 +2,7 @@ package model.solvers;
 
 import model.population.Population;
 import model.solvers.cross.CrossAlgorithm;
+import model.solvers.problems.Problem;
 import model.solvers.selection.SelectionAlgorithm;
 
 public class Solver {

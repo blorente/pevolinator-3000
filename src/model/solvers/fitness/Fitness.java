@@ -1,4 +1,4 @@
-package model.solvers;
+package model.solvers.fitness;
 
 import model.population.Genome;
 
