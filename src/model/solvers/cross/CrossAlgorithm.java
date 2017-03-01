@@ -13,9 +13,9 @@ import model.population.Population;
 public class CrossAlgorithm {
 	
 	private int numPoints;
-	private int crossRate;
+	private double crossRate;
 	
-	public CrossAlgorithm(int numPoints, int crossRate){
+	public CrossAlgorithm(int numPoints, double crossRate){
 		this.numPoints = numPoints;
 		this.crossRate = crossRate;
 	}
@@ -56,15 +56,17 @@ public class CrossAlgorithm {
 		}
 		
 		ind.crossSelf(selected, crossIndices);
-		return null;
+		children.add(ind);
+		children.add(selected);
+		return children;
 	}
 	
-	public Integer newCrossPoint(SortedSet<Integer> crossIndices, int size) {
+	private Integer newCrossPoint(SortedSet<Integer> crossIndices, int size) {
 		int rand = (int) (Math.random() * (size - 1)) + 1;
- 		while (crossIndices.contains(new Integer(rand))) {
+ 		while (crossIndices.contains(rand)) {
  			rand = (int) (Math.random() * (size - 1)) + 1;
  		}	
-		return new Integer(rand);
+		return rand;
 	}
 
 	private boolean selected() {

@@ -24,7 +24,7 @@ public class RouletteSelectionAlgorithm implements SelectionAlgorithm {
 		for(int i = 0; i < population.getSize(); i++){
 			double rand = Math.random();
 			int j = 0;
-			while(j < population.getSize() && accumulatedProb[j] > rand){
+			while(j < population.getSize() && accumulatedProb[j] < rand){
 				j++;
 			}
 			selectedPopulation.addIndividual(pop.get(j));

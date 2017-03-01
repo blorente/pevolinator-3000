@@ -1,21 +1,21 @@
 package model.solvers;
 
 public class SolverParameters {
-	private int crossPercent;
-	private int mutationPercent;
+	private double crossPercent;
+	private double mutationPercent;
 	private int seed;
 	
-	public SolverParameters(int crossPercent, int mutationPercent, int seed) {
+	public SolverParameters(double crossPercent, double mutationPercent, int seed) {
 		this.crossPercent = crossPercent;
 		this.mutationPercent = mutationPercent;
 		this.seed = seed;
 	}
 	
-	public int getCrossPercent() {
+	public double getCrossPercent() {
 		return crossPercent;
 	}
 	
-	public int getMutationPercent() {
+	public double getMutationPercent() {
 		return mutationPercent;
 	}
 	

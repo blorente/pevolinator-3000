@@ -1,22 +1,31 @@
 package model.solvers.problems;
 
+import model.population.Population;
+import model.population.PopulationFactory;
 import model.solvers.fitness.Fitness;
 
 public class Problem {
-	protected int populationSize;
-	protected int numberGenerations;
-	protected Fitness fitness;
-	protected double intervalMin;
-	protected double intervalMax;
+	private int populationSize;
+	private int numberGenerations;
+	private Fitness fitness;
+	private double intervalMin;
+	private double intervalMax;
+	private double tolerance;
+	private int genomeSize;
 
+    public Problem(int populationSize, int numberGenerations, Fitness fitness, double intervalMin, double intervalMax, double tolerance, int genomeSize) {
+        this.populationSize = populationSize;
+        this.numberGenerations = numberGenerations;
+        this.fitness = fitness;
+        this.intervalMin = intervalMin;
+        this.intervalMax = intervalMax;
+        this.tolerance = tolerance;
+        this.genomeSize = genomeSize;
+    }
 
-	public Problem(int populationSize, int numberGenerations, Fitness fitness, double intervalMin, double intervalMax){
-		this.populationSize = populationSize;
-		this.numberGenerations = numberGenerations;
-		this.fitness = fitness;
-		this.intervalMax = intervalMax;
-		this.intervalMin = intervalMin;
-	}
+    public Population createRandomPopulation(int seed) {
+        return PopulationFactory.createRandomBinary(populationSize, genomeSize, seed, intervalMax, intervalMin, tolerance);
+    }
 	
 	public int getPopulationSize() {
 		return populationSize;
