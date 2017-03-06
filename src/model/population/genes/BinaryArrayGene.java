@@ -46,7 +46,8 @@ public class BinaryArrayGene implements Gene {
 	@Override
 	public void mutateSelf(double mutationPercent) {
 		for (int i = 0; i < size; i++) {
-            bits[i] = Math.random() < mutationPercent;
+			if(Math.random() < mutationPercent)
+				bits[i] = !bits[i];
         }
 	}
 

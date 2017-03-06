@@ -80,4 +80,8 @@ public class Genome {
         res.append("]");
         return res.toString();
     }
+
+	public List<Gene> getGenes() {
+		return genes;
+	}
 }

@@ -1,7 +1,41 @@
 package model.solvers.fitness;
 
+import java.util.function.DoubleBinaryOperator;
+
 import model.population.Genome;
 
-public interface Fitness {
-	double calculate(Genome genome);
+public abstract class Fitness {
+	public double calculate(Genome genome) {
+		throw new RuntimeException();
+	}
+	
+	static double sin(double d) {
+		return Math.sin(d);
+	}
+	
+	static double cos(double d) {
+		return Math.cos(d);
+	}
+	
+	static double sqrt(double d) {
+		return Math.sqrt(d);
+	}
+	
+	static double abs(double d) {
+		return Math.abs(d);
+	}
+	
+	static double PI() {
+		return Math.PI;
+	}
+	
+	static double sumAll(int range[], DoubleBinaryOperator operation, double freeVar[]) {
+		double result = 0;
+		for (int i = range[0]; i < range[1]; i++) {
+			for (int free = 0; free < freeVar.length; free++) {
+				result += operation.applyAsDouble(freeVar[free], (double)i);
+			}
+		}
+		return result;
+	}
 }

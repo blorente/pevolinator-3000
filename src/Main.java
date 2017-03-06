@@ -12,10 +12,10 @@ import model.solvers.selection.SelectionAlgorithm;
 
 public class Main {
 
-    private static final double CROSS_PERCENT = 1;
-    private static final double MUTATION_PERCENT = 1;
+    private static final double CROSS_PERCENT = 0.25;
+    private static final double MUTATION_PERCENT = 0.01;
 
-    private static final int POPULATION_SIZE = 4;
+    private static final int POPULATION_SIZE = 20;
     private static final int NUMBER_GENERATIONS = 4;
     private static final double X_MIN = -250;
     private static final double X_MAX = 250;
@@ -24,9 +24,8 @@ public class Main {
 
     private static final int NUMBER_CROSS_POINTS = 1;
 
-
     public static void main(String[] args) {
-        SolverParameters parameters = new SolverParameters(CROSS_PERCENT, MUTATION_PERCENT, 0);
+        SolverParameters parameters = new SolverParameters(CROSS_PERCENT, MUTATION_PERCENT);
 
         Fitness fitness = new FirstFunctionFitness();
         Problem firstFunction = new Problem(POPULATION_SIZE, NUMBER_GENERATIONS, fitness, X_MIN, X_MAX, TOLERANCE, GENOME_SIZE);

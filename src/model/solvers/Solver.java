@@ -29,11 +29,12 @@ public class Solver {
 		Population population = problem.createRandomPopulation(parameters.getSeed());
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
 			population.evaluate(problem.getFitness());
+			reporter.report(generation, population);
 			population = selection.select(population);
 			population = cross.cross(population);
 			population = mutation.mutate(population,parameters.getMutationPercent());
-			reporter.report(generation, population);
 		}
+		reporter.report(problem.getGenerations(), population);
 	}
 	
 	

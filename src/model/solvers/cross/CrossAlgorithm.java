@@ -43,6 +43,9 @@ public class CrossAlgorithm {
 			}
 		}
 		
+		if (readyToPair) {
+			crossed.addIndividual(selected);
+		}		
 		
 		return crossed;
 	}
@@ -62,9 +65,9 @@ public class CrossAlgorithm {
 	}
 	
 	private Integer newCrossPoint(SortedSet<Integer> crossIndices, int size) {
-		int rand = (int) (Math.random() * (size - 1)) + 1;
+		int rand = (int) (Math.random() * (size - 2)) + 1;
  		while (crossIndices.contains(rand)) {
- 			rand = (int) (Math.random() * (size - 1)) + 1;
+ 			rand = (int) (Math.random() * (size - 2)) + 1;
  		}	
 		return rand;
 	}
