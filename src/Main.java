@@ -15,8 +15,8 @@ public class Main {
     private static final double CROSS_PERCENT = 0.25;
     private static final double MUTATION_PERCENT = 0.01;
 
-    private static final int POPULATION_SIZE = 20;
-    private static final int NUMBER_GENERATIONS = 4;
+    private static final int POPULATION_SIZE = 4;
+    private static final int NUMBER_GENERATIONS = 100;
     private static final double X_MIN = -250;
     private static final double X_MAX = 250;
     private static final double TOLERANCE = 0.001;

@@ -10,4 +10,5 @@ public class FirstFunctionFitness extends Fitness {
 		double fOfX = -abs(valX*sin(sqrt(abs(valX))));
 		return -fOfX;
 	}
+	
 }

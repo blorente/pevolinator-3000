@@ -9,6 +9,14 @@ public abstract class Fitness {
 		throw new RuntimeException();
 	}
 	
+	public double shiftingFitnessMin(double popMax, double fitness) {
+		return popMax * 1.05 - fitness;
+	}
+	
+	public double shiftingFitnessMax(double popMin, double fitness) {
+		return popMin * 1.05 + fitness;
+	}
+	
 	static double sin(double d) {
 		return Math.sin(d);
 	}

@@ -18,6 +18,15 @@ public class Individual {
 	public void evaluate(Fitness fitnessMethod) {
 		this.fitness = fitnessMethod.calculate(genome);
 	}
+	
+	public void shiftMinimize(double popMax, Fitness fitnessMethod) {
+		this.fitness = fitnessMethod.shiftingFitnessMin(popMax, fitness);
+	}
+	
+	public void shiftMaximize(double popMin, Fitness fitnessMethod) {
+		this.fitness = fitnessMethod.shiftingFitnessMax(popMin, fitness);
+	}
+	
 	public double getFitness() {
 		return fitness;
 	}

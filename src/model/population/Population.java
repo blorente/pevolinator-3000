@@ -14,11 +14,31 @@ public class Population {
         this.individuals = new ArrayList<>();
     }
 
-	public void evaluate(Fitness fitness){
+	public void evaluateMinimize(Fitness fitness){
 		totalFitness = 0.0;
+		double popMax = Integer.MIN_VALUE;
 		for (Individual i : individuals){
 			i.evaluate(fitness);
-			totalFitness += i.getFitness();
+			popMax = Math.max(i.getFitness(), popMax);		
+		}
+		
+		for (Individual i: individuals) {
+			i.shiftMinimize(popMax, fitness);
+			totalFitness += i.getFitness();	
+		}
+	}
+	
+	public void evaluateMaximize(Fitness fitness){
+		totalFitness = 0.0;
+		double popMin = Integer.MAX_VALUE;
+		for (Individual i : individuals){
+			i.evaluate(fitness);
+			popMin = Math.min(i.getFitness(), popMin);		
+		}
+		
+		for (Individual i: individuals) {
+			i.shiftMaximize(popMin, fitness);
+			totalFitness += i.getFitness();	
 		}
 	}
 	

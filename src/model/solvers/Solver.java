@@ -28,7 +28,7 @@ public class Solver {
 	public void run() {
 		Population population = problem.createRandomPopulation(parameters.getSeed());
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
-			population.evaluate(problem.getFitness());
+			population.evaluateMinimize(problem.getFitness());
 			reporter.report(generation, population);
 			population = selection.select(population);
 			population = cross.cross(population);
