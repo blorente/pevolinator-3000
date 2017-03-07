@@ -16,7 +16,7 @@ public class Population {
 
 	public void evaluateMinimize(Fitness fitness){
 		totalFitness = 0.0;
-		double popMax = Integer.MIN_VALUE;
+		double popMax = Double.MIN_VALUE;
 		for (Individual i : individuals){
 			i.evaluate(fitness);
 			popMax = Math.max(i.getFitness(), popMax);		
@@ -30,7 +30,7 @@ public class Population {
 	
 	public void evaluateMaximize(Fitness fitness){
 		totalFitness = 0.0;
-		double popMin = Integer.MAX_VALUE;
+		double popMin = Double.MAX_VALUE;
 		for (Individual i : individuals){
 			i.evaluate(fitness);
 			popMin = Math.min(i.getFitness(), popMin);		
@@ -55,7 +55,8 @@ public class Population {
 	}
 	
 	public void addIndividual(Individual indiv){
-		individuals.add(indiv);
+		Individual indToAdd = new Individual(new Genome(indiv.getGenome()));
+		individuals.add(indToAdd);
 	}
 
     @Override
