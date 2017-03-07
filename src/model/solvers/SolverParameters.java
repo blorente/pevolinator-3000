@@ -27,8 +27,17 @@ public class SolverParameters {
 	public double getMutationPercent() {
 		return mutationPercent;
 	}
-	
+
 	public int getSeed() {
 		return seed;
+	}
+
+	@Override
+	public String toString() {
+		return "SolverParameters{" +
+				"crossPercent=" + crossPercent +
+				", mutationPercent=" + mutationPercent +
+				", seed=" + seed +
+				'}';
 	}
 }
