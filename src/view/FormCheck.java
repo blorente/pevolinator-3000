@@ -17,4 +17,11 @@ public class FormCheck {
         double value = Double.parseDouble(field.getText());
         return value / 100.0;
     }
+    public static double readDouble(JTextField field) {
+        return Double.parseDouble(field.getText());
+    }
+
+    public static int readInt(JTextField field) {
+        return Integer.parseInt(field.getText());
+    }
 }
