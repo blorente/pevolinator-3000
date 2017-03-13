@@ -27,12 +27,20 @@ public class Solver {
 	
 	public void run() {
 		Population population = problem.createRandomPopulation(parameters.getSeed());
+		Population elitism = new Population();
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
 			population.evaluateMinimize(problem.getFitness());
+			elitism = population.saveElite(parameters.elitismPercent());
 			reporter.report(generation, population);
+			reporter.report(-1, elitism);
 			population = selection.select(population);
 			population = cross.cross(population);
 			population = mutation.mutate(population,parameters.getMutationPercent());
+			population.evaluateMinimize(problem.getFitness());
+			population.dropWorse(parameters.elitismPercent());
+			reporter.report(-2, population);
+			population.insertAll(elitism);
+			reporter.report(-3, population);
 		}
 		reporter.report(problem.getGenerations(), population);
 	}

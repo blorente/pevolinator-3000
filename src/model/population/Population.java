@@ -1,6 +1,7 @@
 package model.population;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class Population {
 	private double totalFitness;
 
     public Population() {
-        this.individuals = new ArrayList<>();
+        this.individuals = new ArrayList<Individual>();
     }
 
 	public void evaluateMinimize(Fitness fitness){
@@ -73,4 +74,31 @@ public class Population {
         ret.append("}\n");
         return ret.toString();
     }
+
+	public Population saveElite(double elitismPercent) {
+		Population elitism = new Population();
+		int sizeElite = (int)  Math.ceil(individuals.size() * elitismPercent); //We decided to make the ceil of the percentage because if the user want a 0.1% we think is better to save an individual than none.
+		Collections.sort(individuals, (a,b) -> b.compareTo(a));
+		for(int i = 0; i < sizeElite; i++){
+			elitism.addIndividual(new Individual(individuals.get(i).getGenome()));
+		}
+		
+		return elitism;
+	}
+
+	public void dropWorse(double elitismPercent) {
+		int sizeElite = (int)  Math.ceil(individuals.size() * elitismPercent);
+		Collections.sort(individuals, (a,b) -> b.compareTo(a));
+		int loopLimit = this.getSize() - sizeElite;
+		for(int i = getSize()-1; i > loopLimit-1; i--){
+			individuals.remove(i);
+		}
+	}
+
+	public void insertAll(Population elitism) {
+		for(Individual i: elitism.individuals){
+			 individuals.add(i);
+		}
+		
+	}
 }

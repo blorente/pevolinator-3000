@@ -55,4 +55,13 @@ public class Individual {
 	    ret.append("    }\n");
         return ret.toString();
     }
+
+	public int compareTo(Individual a) {
+		if(this.fitness < a.fitness)
+			return -1;
+		else if (this.fitness > a.fitness)
+			return 1;
+		else
+			return 0;
+	}
 }
