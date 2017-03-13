@@ -6,7 +6,7 @@ import model.population.genes.Gene;
 import java.util.List;
 import java.util.Random;
 
-import main.PairTuple;
+import controller.PairTuple;
 
 public class GenomeFactory {
     private static final double UNIFORM_MUTATION_PERCENT = 0.5;

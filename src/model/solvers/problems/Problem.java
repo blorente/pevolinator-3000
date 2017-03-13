@@ -2,7 +2,7 @@ package model.solvers.problems;
 
 import java.util.List;
 
-import main.PairTuple;
+import controller.PairTuple;
 import model.population.Population;
 import model.population.PopulationFactory;
 import model.solvers.fitness.Fitness;

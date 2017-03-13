@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 
 public class PairTuple<T1,T2> {

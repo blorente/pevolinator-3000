@@ -11,29 +11,36 @@ import model.solvers.problems.Problem;
 import model.solvers.selection.RouletteSelectionAlgorithm;
 import model.solvers.selection.SelectionAlgorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.text.JTextComponent;
 
 public class Controller {
 
+	private static final List<PairTuple<Double,Double>> MinMaxParameters = new ArrayList<PairTuple<Double,Double>>(){{ add(new PairTuple<>(X_MIN,X_MAX));}};
+
     private static final double CROSS_PERCENT = 0.25;
-    private double crossPercent;
     private static final double MUTATION_PERCENT = 0.01;
-    private double mutationPercent;
+    private static final double ELITISM_PERCENT = 0.5;
+
     private static final int POPULATION_SIZE = 4;
-    private int populationSize;
-
-    private static final int NUMBER_GENERATIONS = 100;
-    private int numberGenerations;
+    private static final int NUMBER_GENERATIONS = 40;
     private static final double X_MIN = -250;
-    private double xMin;
     private static final double X_MAX = 250;
-    private double xMax;
     private static final double TOLERANCE = 0.001;
-    private double tolerance;
-
     private static final int GENOME_SIZE = 1;
-    private int genomeSize;
+
     private static final int NUMBER_CROSS_POINTS = 1;
+    
+    private double mutationPercent;
+    private double crossPercent;
+    private int populationSize;
+    private int numberGenerations;
+    private double xMin;
+    private double xMax;
+    private double tolerance;
+    private int genomeSize;
     private int numberCrossPoints;
     private Fitness fitness;
 
@@ -50,10 +57,10 @@ public class Controller {
     }
 
     public void launch(JTextComponent target) {
-        SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent);
+        SolverParameters parameters = new SolverParameters(CROSS_PERCENT, MUTATION_PERCENT,ELITISM_PERCENT);
         System.out.println(parameters);
 
-        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness, xMin, xMax, tolerance, genomeSize);
+        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  MinMaxParameters, tolerance, genomeSize);
 
         SelectionAlgorithm selectionAlgorithm = new RouletteSelectionAlgorithm();
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());

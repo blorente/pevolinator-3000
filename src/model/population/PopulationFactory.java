@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import main.PairTuple;
+import controller.PairTuple;
 
 public class PopulationFactory {
 
