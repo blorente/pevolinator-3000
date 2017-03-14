@@ -6,22 +6,6 @@ import model.population.Genome;
 
 public abstract class Fitness {
 
-	public enum FitnessFunctions {
-		FirstFunction,
-		SecondFunction,
-		ThirdFunction,
-		FourthFunction,
-		FifthFunction
-	}
-
-	public static final String[] fitnessFunctions = {
-	        "First Function",
-            "Second Function",
-            "Third Function",
-            "Fourth Function",
-            "Fifth Function"
-	};
-
 	public double calculate(Genome genome) {
 		throw new RuntimeException();
 	}

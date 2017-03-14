@@ -19,6 +19,9 @@ public class HintedInputListener implements FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
+    	if (!source.getText().equals("")) {
+    		this.hint = source.getText();
+    	}
         emptyField();
     }
 

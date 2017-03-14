@@ -8,9 +8,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 
 import controller.Controller;
 
@@ -19,13 +16,14 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.FlowLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import model.solvers.fitness.Fitness;
-import model.solvers.fitness.Fitness.FitnessFunctions;
+import model.solvers.fitness.FitnessFunctionData;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -33,11 +31,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Font;
+
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.SwingConstants;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class MainForm {
 
@@ -48,15 +55,29 @@ public class MainForm {
 	private JTextField xMinTextField;
 	private JTextField xMaxTextField;
 	private JTextField toleranceTextField;
-	private JTextField populationSizeTextField;
-	private JTextField numberOfGenerationsTextField;
-	private JTextField numberOfCrossPointsTextField;
-	private JTextField genomeSizeTextField;
-	private JComboBox<String> functionCB;
+	private JComboBox<FitnessFunctionData> functionCB;
 	private JTextComponent textReportField;
 	private JButton launchNewGA;
 	private JPanel textReportPanel;
 	private JScrollPane textReportScroll;
+	private JPanel crossAndMutationPanel;
+	private JLabel crossPercentLabel;
+	private JLabel lblMutation;
+	private JLabel lblElitism;
+	private JTextField elitismTextField;
+	private JPanel populationPanel;
+	private JLabel lblPopulationSize;
+	private JTextField populationSizeTextField;
+	private JLabel lblNewLabel;
+	private JTextField numberOfGenerationsTextField;
+	private JLabel lblNoCrossPoints;
+	private JTextField numberOfCrossPointsTextField;
+
+    private int genomeSize;
+    private JPanel nGenomePanel;
+    private JLabel lblNewLabel_1;
+    private JTextField nTextField;
+    private JLabel lblTolerance;
 
 	/**
 	 * Launch the application.
@@ -83,7 +104,7 @@ public class MainForm {
 		
 		initialize();
 		setupFunctions();
-		//setupHintedListeners();
+		setupHintedListeners();
 		launchNewGA.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
@@ -93,63 +114,73 @@ public class MainForm {
 	}
 	
 	private void setupHintedListeners() {
-        HintedInputListener crossTextFieldListener = new HintedInputListener(crossTextField, "Cross %");
+        HintedInputListener crossTextFieldListener = new HintedInputListener(crossTextField, "25");
         crossTextField.addFocusListener(crossTextFieldListener);
 
         HintedInputListener mutationTextFieldListener = new HintedInputListener(mutationTextField, "Mutation %");
         mutationTextField.addFocusListener(mutationTextFieldListener);
-
-        HintedInputListener xMinTextFieldListener = new HintedInputListener(xMinTextField, "x Min");
-        xMinTextField.addFocusListener(xMinTextFieldListener);
-
-        HintedInputListener xMaxTextFieldListener = new HintedInputListener(xMaxTextField, "x Max");
-        xMaxTextField.addFocusListener(xMaxTextFieldListener);
 
         HintedInputListener toleranceTextFieldListener = new HintedInputListener(toleranceTextField, "Tolerance");
         toleranceTextField.addFocusListener(toleranceTextFieldListener);
 
         HintedInputListener populationSizeTextFieldListener = new HintedInputListener(populationSizeTextField, "Population Size");
         populationSizeTextField.addFocusListener(populationSizeTextFieldListener);
+        
+        HintedInputListener nTextFieldListener = new HintedInputListener(nTextField, "0");
+        nTextField.addFocusListener(nTextFieldListener);
 
         HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField, "Number of Generations");
         numberOfGenerationsTextField.addFocusListener(numberOfGenerationsTextFieldListener);
 
         HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField, "Number of Cross Points");
         numberOfCrossPointsTextField.addFocusListener(numberOfCrossPointsTextFieldListener);
-
-        HintedInputListener genomeSizeTextFieldListener = new HintedInputListener(genomeSizeTextField, "Genome Size");
-        genomeSizeTextField.addFocusListener(genomeSizeTextFieldListener);
     }
 
     private void setupFunctions() {
-    	functionCB = new JComboBox<String>();
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(Fitness.fitnessFunctions);
+    	functionCB = new JComboBox<FitnessFunctionData>();
+        DefaultComboBoxModel<FitnessFunctionData> model = new DefaultComboBoxModel<>(FitnessFunctionData.fitnessFunctions);
         functionCB.setModel(model);
         functionCB.addActionListener(new ActionListener() {
-		    @Override
+			@Override
 		    public void actionPerformed(ActionEvent e) {
 		        JComboBox cb = (JComboBox)e.getSource();
-		        String fitness = (String)cb.getSelectedItem();
-		        controller.setFitnessFunction(fitness);
+		        String fitness = cb.getSelectedItem().toString();
+		        controller.setFitnessFunction(fitness);		        
+		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
+		        if (genomeSize == -1) {
+		        	showNGenomeSizeEntry();
+		        } else {
+					hideNGenomeSizeEntry();
+		        }
 		    }
 		});
     }
 	
-	private void gatherAndLaunch() {
-		/*
+	protected void hideNGenomeSizeEntry() {
+		nGenomePanel.setVisible(false);
+	}
+
+	protected void showNGenomeSizeEntry() {
+		nGenomePanel.setVisible(true);
+	}
+
+	private void gatherAndLaunch() {		
         controller.setCrossPercent(gatherCrossPercent());
         controller.setMutationPercent(gatherMutationPercent());
-        controller.setxMax(gatherXMax());
-        controller.setxMin(gatherXMin());
-        controller.setTolerance(gatherTolerance());
-        controller.setGenomeSize(gatherGenomeSize());
+        controller.setElitismPercent(gatherElitismPercent());
+        
         controller.setPopulationSize(gatherPopulationSize());
         controller.setNumberCrossPoints(gatherNumberCrossPoints());
-        controller.setNumberGenerations(gatherNumberOfGenerations());
-        */
+        controller.setNumberGenerations(gatherNumberOfGenerations());        
+
+        controller.setTolerance(gatherTolerance());       
         controller.launch(textReportField);
     }
 	
+	private double gatherElitismPercent() {
+		return FormCheck.readPercent(elitismTextField);
+	}
+
 	private int gatherNumberOfGenerations() {
         return FormCheck.readInt(numberOfGenerationsTextField);
     }
@@ -162,15 +193,11 @@ public class MainForm {
         return FormCheck.readInt(populationSizeTextField);
     }
 
-    private int gatherGenomeSize() {
-        return FormCheck.readInt(genomeSizeTextField);
-    }
-
     private double gatherTolerance() {
         return FormCheck.readDouble(toleranceTextField);
     }
 
-    private double gatherXMin() {
+    private double gatherBoundaries() {
         return FormCheck.readDouble(xMinTextField);
     }
 
@@ -203,27 +230,116 @@ public class MainForm {
 		frmXxPevolinator.getContentPane().add(formPanel, BorderLayout.WEST);
 		GridBagLayout gbl_formPanel = new GridBagLayout();
 		gbl_formPanel.columnWidths = new int[] {161};
-		gbl_formPanel.rowHeights = new int[] {212, 56};
-		gbl_formPanel.columnWeights = new double[]{0.0};
-		gbl_formPanel.rowWeights = new double[]{0.0, 0.0};
+		gbl_formPanel.rowHeights = new int[] {0, 0, 0, 56};
+		gbl_formPanel.columnWeights = new double[]{1.0};
+		gbl_formPanel.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0};
 		formPanel.setLayout(gbl_formPanel);
 		
 		JPanel problemSelectionPanel = new JPanel();
 		problemSelectionPanel.setBorder(new TitledBorder(null, "Problem to solve", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_problemSelectionPanel = new GridBagConstraints();
-		gbc_problemSelectionPanel.anchor = GridBagConstraints.WEST;
-		gbc_problemSelectionPanel.insets = new Insets(0, 0, 5, 5);
+		gbc_problemSelectionPanel.fill = GridBagConstraints.BOTH;
+		gbc_problemSelectionPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_problemSelectionPanel.gridx = 0;
 		gbc_problemSelectionPanel.gridy = 0;
 		formPanel.add(problemSelectionPanel, gbc_problemSelectionPanel);
+		problemSelectionPanel.setLayout(new BorderLayout(0, 0));
 		problemSelectionPanel.add(functionCB);
+		
+		nGenomePanel = new JPanel();
+		problemSelectionPanel.add(nGenomePanel, BorderLayout.SOUTH);
+		nGenomePanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		lblNewLabel_1 = new JLabel("n");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		nGenomePanel.add(lblNewLabel_1);
+		
+		nTextField = new JTextField();
+		nTextField.addInputMethodListener(new InputMethodListener() {
+			public void caretPositionChanged(InputMethodEvent event) {
+			}
+			public void inputMethodTextChanged(InputMethodEvent event) {
+				genomeSize = FormCheck.readInt((JTextField)event.getSource());
+			}
+		});
+		nGenomePanel.add(nTextField);
+		nTextField.setColumns(10);
+		hideNGenomeSizeEntry();
+		
+		crossAndMutationPanel = new JPanel();
+		crossAndMutationPanel.setBorder(new TitledBorder(null, "Solver Paremeters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_crossAndMutationPanel = new GridBagConstraints();
+		gbc_crossAndMutationPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_crossAndMutationPanel.fill = GridBagConstraints.BOTH;
+		gbc_crossAndMutationPanel.gridx = 0;
+		gbc_crossAndMutationPanel.gridy = 1;
+		formPanel.add(crossAndMutationPanel, gbc_crossAndMutationPanel);
+		crossAndMutationPanel.setLayout(new GridLayout(4, 2, 0, 0));
+		
+		crossPercentLabel = new JLabel("Cross %");
+		crossAndMutationPanel.add(crossPercentLabel);
+		
+		crossTextField = new JTextField();
+		crossTextField.setText("25");
+		crossAndMutationPanel.add(crossTextField);
+		crossTextField.setColumns(10);
+		
+		lblMutation = new JLabel("Mutation %");
+		crossAndMutationPanel.add(lblMutation);
+		
+		mutationTextField = new JTextField();
+		crossAndMutationPanel.add(mutationTextField);
+		mutationTextField.setColumns(10);
+		
+		lblElitism = new JLabel("Elitism %");
+		crossAndMutationPanel.add(lblElitism);
+		
+		elitismTextField = new JTextField();
+		crossAndMutationPanel.add(elitismTextField);
+		elitismTextField.setColumns(10);
+		
+		lblTolerance = new JLabel("Tolerance");
+		crossAndMutationPanel.add(lblTolerance);
+		
+		toleranceTextField = new JTextField();
+		crossAndMutationPanel.add(toleranceTextField);
+		toleranceTextField.setColumns(10);
+		
+		populationPanel = new JPanel();
+		populationPanel.setBorder(new TitledBorder(null, "Population Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_populationPanel = new GridBagConstraints();
+		gbc_populationPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_populationPanel.fill = GridBagConstraints.BOTH;
+		gbc_populationPanel.gridx = 0;
+		gbc_populationPanel.gridy = 2;
+		formPanel.add(populationPanel, gbc_populationPanel);
+		populationPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		lblPopulationSize = new JLabel("Population Size");
+		populationPanel.add(lblPopulationSize);
+		
+		populationSizeTextField = new JTextField();
+		populationPanel.add(populationSizeTextField);
+		populationSizeTextField.setColumns(10);
+		
+		lblNewLabel = new JLabel("No. Generations");
+		populationPanel.add(lblNewLabel);
+		
+		numberOfGenerationsTextField = new JTextField();
+		populationPanel.add(numberOfGenerationsTextField);
+		numberOfGenerationsTextField.setColumns(10);
+		
+		lblNoCrossPoints = new JLabel("No. Cross Points");
+		populationPanel.add(lblNoCrossPoints);
+		
+		numberOfCrossPointsTextField = new JTextField();
+		populationPanel.add(numberOfCrossPointsTextField);
+		numberOfCrossPointsTextField.setColumns(10);
 		
 		this.launchNewGA = new JButton("Launch new GA");
 		GridBagConstraints gbc_launchNewGA = new GridBagConstraints();
-		gbc_launchNewGA.insets = new Insets(0, 0, 0, 5);
-		gbc_launchNewGA.anchor = GridBagConstraints.WEST;
 		gbc_launchNewGA.gridx = 0;
-		gbc_launchNewGA.gridy = 1;
+		gbc_launchNewGA.gridy = 3;
 		formPanel.add(launchNewGA, gbc_launchNewGA);
 		
 		JTabbedPane reportPanel = new JTabbedPane(JTabbedPane.TOP);

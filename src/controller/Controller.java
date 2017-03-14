@@ -35,32 +35,31 @@ public class Controller {
     
     private double mutationPercent;
     private double crossPercent;
+    private double elitismPercent;
     private int populationSize;
     private int numberGenerations;
-    private double xMin;
-    private double xMax;
+    private List<PairTuple<Double,Double>> minMaxParameters;
     private double tolerance;
     private int genomeSize;
     private int numberCrossPoints;
     private Fitness fitness;
 
     public Controller() {
-        this.xMax = X_MAX;
-        this.xMin = X_MIN;
         this.tolerance = TOLERANCE;
 
         this.genomeSize = GENOME_SIZE;
         this.numberCrossPoints = NUMBER_CROSS_POINTS;
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
+        this.minMaxParameters = MinMaxParameters;
         this.fitness = new FirstFunctionFitness();
     }
 
     public void launch(JTextComponent target) {
-        SolverParameters parameters = new SolverParameters(CROSS_PERCENT, MUTATION_PERCENT,ELITISM_PERCENT);
+        SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
         System.out.println(parameters);
 
-        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  MinMaxParameters, tolerance, genomeSize);
+        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize);
 
         SelectionAlgorithm selectionAlgorithm = new RouletteSelectionAlgorithm();
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
@@ -73,17 +72,26 @@ public class Controller {
     }
 
     public void setFitnessFunction(String function) {
-        if (function.equals(Fitness.fitnessFunctions[0])) {
+    	int funIndex = 0;
+        if (function.equals(FitnessFunctionData.fitnessFunctions[0].toString())) {
             fitness = new FirstFunctionFitness();
-        } else if (function.equals(Fitness.fitnessFunctions[1])) {
+            funIndex = 0;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[1].toString())) {
             fitness = new SecondFunctionFitness();
-        } else if (function.equals(Fitness.fitnessFunctions[2])) {
+            funIndex = 1;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[2].toString())) {
             fitness = new ThirdFunctionFitness();
-        } else if (function.equals(Fitness.fitnessFunctions[3])) {
+            funIndex = 2;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[3].toString())) {
             fitness = new FourthFunctionFitness();
-        } else if (function.equals(Fitness.fitnessFunctions[4])) {
+            funIndex = 3;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[4].toString())) {
             fitness = new FifthFunctionFitness();
+            funIndex = 4;
         }
+        
+        this.genomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
+        this.minMaxParameters = new ArrayList<>(FitnessFunctionData.fitnessFunctions[funIndex].minMax);        
     }
 
     public void setCrossPercent(double crossPercent) {
@@ -92,14 +100,6 @@ public class Controller {
 
     public void setMutationPercent(double mutationPercent) {
         this.mutationPercent = mutationPercent;
-    }
-
-    public void setxMax(double value) {
-        this.xMax = value;
-    }
-
-    public void setxMin(double value) {
-        this.xMin = value;
     }
 
     public void setTolerance(double value) {
@@ -112,6 +112,9 @@ public class Controller {
 
     public void setGenomeSize(int genomeSize) {
         this.genomeSize = genomeSize;
+        for (int i = 0; i < genomeSize; i++) {
+        	this.minMaxParameters.add(new PairTuple<Double, Double>(this.minMaxParameters.get(0)));
+        }
     }
 
     public void setNumberCrossPoints(int numberCrossPoints) {
@@ -121,4 +124,8 @@ public class Controller {
     public void setPopulationSize(int populationSize) {
         this.populationSize = populationSize;
     }
+
+	public void setElitismPercent(double elitismPercent) {
+		this.elitismPercent = elitismPercent;		
+	}
 }
