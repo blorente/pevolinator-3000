@@ -8,28 +8,35 @@ import model.solvers.fitness.Fitness;
 
 public class Individual {
 	private Genome genome;
-	private double fitness;
+	private double absoluteFitness;
+	private double shiftedFitness;
 
     Individual(Genome genome) {
         this.genome = genome;
-        fitness = 0.0;
+        absoluteFitness = 0.0;
+        shiftedFitness = 0.0;
     }
 
 	public void evaluate(Fitness fitnessMethod) {
-		this.fitness = fitnessMethod.calculate(genome);
+		this.absoluteFitness = fitnessMethod.calculate(genome);
 	}
 	
 	public void shiftMinimize(double popMax, Fitness fitnessMethod) {
-		this.fitness = fitnessMethod.shiftingFitnessMin(popMax, fitness);
+		this.shiftedFitness = fitnessMethod.shiftingFitnessMin(popMax, absoluteFitness);
 	}
 	
 	public void shiftMaximize(double popMin, Fitness fitnessMethod) {
-		this.fitness = fitnessMethod.shiftingFitnessMax(popMin, fitness);
+		this.shiftedFitness = fitnessMethod.shiftingFitnessMax(popMin, absoluteFitness);
 	}
 	
-	public double getFitness() {
-		return fitness;
+	public double getAbsoluteFitness() {
+		return absoluteFitness;
 	}
+	
+	public double getShiftedFitness() {
+		return absoluteFitness;
+	}
+	
 	public Genome getGenome() {
 		return genome;
 	}
@@ -51,15 +58,16 @@ public class Individual {
 	    StringBuilder ret = new StringBuilder();
 	    ret.append("    Individual {\n");
 	    ret.append("        Genome: ").append(genome.toString()).append("\n");
-	    ret.append("        Fitness: ").append(fitness).append("\n");
+	    ret.append("        Absolute Fitness: ").append(absoluteFitness).append("\n");
+	    ret.append("        Shifted Fitness: ").append(shiftedFitness).append("\n");
 	    ret.append("    }\n");
         return ret.toString();
     }
 
 	public int compareTo(Individual a) {
-		if(this.fitness < a.fitness)
+		if(this.absoluteFitness < a.absoluteFitness)
 			return -1;
-		else if (this.fitness > a.fitness)
+		else if (this.absoluteFitness > a.absoluteFitness)
 			return 1;
 		else
 			return 0;

@@ -40,7 +40,7 @@ public class DeterministicTournament implements SelectionAlgorithm {
 	private List<Individual> competeTwice(Individual ind1, Individual ind2) {
 		List<Individual> selected = new ArrayList<>();;
 		Individual best;
-		if(ind1.getFitness() > ind2.getFitness()){
+		if(ind1.getShiftedFitness() > ind2.getShiftedFitness()){
 			best = ind1;
 		}
 		else{

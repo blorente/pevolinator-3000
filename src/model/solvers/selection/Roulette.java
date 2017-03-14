@@ -40,7 +40,7 @@ public class Roulette implements SelectionAlgorithm {
 		double totalFitness = population.getTotalFitness();
 		
 		for(int i = 0; i < population.getSize(); i++){
-			simplProb = pop.get(i).getFitness()/totalFitness;
+			simplProb = pop.get(i).getShiftedFitness()/totalFitness;
 			partialProbSum += simplProb;
 			accumulatedProb[i] = partialProbSum;
 		}

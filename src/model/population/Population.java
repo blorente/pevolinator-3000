@@ -19,12 +19,12 @@ public class Population {
 		double popMax = Double.MIN_VALUE;
 		for (Individual i : individuals){
 			i.evaluate(fitness);
-			popMax = Math.max(i.getFitness(), popMax);		
+			popMax = Math.max(i.getAbsoluteFitness(), popMax);		
 		}
 		
 		for (Individual i: individuals) {
 			i.shiftMinimize(popMax, fitness);
-			totalFitness += i.getFitness();	
+			totalFitness += i.getShiftedFitness();	
 		}
 	}
 	
@@ -33,12 +33,12 @@ public class Population {
 		double popMin = Double.MAX_VALUE;
 		for (Individual i : individuals){
 			i.evaluate(fitness);
-			popMin = Math.min(i.getFitness(), popMin);		
+			popMin = Math.min(i.getAbsoluteFitness(), popMin);		
 		}
 		
 		for (Individual i: individuals) {
 			i.shiftMaximize(popMin, fitness);
-			totalFitness += i.getFitness();	
+			totalFitness += i.getShiftedFitness();	
 		}
 	}
 	
