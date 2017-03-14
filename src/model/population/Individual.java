@@ -10,11 +10,17 @@ public class Individual {
 	private Genome genome;
 	private double absoluteFitness;
 	private double shiftedFitness;
-
-    Individual(Genome genome) {
+	
+	Individual(Genome genome) {
         this.genome = genome;
         absoluteFitness = 0.0;
         shiftedFitness = 0.0;
+    }
+
+    public Individual(Individual other) {
+        this(other.genome);
+        this.absoluteFitness = other.absoluteFitness;
+        this.shiftedFitness = other.shiftedFitness;
     }
 
 	public void evaluate(Fitness fitnessMethod) {

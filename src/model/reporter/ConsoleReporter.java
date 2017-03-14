@@ -9,4 +9,14 @@ public class ConsoleReporter implements PopulationReporter {
         System.out.println(population.toString());
         System.out.println("-----------------------------------");
     }
+
+	@Override
+	public void setup() {
+		System.out.println("Welcome to Pevolinator - 3000");
+	}
+
+	@Override
+	public void teardown() {
+		
+	}
 }

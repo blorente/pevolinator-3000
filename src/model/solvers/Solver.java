@@ -28,6 +28,7 @@ public class Solver {
 	public void run() {
 		Population population = problem.createRandomPopulation(parameters.getSeed());
 		Population elitism = new Population();
+		reporter.setup();
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
 			population.evaluateMinimize(problem.getFitness());
 			elitism = population.saveElite(parameters.elitismPercent());
@@ -40,6 +41,7 @@ public class Solver {
 			population.insertAll(elitism);
 		}
 		reporter.report(problem.getGenerations(), population);
+		reporter.teardown();
 	}
 	
 	

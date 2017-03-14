@@ -20,7 +20,15 @@ public class GUITextReporter implements PopulationReporter  {
         out.append("Reporting population " + iteration + "\n");
         out.append(population.toString()).append("\n");
         out.append("-----------------------------------\n");
-
-        target.setText(out.toString());
     }
+
+	@Override
+	public void setup() {
+		out.append("Welcome to Pevolinator - 3000\n");
+	}
+
+	@Override
+	public void teardown() {
+        target.setText(out.toString());
+	}
 }
