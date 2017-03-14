@@ -19,6 +19,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import org.math.plot.Plot2DPanel;
+
 public class Controller {
 
 	private static final List<PairTuple<Double,Double>> MinMaxParameters = new ArrayList<PairTuple<Double,Double>>(){{ add(new PairTuple<>(X_MIN,X_MAX));}};
@@ -79,7 +81,7 @@ public class Controller {
     }
     
 
-	public void launch(JPanel target) {
+	public void launch(Plot2DPanel target) {
 		launch(new GUIGraphReporter(target));	
 	}
 

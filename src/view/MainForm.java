@@ -66,8 +66,8 @@ public class MainForm {
     private JLabel lblTolerance;
     private JPanel selectionPanel;
     private JComboBox<SelectionAlgorithmData> selectionAlgorithmCB;
-    private JPanel graphReportPanel;
 	private JTabbedPane reportPanel;
+	private Plot2DPanel graphReportPanel;
 
 	/**
 	 * Launch the application.
@@ -384,8 +384,8 @@ public class MainForm {
 		reportPanel = new JTabbedPane(JTabbedPane.TOP);
 		frmXxPevolinator.getContentPane().add(reportPanel);
 		
-		graphReportPanel = new JPanel();
-		reportPanel.addTab("Graph Reports", null, graphReportPanel, null);
+		graphReportPanel = new Plot2DPanel();
+		reportPanel.addTab("Graph Report", null, graphReportPanel, null);
 		
 		textReportPanel = new JPanel();
 		reportPanel.addTab("Text Report", null, textReportPanel, null);		
