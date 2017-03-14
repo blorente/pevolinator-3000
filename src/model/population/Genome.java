@@ -1,11 +1,9 @@
 package model.population;
 
-import javafx.util.Pair;
 import model.population.genes.Gene;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Genome {
 	private List<Gene> genes;

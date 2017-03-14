@@ -1,51 +1,38 @@
 package view;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-
-import controller.Controller;
-
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.text.JTextComponent;
-
-import java.awt.FlowLayout;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import model.solvers.fitness.Fitness;
-import model.solvers.fitness.FitnessFunctionData;
-import model.solvers.selection.SelectionAlgorithmData;
-
-import java.awt.GridBagLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Font;
-
-import javax.swing.JTable;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.JTextComponent;
+
+import org.math.plot.Plot2DPanel;
+
+import controller.Controller;
+import model.solvers.fitness.FitnessFunctionData;
+import model.solvers.selection.SelectionAlgorithmData;
 
 public class MainForm {
 
@@ -53,8 +40,6 @@ public class MainForm {
 	private Controller controller;
 	private JTextField crossTextField;
 	private JTextField mutationTextField;
-	private JTextField xMinTextField;
-	private JTextField xMaxTextField;
 	private JTextField toleranceTextField;
 	private JComboBox<FitnessFunctionData> functionCB;
 	private JTextComponent textReportField;
@@ -81,6 +66,8 @@ public class MainForm {
     private JLabel lblTolerance;
     private JPanel selectionPanel;
     private JComboBox<SelectionAlgorithmData> selectionAlgorithmCB;
+    private JPanel graphReportPanel;
+	private JTabbedPane reportPanel;
 
 	/**
 	 * Launch the application.
@@ -196,10 +183,18 @@ public class MainForm {
         controller.setNumberCrossPoints(gatherNumberCrossPoints());
         controller.setNumberGenerations(gatherNumberOfGenerations());        
 
-        controller.setTolerance(gatherTolerance());       
-        controller.launch(textReportField);
+        controller.setTolerance(gatherTolerance()); 
+        launchSelectedTab();
     }
 	
+	private void launchSelectedTab() {
+		if (this.reportPanel.getSelectedComponent() == this.graphReportPanel) {
+			controller.launch(graphReportPanel);
+		} else {
+	        controller.launch(textReportField);
+		}
+	}
+
 	private double gatherElitismPercent() {
 		return FormCheck.readPercent(elitismTextField);
 	}
@@ -218,14 +213,6 @@ public class MainForm {
 
     private double gatherTolerance() {
         return FormCheck.readDouble(toleranceTextField);
-    }
-
-    private double gatherBoundaries() {
-        return FormCheck.readDouble(xMinTextField);
-    }
-
-    private double gatherXMax() {
-        return FormCheck.readDouble(xMaxTextField);
     }
 
     private double gatherMutationPercent() {
@@ -394,8 +381,11 @@ public class MainForm {
 		gbc_launchNewGA.gridy = 4;
 		formPanel.add(launchNewGA, gbc_launchNewGA);
 		
-		JTabbedPane reportPanel = new JTabbedPane(JTabbedPane.TOP);
+		reportPanel = new JTabbedPane(JTabbedPane.TOP);
 		frmXxPevolinator.getContentPane().add(reportPanel);
+		
+		graphReportPanel = new JPanel();
+		reportPanel.addTab("Graph Reports", null, graphReportPanel, null);
 		
 		textReportPanel = new JPanel();
 		reportPanel.addTab("Text Report", null, textReportPanel, null);		

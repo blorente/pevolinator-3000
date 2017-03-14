@@ -1,5 +1,6 @@
 package controller;
 
+import model.reporter.GUIGraphReporter;
 import model.reporter.GUITextReporter;
 import model.reporter.PopulationReporter;
 import model.solvers.MutationAlgorithm;
@@ -15,6 +16,7 @@ import model.solvers.selection.SelectionAlgorithmData;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 public class Controller {
@@ -58,9 +60,9 @@ public class Controller {
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
     }
-
-    public void launch(JTextComponent target) {
-        SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
+    
+    private void launch(PopulationReporter reporter) {
+    	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
         System.out.println(parameters);
 
         Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize);
@@ -68,11 +70,18 @@ public class Controller {
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();
 
-        PopulationReporter reporter = new GUITextReporter(target);
-
         Solver solver = new Solver(parameters, firstFunction, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();
     }
+
+    public void launch(JTextComponent target) {
+        launch(new GUITextReporter(target));
+    }
+    
+
+	public void launch(JPanel target) {
+		launch(new GUIGraphReporter(target));	
+	}
 
     public void setFitnessFunction(String function) {
     	int funIndex = 0;
@@ -134,6 +143,5 @@ public class Controller {
 
 	public void setSelectionAlgorithm(int selectedIndex) {
 		this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedIndex].algorithm();
-		System.out.println("Selected algo " + SelectionAlgorithmData.selectionAlgorithms[selectedIndex]);
 	}
 }
