@@ -8,8 +8,9 @@ import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
 import model.solvers.fitness.*;
 import model.solvers.problems.Problem;
-import model.solvers.selection.RouletteSelectionAlgorithm;
+import model.solvers.selection.Roulette;
 import model.solvers.selection.SelectionAlgorithm;
+import model.solvers.selection.SelectionAlgorithmData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,8 @@ public class Controller {
     private int numberCrossPoints;
     private Fitness fitness;
 
+	private SelectionAlgorithm selectionAlgorithm;
+
     public Controller() {
         this.tolerance = TOLERANCE;
 
@@ -52,6 +55,7 @@ public class Controller {
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
         this.minMaxParameters = MinMaxParameters;
+        this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
     }
 
@@ -61,7 +65,6 @@ public class Controller {
 
         Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize);
 
-        SelectionAlgorithm selectionAlgorithm = new RouletteSelectionAlgorithm();
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();
 
@@ -127,5 +130,10 @@ public class Controller {
 
 	public void setElitismPercent(double elitismPercent) {
 		this.elitismPercent = elitismPercent;		
+	}
+
+	public void setSelectionAlgorithm(int selectedIndex) {
+		this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedIndex].algorithm();
+		System.out.println("Selected algo " + SelectionAlgorithmData.selectionAlgorithms[selectedIndex]);
 	}
 }

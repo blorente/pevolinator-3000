@@ -5,7 +5,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class UniversalStochasticAlgorithm implements SelectionAlgorithm {
+public class UniversalStochastic implements SelectionAlgorithm {
 
 	private double accumulatedProb[];	
 	

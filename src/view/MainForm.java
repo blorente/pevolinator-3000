@@ -23,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import model.solvers.fitness.Fitness;
 import model.solvers.fitness.FitnessFunctionData;
+import model.solvers.selection.SelectionAlgorithmData;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -60,7 +61,7 @@ public class MainForm {
 	private JButton launchNewGA;
 	private JPanel textReportPanel;
 	private JScrollPane textReportScroll;
-	private JPanel crossAndMutationPanel;
+	private JPanel solverParametersMutationPanel;
 	private JLabel crossPercentLabel;
 	private JLabel lblMutation;
 	private JLabel lblElitism;
@@ -78,6 +79,8 @@ public class MainForm {
     private JLabel lblNewLabel_1;
     private JTextField nTextField;
     private JLabel lblTolerance;
+    private JPanel selectionPanel;
+    private JComboBox<SelectionAlgorithmData> selectionAlgorithmCB;
 
 	/**
 	 * Launch the application.
@@ -143,9 +146,29 @@ public class MainForm {
         functionCB.addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
-		        JComboBox cb = (JComboBox)e.getSource();
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
 		        String fitness = cb.getSelectedItem().toString();
 		        controller.setFitnessFunction(fitness);		        
+		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
+		        if (genomeSize == -1) {
+		        	showNGenomeSizeEntry();
+		        } else {
+					hideNGenomeSizeEntry();
+		        }
+		    }
+		});
+    }
+    
+    private void setupSelectionAlgorithms() {
+		selectionAlgorithmCB = new JComboBox<SelectionAlgorithmData>();
+		DefaultComboBoxModel<SelectionAlgorithmData> model = new DefaultComboBoxModel<>(SelectionAlgorithmData.selectionAlgorithms);
+		selectionAlgorithmCB.setModel(model);
+		selectionAlgorithmCB.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
+		        String fitness = cb.getSelectedItem().toString();
+		        controller.setSelectionAlgorithm(cb.getSelectedIndex());		        
 		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
 		        if (genomeSize == -1) {
 		        	showNGenomeSizeEntry();
@@ -230,9 +253,9 @@ public class MainForm {
 		frmXxPevolinator.getContentPane().add(formPanel, BorderLayout.WEST);
 		GridBagLayout gbl_formPanel = new GridBagLayout();
 		gbl_formPanel.columnWidths = new int[] {161};
-		gbl_formPanel.rowHeights = new int[] {0, 0, 0, 56};
+		gbl_formPanel.rowHeights = new int[] {0, 0, 0, 0, 56};
 		gbl_formPanel.columnWeights = new double[]{1.0};
-		gbl_formPanel.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0};
+		gbl_formPanel.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0};
 		formPanel.setLayout(gbl_formPanel);
 		
 		JPanel problemSelectionPanel = new JPanel();
@@ -266,47 +289,70 @@ public class MainForm {
 		nTextField.setColumns(10);
 		hideNGenomeSizeEntry();
 		
-		crossAndMutationPanel = new JPanel();
-		crossAndMutationPanel.setBorder(new TitledBorder(null, "Solver Paremeters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_crossAndMutationPanel = new GridBagConstraints();
-		gbc_crossAndMutationPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_crossAndMutationPanel.fill = GridBagConstraints.BOTH;
-		gbc_crossAndMutationPanel.gridx = 0;
-		gbc_crossAndMutationPanel.gridy = 1;
-		formPanel.add(crossAndMutationPanel, gbc_crossAndMutationPanel);
-		crossAndMutationPanel.setLayout(new GridLayout(4, 2, 0, 0));
+		solverParametersMutationPanel = new JPanel();
+		solverParametersMutationPanel.setBorder(new TitledBorder(null, "Solver Paremeters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_solverParametersMutationPanel = new GridBagConstraints();
+		gbc_solverParametersMutationPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_solverParametersMutationPanel.fill = GridBagConstraints.BOTH;
+		gbc_solverParametersMutationPanel.gridx = 0;
+		gbc_solverParametersMutationPanel.gridy = 1;
+		formPanel.add(solverParametersMutationPanel, gbc_solverParametersMutationPanel);
+		solverParametersMutationPanel.setLayout(new GridLayout(4, 2, 0, 0));
 		
 		crossPercentLabel = new JLabel("Cross %");
-		crossAndMutationPanel.add(crossPercentLabel);
+		solverParametersMutationPanel.add(crossPercentLabel);
 		
 		crossTextField = new JTextField();
 		crossTextField.setText("25");
-		crossAndMutationPanel.add(crossTextField);
+		solverParametersMutationPanel.add(crossTextField);
 		crossTextField.setColumns(10);
 		
 		lblMutation = new JLabel("Mutation %");
-		crossAndMutationPanel.add(lblMutation);
+		solverParametersMutationPanel.add(lblMutation);
 		
 		mutationTextField = new JTextField();
 		mutationTextField.setText("1");
-		crossAndMutationPanel.add(mutationTextField);
+		solverParametersMutationPanel.add(mutationTextField);
 		mutationTextField.setColumns(10);
 		
 		lblElitism = new JLabel("Elitism %");
-		crossAndMutationPanel.add(lblElitism);
+		solverParametersMutationPanel.add(lblElitism);
 		
 		elitismTextField = new JTextField();
 		elitismTextField.setText("5");
-		crossAndMutationPanel.add(elitismTextField);
+		solverParametersMutationPanel.add(elitismTextField);
 		elitismTextField.setColumns(10);
 		
 		lblTolerance = new JLabel("Tolerance");
-		crossAndMutationPanel.add(lblTolerance);
+		solverParametersMutationPanel.add(lblTolerance);
 		
 		toleranceTextField = new JTextField();
 		toleranceTextField.setText("0.001");
-		crossAndMutationPanel.add(toleranceTextField);
+		solverParametersMutationPanel.add(toleranceTextField);
 		toleranceTextField.setColumns(10);
+		
+		selectionPanel = new JPanel();
+		selectionPanel.setBorder(new TitledBorder(null, "Selection Algorithm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_selectionPanel = new GridBagConstraints();
+		gbc_selectionPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectionPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_selectionPanel.gridx = 0;
+		gbc_selectionPanel.gridy = 2;
+		formPanel.add(selectionPanel, gbc_selectionPanel);
+		GridBagLayout gbl_selectionPanel = new GridBagLayout();
+		gbl_selectionPanel.columnWidths = new int[] {244};
+		gbl_selectionPanel.rowHeights = new int[] {0};
+		gbl_selectionPanel.columnWeights = new double[]{0.0};
+		gbl_selectionPanel.rowWeights = new double[]{0.0};
+		selectionPanel.setLayout(gbl_selectionPanel);
+		
+		setupSelectionAlgorithms();
+		GridBagConstraints gbc_selectionAlgorithmCB = new GridBagConstraints();
+		gbc_selectionAlgorithmCB.anchor = GridBagConstraints.NORTH;
+		gbc_selectionAlgorithmCB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectionAlgorithmCB.gridx = 0;
+		gbc_selectionAlgorithmCB.gridy = 0;
+		selectionPanel.add(selectionAlgorithmCB, gbc_selectionAlgorithmCB);
 		
 		populationPanel = new JPanel();
 		populationPanel.setBorder(new TitledBorder(null, "Population Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -314,7 +360,7 @@ public class MainForm {
 		gbc_populationPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_populationPanel.fill = GridBagConstraints.BOTH;
 		gbc_populationPanel.gridx = 0;
-		gbc_populationPanel.gridy = 2;
+		gbc_populationPanel.gridy = 3;
 		formPanel.add(populationPanel, gbc_populationPanel);
 		populationPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -345,7 +391,7 @@ public class MainForm {
 		this.launchNewGA = new JButton("Launch new GA");
 		GridBagConstraints gbc_launchNewGA = new GridBagConstraints();
 		gbc_launchNewGA.gridx = 0;
-		gbc_launchNewGA.gridy = 3;
+		gbc_launchNewGA.gridy = 4;
 		formPanel.add(launchNewGA, gbc_launchNewGA);
 		
 		JTabbedPane reportPanel = new JTabbedPane(JTabbedPane.TOP);

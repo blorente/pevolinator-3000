@@ -5,7 +5,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class RouletteSelectionAlgorithm implements SelectionAlgorithm {
+public class Roulette implements SelectionAlgorithm {
 	
 	private double accumulatedProb[];
 	

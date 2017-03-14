@@ -6,7 +6,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class ProbabilisticTournamentAlgorithm implements SelectionAlgorithm {
+public class ProbabilisticTournament implements SelectionAlgorithm {
 
 	private double WinningRate = 0.7;
 	
