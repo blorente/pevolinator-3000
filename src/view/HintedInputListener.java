@@ -16,6 +16,11 @@ public class HintedInputListener implements FocusListener {
         this.source = source;
         this.hint = hint;
     }
+    
+    public HintedInputListener(JTextComponent source) {
+        this.source = source;
+        this.hint = source.getText();
+    }
 
     @Override
     public void focusGained(FocusEvent e) {

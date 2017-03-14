@@ -114,25 +114,25 @@ public class MainForm {
 	}
 	
 	private void setupHintedListeners() {
-        HintedInputListener crossTextFieldListener = new HintedInputListener(crossTextField, "25");
+        HintedInputListener crossTextFieldListener = new HintedInputListener(crossTextField);
         crossTextField.addFocusListener(crossTextFieldListener);
 
-        HintedInputListener mutationTextFieldListener = new HintedInputListener(mutationTextField, "Mutation %");
+        HintedInputListener mutationTextFieldListener = new HintedInputListener(mutationTextField);
         mutationTextField.addFocusListener(mutationTextFieldListener);
 
-        HintedInputListener toleranceTextFieldListener = new HintedInputListener(toleranceTextField, "Tolerance");
+        HintedInputListener toleranceTextFieldListener = new HintedInputListener(toleranceTextField);
         toleranceTextField.addFocusListener(toleranceTextFieldListener);
 
-        HintedInputListener populationSizeTextFieldListener = new HintedInputListener(populationSizeTextField, "Population Size");
+        HintedInputListener populationSizeTextFieldListener = new HintedInputListener(populationSizeTextField);
         populationSizeTextField.addFocusListener(populationSizeTextFieldListener);
         
         HintedInputListener nTextFieldListener = new HintedInputListener(nTextField, "0");
         nTextField.addFocusListener(nTextFieldListener);
 
-        HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField, "Number of Generations");
+        HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField, "100");
         numberOfGenerationsTextField.addFocusListener(numberOfGenerationsTextFieldListener);
 
-        HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField, "Number of Cross Points");
+        HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField, "1");
         numberOfCrossPointsTextField.addFocusListener(numberOfCrossPointsTextFieldListener);
     }
 
@@ -288,6 +288,7 @@ public class MainForm {
 		crossAndMutationPanel.add(lblMutation);
 		
 		mutationTextField = new JTextField();
+		mutationTextField.setText("1");
 		crossAndMutationPanel.add(mutationTextField);
 		mutationTextField.setColumns(10);
 		
@@ -295,6 +296,7 @@ public class MainForm {
 		crossAndMutationPanel.add(lblElitism);
 		
 		elitismTextField = new JTextField();
+		elitismTextField.setText("5");
 		crossAndMutationPanel.add(elitismTextField);
 		elitismTextField.setColumns(10);
 		
@@ -302,6 +304,7 @@ public class MainForm {
 		crossAndMutationPanel.add(lblTolerance);
 		
 		toleranceTextField = new JTextField();
+		toleranceTextField.setText("0.001");
 		crossAndMutationPanel.add(toleranceTextField);
 		toleranceTextField.setColumns(10);
 		
@@ -319,6 +322,7 @@ public class MainForm {
 		populationPanel.add(lblPopulationSize);
 		
 		populationSizeTextField = new JTextField();
+		populationSizeTextField.setText("10");
 		populationPanel.add(populationSizeTextField);
 		populationSizeTextField.setColumns(10);
 		
@@ -326,6 +330,7 @@ public class MainForm {
 		populationPanel.add(lblNewLabel);
 		
 		numberOfGenerationsTextField = new JTextField();
+		numberOfGenerationsTextField.setText("10");
 		populationPanel.add(numberOfGenerationsTextField);
 		numberOfGenerationsTextField.setColumns(10);
 		
@@ -333,6 +338,7 @@ public class MainForm {
 		populationPanel.add(lblNoCrossPoints);
 		
 		numberOfCrossPointsTextField = new JTextField();
+		numberOfCrossPointsTextField.setText("1");
 		populationPanel.add(numberOfCrossPointsTextField);
 		numberOfCrossPointsTextField.setColumns(10);
 		
