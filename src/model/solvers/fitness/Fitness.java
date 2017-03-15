@@ -38,6 +38,10 @@ public abstract class Fitness {
 		return Math.PI;
 	}
 	
+	static double pow(double a, double b){
+		return Math.pow(a, b);
+	}
+	
 	static double sumAll(int range[], DoubleBinaryOperator operation, double freeVar[]) {
 		double result = 0;
 		for (int i = range[0]; i < range[1]; i++) {
