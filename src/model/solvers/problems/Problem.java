@@ -14,14 +14,16 @@ public class Problem {
 	private List<PairTuple<Double,Double>> minMaxParameters;
 	private double tolerance;
 	private int genomeSize;
+	private boolean isMinimization;
 
-    public Problem(int populationSize, int numberGenerations, Fitness fitness, List<PairTuple<Double,Double>> minMaxParameters, double tolerance, int genomeSize) {
+    public Problem(int populationSize, int numberGenerations, Fitness fitness, List<PairTuple<Double,Double>> minMaxParameters, double tolerance, int genomeSize, boolean isMinimization) {
         this.populationSize = populationSize;
         this.numberGenerations = numberGenerations;
         this.fitness = fitness;
         this.minMaxParameters = minMaxParameters;
         this.tolerance = tolerance;
         this.genomeSize = genomeSize;
+        this.isMinimization = isMinimization;
     }
 
     public Population createRandomPopulation(int seed) {
@@ -38,5 +40,9 @@ public class Problem {
 
 	public Fitness getFitness() {
 		return fitness;
+	}
+
+	public boolean isMinimization() {
+		return isMinimization;
 	}
 }

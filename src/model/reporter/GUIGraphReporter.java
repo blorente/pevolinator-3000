@@ -43,7 +43,7 @@ public class GUIGraphReporter implements PopulationReporter {
 	}
 
 	@Override
-	public void report(int iteration, Population population) {		
+	public void report(int iteration, Population population, boolean isMinimization) {		
 		double generationTotal = 0.0;
 		Individual bestInGeneration = population.getPopulation().get(0);
 		
@@ -53,12 +53,12 @@ public class GUIGraphReporter implements PopulationReporter {
 		
 		for (Individual i : population.getPopulation()) {
 			generationTotal += i.getAbsoluteFitness();
-			if (i.getAbsoluteFitness() > bestInGeneration.getAbsoluteFitness()) {
+			if (isBest(i, bestInGeneration, isMinimization)) {
 				bestInGeneration = i;
 			}
 		}
 		
-		if (bestInGeneration.getAbsoluteFitness() > absoluteBest.getAbsoluteFitness()) {
+		if (isBest(bestInGeneration, absoluteBest, isMinimization)) {
 			absoluteBest = new Individual(bestInGeneration);
 		}
 				
@@ -78,5 +78,12 @@ public class GUIGraphReporter implements PopulationReporter {
 			result[i] = new double[]{i, list.get(i)};
 		}
 		return result;
+	}
+	
+	private boolean isBest(Individual left, Individual right, boolean isMinimization) {
+		if (isMinimization)
+			return left.getAbsoluteFitness() < right.getAbsoluteFitness();
+		else 
+			return left.getAbsoluteFitness() > right.getAbsoluteFitness();
 	}
 }

@@ -37,6 +37,7 @@ public class Controller {
     private static final int GENOME_SIZE = 1;
 
     private static final int NUMBER_CROSS_POINTS = 1;
+    private static final boolean IS_MINIMIZATION = true;
     
     private double mutationPercent;
     private double crossPercent;
@@ -67,7 +68,7 @@ public class Controller {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
         System.out.println(parameters);
 
-        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize);
+        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, IS_MINIMIZATION);
 
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();

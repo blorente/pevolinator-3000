@@ -71,9 +71,9 @@ public class Individual {
     }
 
 	public int compareTo(Individual a) {
-		if(this.absoluteFitness < a.absoluteFitness)
+		if(this.shiftedFitness < a.shiftedFitness)
 			return -1;
-		else if (this.absoluteFitness > a.absoluteFitness)
+		else if (this.shiftedFitness > a.shiftedFitness)
 			return 1;
 		else
 			return 0;

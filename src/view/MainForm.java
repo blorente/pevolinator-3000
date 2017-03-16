@@ -187,7 +187,6 @@ public class MainForm {
         controller.setNumberGenerations(gatherNumberOfGenerations());        
 
         controller.setTolerance(gatherTolerance()); 
-		controller.setGenomeSize(genomeSize);
         launchSelectedTab();
     }
 	
@@ -283,8 +282,10 @@ public class MainForm {
 			}
 			
 			private void updateGenomeSize() {
-				if (nTextField.getText().matches("[0-9]+"))
-					genomeSize = FormCheck.readInt((JTextField)nTextField);				
+				if (nTextField.getText().matches("[0-9]+")){
+					genomeSize = FormCheck.readInt((JTextField)nTextField);
+					controller.setGenomeSize(genomeSize);
+				}
 			}
 		});
 		
@@ -306,7 +307,7 @@ public class MainForm {
 		solverParametersMutationPanel.add(crossPercentLabel);
 		
 		crossTextField = new JTextField();
-		crossTextField.setText("25");
+		crossTextField.setText("60");
 		solverParametersMutationPanel.add(crossTextField);
 		crossTextField.setColumns(10);
 		
@@ -314,7 +315,7 @@ public class MainForm {
 		solverParametersMutationPanel.add(lblMutation);
 		
 		mutationTextField = new JTextField();
-		mutationTextField.setText("1");
+		mutationTextField.setText("5");
 		solverParametersMutationPanel.add(mutationTextField);
 		mutationTextField.setColumns(10);
 		
@@ -371,7 +372,7 @@ public class MainForm {
 		populationPanel.add(lblPopulationSize);
 		
 		populationSizeTextField = new JTextField();
-		populationSizeTextField.setText("10");
+		populationSizeTextField.setText("100");
 		populationPanel.add(populationSizeTextField);
 		populationSizeTextField.setColumns(10);
 		
@@ -379,7 +380,7 @@ public class MainForm {
 		populationPanel.add(lblNewLabel);
 		
 		numberOfGenerationsTextField = new JTextField();
-		numberOfGenerationsTextField.setText("10");
+		numberOfGenerationsTextField.setText("100");
 		populationPanel.add(numberOfGenerationsTextField);
 		numberOfGenerationsTextField.setColumns(10);
 		

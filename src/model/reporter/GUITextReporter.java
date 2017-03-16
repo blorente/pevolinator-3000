@@ -16,7 +16,7 @@ public class GUITextReporter implements PopulationReporter  {
     }
 
     @Override
-    public void report(int iteration, Population population) {
+    public void report(int iteration, Population population, boolean isMinimization) {
         out.append("Reporting population " + iteration + "\n");
         out.append(population.toString()).append("\n");
         out.append("-----------------------------------\n");

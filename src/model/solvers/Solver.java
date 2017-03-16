@@ -32,7 +32,7 @@ public class Solver {
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
 			population.evaluateMinimize(problem.getFitness());
 			elitism = population.saveElite(parameters.elitismPercent());
-			reporter.report(generation, population);
+			reporter.report(generation, population, problem.isMinimization());
 			population = selection.select(population);
 			population = cross.cross(population);
 			population = mutation.mutate(population,parameters.getMutationPercent());
@@ -40,7 +40,8 @@ public class Solver {
 			population.dropWorse(parameters.elitismPercent());
 			population.insertAll(elitism);
 		}
-		reporter.report(problem.getGenerations(), population);
+		population.evaluateMinimize(problem.getFitness());
+		reporter.report(problem.getGenerations(), population, problem.isMinimization());
 		reporter.teardown();
 	}
 	

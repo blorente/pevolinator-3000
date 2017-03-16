@@ -4,7 +4,7 @@ import model.population.Population;
 
 public class ConsoleReporter implements PopulationReporter {
     @Override
-    public void report(int iteration, Population population) {
+    public void report(int iteration, Population population, boolean isMinimization) {
         System.out.println("Reporting population " + iteration);
         System.out.println(population.toString());
         System.out.println("-----------------------------------");
