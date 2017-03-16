@@ -5,7 +5,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class UniversalStochasticAlgorithm implements SelectionAlgorithm {
+public class UniversalStochastic implements SelectionAlgorithm {
 
 	private double accumulatedProb[];	
 	
@@ -45,7 +45,7 @@ public class UniversalStochasticAlgorithm implements SelectionAlgorithm {
 		double totalFitness = population.getTotalFitness();
 		
 		for(int i = 0; i < population.getSize(); i++){
-			simplProb = pop.get(i).getFitness()/totalFitness;
+			simplProb = pop.get(i).getShiftedFitness()/totalFitness;
 			partialProbSum += simplProb;
 			accumulatedProb[i] = partialProbSum;
 		}

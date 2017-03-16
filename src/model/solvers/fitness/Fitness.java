@@ -1,13 +1,17 @@
 package model.solvers.fitness;
 
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleUnaryOperator;
 
 import model.population.Genome;
 
 public abstract class Fitness {
+
 	public double calculate(Genome genome) {
 		throw new RuntimeException();
 	}
+	
+	public abstract boolean isMinimization();
 	
 	public double shiftingFitnessMin(double popMax, double fitness) {
 		return popMax * 1.05 - fitness;
@@ -37,9 +41,13 @@ public abstract class Fitness {
 		return Math.PI;
 	}
 	
+	static double pow(double a, double b){
+		return Math.pow(a, b);
+	}
+	
 	static double sumAll(int range[], DoubleBinaryOperator operation, double freeVar[]) {
 		double result = 0;
-		for (int i = range[0]; i < range[1]; i++) {
+		for (int i = range[0]; i <= range[1]; i++) {
 			for (int free = 0; free < freeVar.length; free++) {
 				result += operation.applyAsDouble(freeVar[free], (double)i);
 			}

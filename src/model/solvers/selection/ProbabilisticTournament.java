@@ -6,7 +6,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class ProbabilisticTournamentAlgorithm implements SelectionAlgorithm {
+public class ProbabilisticTournament implements SelectionAlgorithm {
 
 	private double WinningRate = 0.7;
 	
@@ -42,7 +42,7 @@ public class ProbabilisticTournamentAlgorithm implements SelectionAlgorithm {
 	private List<Individual> competeTwice(Individual ind1, Individual ind2) {
 		List<Individual> selected = new ArrayList<>();;
 		Individual best, worst;
-		if(ind1.getFitness() > ind2.getFitness()){
+		if(ind1.getShiftedFitness() > ind2.getShiftedFitness()){
 			best = ind1;
 			worst = ind2;
 		}

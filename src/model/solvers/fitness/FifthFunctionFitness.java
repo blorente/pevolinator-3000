@@ -10,7 +10,12 @@ public class FifthFunctionFitness extends Fitness {
 		double y = genome.getGene(1).doubleValue();
 		double fOfXY = sumAll(new int[]{1, 5}, (a, i) -> i*cos((i+1) * a + i), new double[]{x}) * 
 				sumAll(new int[]{1, 5}, (a, i) -> i*cos((i+1) * a + i), new double[]{y});
-		return -fOfXY;
+		return fOfXY;
+	}
+
+	@Override
+	public boolean isMinimization() {
+		return true;
 	}
 
 }

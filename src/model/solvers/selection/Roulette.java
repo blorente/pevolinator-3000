@@ -5,7 +5,7 @@ import java.util.List;
 import model.population.Individual;
 import model.population.Population;
 
-public class RouletteSelectionAlgorithm implements SelectionAlgorithm {
+public class Roulette implements SelectionAlgorithm {
 	
 	private double accumulatedProb[];
 	
@@ -19,7 +19,7 @@ public class RouletteSelectionAlgorithm implements SelectionAlgorithm {
 
 	private Population selectIndividuals(Population population) {
 		Population selectedPopulation = new Population();
-		List<Individual> pop = population.getPopulation();		
+		List<Individual> pop = population.getPopulation();
 		
 		for(int i = 0; i < population.getSize(); i++){
 			double rand = Math.random();
@@ -40,7 +40,7 @@ public class RouletteSelectionAlgorithm implements SelectionAlgorithm {
 		double totalFitness = population.getTotalFitness();
 		
 		for(int i = 0; i < population.getSize(); i++){
-			simplProb = pop.get(i).getFitness()/totalFitness;
+			simplProb = pop.get(i).getShiftedFitness()/totalFitness;
 			partialProbSum += simplProb;
 			accumulatedProb[i] = partialProbSum;
 		}
