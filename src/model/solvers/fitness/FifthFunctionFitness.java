@@ -13,4 +13,9 @@ public class FifthFunctionFitness extends Fitness {
 		return fOfXY;
 	}
 
+	@Override
+	public boolean isMinimization() {
+		return true;
+	}
+
 }

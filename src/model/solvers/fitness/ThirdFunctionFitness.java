@@ -10,5 +10,10 @@ public class ThirdFunctionFitness extends Fitness {
 		double y = genome.getGene(1).doubleValue();
 		double fOfXY = 21.5 + x * sin(4 * PI() * x) + y * sin(20 * PI() * x);
 		return fOfXY;
+	}
+
+	@Override
+	public boolean isMinimization() {
+		return false;
 	}	
 }

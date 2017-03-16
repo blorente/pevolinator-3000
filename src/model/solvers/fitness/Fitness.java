@@ -10,6 +10,8 @@ public abstract class Fitness {
 		throw new RuntimeException();
 	}
 	
+	public abstract boolean isMinimization();
+	
 	public double shiftingFitnessMin(double popMax, double fitness) {
 		return popMax * 1.05 - fitness;
 	}

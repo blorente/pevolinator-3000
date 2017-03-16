@@ -2,6 +2,7 @@ package model.population;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import model.solvers.fitness.Fitness;
@@ -74,10 +75,10 @@ public class Population {
         return ret.toString();
     }
 
-	public Population saveElite(double elitismPercent) {
+	public Population saveElite(double elitismPercent, Comparator<Individual> c) {
 		Population elitism = new Population();
 		int sizeElite = (int)  Math.ceil(individuals.size() * elitismPercent); //We decided to make the ceil of the percentage because if the user want a 0.1% we think is better to save an individual than none.
-		Collections.sort(individuals, (a,b) -> b.compareTo(a));
+		Collections.sort(individuals, c);
 		for(int i = 0; i < sizeElite; i++){
 			elitism.addIndividual(new Individual(individuals.get(i).getGenome()));
 		}
@@ -85,9 +86,9 @@ public class Population {
 		return elitism;
 	}
 
-	public void dropWorse(double elitismPercent) {
+	public void dropWorse(double elitismPercent, Comparator<Individual> c) {
 		int sizeElite = (int)  Math.ceil(individuals.size() * elitismPercent);
-		Collections.sort(individuals, (a,b) -> b.compareTo(a));
+		Collections.sort(individuals, c);
 		int loopLimit = this.getSize() - sizeElite;
 		for(int i = getSize()-1; i > loopLimit-1; i--){
 			individuals.remove(i);

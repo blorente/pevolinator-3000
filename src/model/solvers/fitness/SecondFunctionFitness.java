@@ -12,4 +12,9 @@ public class SecondFunctionFitness extends Fitness {
 		return fOfXY;
 	}
 
+	@Override
+	public boolean isMinimization() {
+		return true;
+	}
+
 }

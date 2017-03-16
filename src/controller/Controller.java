@@ -49,6 +49,7 @@ public class Controller {
     private int genomeSize;
     private int numberCrossPoints;
     private Fitness fitness;
+    private boolean isMinimization;
 
 	private SelectionAlgorithm selectionAlgorithm;
 
@@ -62,13 +63,14 @@ public class Controller {
         this.minMaxParameters = MinMaxParameters;
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
+        this.isMinimization = IS_MINIMIZATION;
     }
     
     private void launch(PopulationReporter reporter) {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
         System.out.println(parameters);
 
-        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, IS_MINIMIZATION);
+        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
 
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();

@@ -15,7 +15,12 @@ public class FourthFunctionFitness extends Fitness {
 		for(Gene g: xn){
 			fTot += sumAll(new int[]{1, numGenes}, (a, i) -> sin(a)*pow(((i+1)*pow(a,2))/PI() , 20), new double[]{g.doubleValue()});
 		}
-		return fTot;
+		return -fTot;
+	}
+
+	@Override
+	public boolean isMinimization() {
+		return true;
 	}
 
 }
