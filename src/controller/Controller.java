@@ -50,8 +50,10 @@ public class Controller {
     private int numberCrossPoints;
     private Fitness fitness;
     private boolean isMinimization;
+    private int seed;
 
 	private SelectionAlgorithm selectionAlgorithm;
+
 
     public Controller() {
         this.tolerance = TOLERANCE;
@@ -67,7 +69,7 @@ public class Controller {
     }
     
     private void launch(PopulationReporter reporter) {
-    	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent);
+    	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent, seed);
         System.out.println(parameters);
 
         Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
@@ -148,5 +150,9 @@ public class Controller {
 
 	public void setSelectionAlgorithm(int selectedIndex) {
 		this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedIndex].algorithm();
+	}
+
+	public void setSeed(int seed) {
+		this.seed = seed;
 	}
 }

@@ -20,7 +20,12 @@ public class SolverParameters {
 		this.crossPercent = crossPercent;
 		this.mutationPercent = mutationPercent;
 		this.elitismPercent = elitismPercent;
-		this.seed = seed;
+		if (seed == 0) {
+			Random rand = new Random();
+			this.seed = rand.nextInt();
+		} else {			
+			this.seed = seed;
+		}
 	}
 	
 	public double getCrossPercent() {

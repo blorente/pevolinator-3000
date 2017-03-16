@@ -71,6 +71,8 @@ public class MainForm {
     private JComboBox<SelectionAlgorithmData> selectionAlgorithmCB;
 	private JTabbedPane reportPanel;
 	private Plot2DPanel graphReportPanel;
+	private JLabel lblNewLabel_2;
+	private JTextField seedTextField;
 
 	/**
 	 * Launch the application.
@@ -119,14 +121,17 @@ public class MainForm {
         HintedInputListener populationSizeTextFieldListener = new HintedInputListener(populationSizeTextField);
         populationSizeTextField.addFocusListener(populationSizeTextFieldListener);
         
-        HintedInputListener nTextFieldListener = new HintedInputListener(nTextField, "0");
+        HintedInputListener nTextFieldListener = new HintedInputListener(nTextField);
         nTextField.addFocusListener(nTextFieldListener);
 
-        HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField, "100");
+        HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField);
         numberOfGenerationsTextField.addFocusListener(numberOfGenerationsTextFieldListener);
 
-        HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField, "1");
+        HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField);
         numberOfCrossPointsTextField.addFocusListener(numberOfCrossPointsTextFieldListener);
+        
+        HintedInputListener seedTextFieldListener = new HintedInputListener(seedTextField);
+        seedTextField.addFocusListener(seedTextFieldListener);
     }
 
     private void setupFunctions() {
@@ -184,18 +189,23 @@ public class MainForm {
         
         controller.setPopulationSize(gatherPopulationSize());
         controller.setNumberCrossPoints(gatherNumberCrossPoints());
-        controller.setNumberGenerations(gatherNumberOfGenerations());        
+        controller.setNumberGenerations(gatherNumberOfGenerations()); 
+        controller.setSeed(gatherSeed());
 
         controller.setTolerance(gatherTolerance()); 
         launchSelectedTab();
     }
-	
+
 	private void launchSelectedTab() {
 		if (this.reportPanel.getSelectedComponent() == this.graphReportPanel) {
 			controller.launch(graphReportPanel);
 		} else {
 	        controller.launch(textReportField);
 		}
+	}
+	
+	private int gatherSeed() {
+		return FormCheck.readInt(seedTextField);
 	}
 
 	private double gatherElitismPercent() {
@@ -268,6 +278,7 @@ public class MainForm {
 		nGenomePanel.add(lblNewLabel_1);
 		
 		nTextField = new JTextField();
+		nTextField.setText("1");
 		nTextField.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				updateGenomeSize();
@@ -366,7 +377,7 @@ public class MainForm {
 		gbc_populationPanel.gridx = 0;
 		gbc_populationPanel.gridy = 3;
 		formPanel.add(populationPanel, gbc_populationPanel);
-		populationPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		populationPanel.setLayout(new GridLayout(4, 2, 0, 0));
 		
 		lblPopulationSize = new JLabel("Population Size");
 		populationPanel.add(lblPopulationSize);
@@ -391,6 +402,14 @@ public class MainForm {
 		numberOfCrossPointsTextField.setText("1");
 		populationPanel.add(numberOfCrossPointsTextField);
 		numberOfCrossPointsTextField.setColumns(10);
+		
+		lblNewLabel_2 = new JLabel("Seed");
+		populationPanel.add(lblNewLabel_2);
+		
+		seedTextField = new JTextField();
+		seedTextField.setText("0");
+		populationPanel.add(seedTextField);
+		seedTextField.setColumns(10);
 		
 		this.launchNewGA = new JButton("Launch new GA");
 		GridBagConstraints gbc_launchNewGA = new GridBagConstraints();

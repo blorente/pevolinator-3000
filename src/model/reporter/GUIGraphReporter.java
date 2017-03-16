@@ -37,9 +37,9 @@ public class GUIGraphReporter implements PopulationReporter {
 
 	@Override
 	public void teardown() {
-		plotList(bestOverall, colorBestOverall);
-		plotList(bestOnGeneration, colorBestGeneration);
-		plotList(averagesOnGeneration, colorAverages);
+		plotList("Best Overall", bestOverall, colorBestOverall);
+		plotList("Best on Generation", bestOnGeneration, colorBestGeneration);
+		plotList("Average on Generation", averagesOnGeneration, colorAverages);
 	}
 
 	@Override
@@ -67,9 +67,9 @@ public class GUIGraphReporter implements PopulationReporter {
 		averagesOnGeneration.add(generationTotal / (double) population.getSize());		
 	}
 
-	private void plotList(List<Double> list, Color color) {
-		double[][] dataAverages = getDataFromList(list);
-		target.addLinePlot("Hello", color, dataAverages);
+	private void plotList(String name, List<Double> list, Color color) {
+		double[][] data = getDataFromList(list);
+		target.addLinePlot(name, color, data);
 	}
 
 	private double[][] getDataFromList(List<Double> list) {
