@@ -37,6 +37,7 @@ public class GUIGraphReporter implements PopulationReporter {
 
 	@Override
 	public void teardown() {
+		target.addLegend("SOUTH");
 		plotList("Best Overall", bestOverall, colorBestOverall);
 		plotList("Best on Generation", bestOnGeneration, colorBestGeneration);
 		plotList("Average on Generation", averagesOnGeneration, colorAverages);
