@@ -26,11 +26,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
 import org.math.plot.Plot2DPanel;
 
 import controller.Controller;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import model.solvers.fitness.FitnessFunctionData;
 import model.solvers.selection.SelectionAlgorithmData;
 
@@ -184,6 +187,7 @@ public class MainForm {
         controller.setNumberGenerations(gatherNumberOfGenerations());        
 
         controller.setTolerance(gatherTolerance()); 
+		controller.setGenomeSize(genomeSize);
         launchSelectedTab();
     }
 	
@@ -265,13 +269,25 @@ public class MainForm {
 		nGenomePanel.add(lblNewLabel_1);
 		
 		nTextField = new JTextField();
-		nTextField.addInputMethodListener(new InputMethodListener() {
-			public void caretPositionChanged(InputMethodEvent event) {
+		nTextField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+				updateGenomeSize();
 			}
-			public void inputMethodTextChanged(InputMethodEvent event) {
-				genomeSize = FormCheck.readInt((JTextField)event.getSource());
+
+			public void removeUpdate(DocumentEvent e) {
+				updateGenomeSize();
+			}
+
+			public void insertUpdate(DocumentEvent e) {
+				updateGenomeSize();
+			}
+			
+			private void updateGenomeSize() {
+				if (nTextField.getText().matches("[0-9]+"))
+					genomeSize = FormCheck.readInt((JTextField)nTextField);				
 			}
 		});
+		
 		nGenomePanel.add(nTextField);
 		nTextField.setColumns(10);
 		hideNGenomeSizeEntry();
