@@ -47,19 +47,9 @@ public abstract class Fitness {
 	
 	static double sumAll(int range[], DoubleBinaryOperator operation, double freeVar[]) {
 		double result = 0;
-		for (int i = range[0]; i < range[1]; i++) {
+		for (int i = range[0]; i <= range[1]; i++) {
 			for (int free = 0; free < freeVar.length; free++) {
 				result += operation.applyAsDouble(freeVar[free], (double)i);
-			}
-		}
-		return result;
-	}
-	
-	static double sumAll(int range[], DoubleUnaryOperator operation, double freeVar[]) {
-		double result = 0;
-		for (int i = range[0]; i < range[1]; i++) {
-			for (int free = 0; free < freeVar.length; free++) {
-				result += operation.applyAsDouble(freeVar[free]);
 			}
 		}
 		return result;

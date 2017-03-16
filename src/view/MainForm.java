@@ -179,6 +179,7 @@ public class MainForm {
 	}
 
 	protected void showNGenomeSizeEntry() {
+		controller.setGenomeSize(gatherGenomeSize());
 		nGenomePanel.setVisible(true);
 	}
 
@@ -234,7 +235,11 @@ public class MainForm {
 
     private double gatherCrossPercent() {
         return FormCheck.readPercent(crossTextField);
-    }
+    }    
+
+	private int gatherGenomeSize() {
+		return FormCheck.readInt(nTextField);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -294,7 +299,7 @@ public class MainForm {
 			
 			private void updateGenomeSize() {
 				if (nTextField.getText().matches("[0-9]+")){
-					genomeSize = FormCheck.readInt((JTextField)nTextField);
+					genomeSize = gatherGenomeSize();
 					controller.setGenomeSize(genomeSize);
 				}
 			}
