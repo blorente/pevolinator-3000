@@ -4,7 +4,7 @@ PEVOLINATOR - 3000
 Aplicación
 ---------
 
-![Vista de la aplicacion al iniciarla](./graphics and captures/App_explanation "")
+![Vista de la aplicacion al iniciarla](./graphics_captures/App_explanation "")
 - Instrucciones de uso (Hints)
 - Elitismo
 - Funcionamiento de la seed
