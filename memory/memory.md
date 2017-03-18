@@ -5,13 +5,13 @@ Aplicación
 ---------
 
 ![Vista de la aplicacion al iniciarla](./graphics_captures/App_explanation.png)
-###Instrucciones de uso (Hints):
+### Instrucciones de uso (Hints):
 Hemos añadido los valores predefinidos para cada uno de los campos de la interfaz mediante un sistema de Hints. Estos campos a la vez guardan el último valor introducido pero lo ocultan cuando hacemos click para cambiar dicho valor pero sin perderlo si dejamos de escribir en un campo sin haber introducido ningún valor este recuperará su ultimo valor.
 
-###Elitismo
+### Elitismo
 Uno de las diferencias en nuestra aplicación con respecto a la que se nos mostró en clase es el funcionamiento del elitismo. Pensamos que sería mas interesante poder elegir el porcentaje del elitismo mas que simplemente poder decir si se quiere elitismo o no. En caso de no querer elitismo simplemente hay que poner 0 para que el porcentaje de la elite guardado en cada iteración sea 0.
 
-###Funcionamiento de la seed
+### Funcionamiento de la seed
 Nuestro programa tiene la posibilidad tanto de usar una seed para crear la población inicial como de que dicha seed sea un número aleatorio. Para ello en la interfaz hemos añadido un campo Seed el cual si recibe el valor cero usara una seed aleatoria y si recibe cualquier otro valor utilizará dicho valor como seed. En ambos casos la seed se utiliza solo para la población inicial que para la misma seed siempre será la misma.
 
 
