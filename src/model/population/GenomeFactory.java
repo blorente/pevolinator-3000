@@ -20,4 +20,9 @@ public class GenomeFactory {
         }
         return res;
     }
+    
+    public static Genome createRandomPermutation(int genomeSize, int n) {
+    	Genome res = new Genome();
+    	return res;
+    }
 }
