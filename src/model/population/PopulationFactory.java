@@ -16,4 +16,14 @@ public class PopulationFactory {
         }
         return randomPopulation;
     }
+    
+    public static Population createIntegerCombinatorics(int populationSize, int genomeSize, int seed, int n) {
+    	 Population randomPopulation = new Population();
+         Random random = new Random(seed);
+         for (int i = 0; i < populationSize; i++) {
+             Genome randomGenome = GenomeFactory.createRandomPermutation(genomeSize, n, random);
+             randomPopulation.addIndividual(new Individual(randomGenome));
+         }
+         return randomPopulation;
+    }
 }

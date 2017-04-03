@@ -1,39 +1,32 @@
 package model.solvers.problems;
 
-import java.util.List;
-
-import controller.PairTuple;
 import model.population.Population;
-import model.population.PopulationFactory;
 import model.solvers.fitness.Fitness;
 
-public class Problem {
-	private int populationSize;
-	private int numberGenerations;
-	private Fitness fitness;
-	private List<PairTuple<Double,Double>> minMaxParameters;
-	private double tolerance;
-	private int genomeSize;
-	private boolean isMinimization;
+public abstract class Problem {
 
-    public Problem(int populationSize, int numberGenerations, Fitness fitness, List<PairTuple<Double,Double>> minMaxParameters, double tolerance, int genomeSize, boolean isMinimization) {
-        this.populationSize = populationSize;
-        this.numberGenerations = numberGenerations;
-        this.fitness = fitness;
-        this.minMaxParameters = minMaxParameters;
-        this.tolerance = tolerance;
-        this.genomeSize = genomeSize;
-        this.isMinimization = isMinimization;
-    }
-
-    public Population createRandomPopulation(int seed) {
-        return PopulationFactory.createRandomBinary(populationSize, genomeSize, seed, minMaxParameters, tolerance);
-    }
+	protected int populationSize;
+	protected int numberGenerations;
+	protected Fitness fitness;
+	protected int genomeSize;
+	protected boolean isMinimization;
 	
+	
+	public Problem(int populationSize, int numberGenerations, Fitness fitness,
+			int genomeSize, boolean isMinimization) {
+		this.populationSize = populationSize;
+		this.numberGenerations = numberGenerations;
+		this.fitness = fitness;
+		this.genomeSize = genomeSize;
+		this.isMinimization = isMinimization;
+	}
+
+	public abstract Population createRandomPopulation(int seed);
+
 	public int getPopulationSize() {
 		return populationSize;
 	}
-	
+
 	public int getGenerations() {		
 		return numberGenerations;
 	}
@@ -45,4 +38,5 @@ public class Problem {
 	public boolean isMinimization() {
 		return isMinimization;
 	}
+
 }

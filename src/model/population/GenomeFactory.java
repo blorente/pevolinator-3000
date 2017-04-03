@@ -2,7 +2,10 @@ package model.population;
 
 import model.population.genes.BinaryArrayGene;
 import model.population.genes.Gene;
+import model.population.genes.IntegerGene;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -21,8 +24,16 @@ public class GenomeFactory {
         return res;
     }
     
-    public static Genome createRandomPermutation(int genomeSize, int n) {
+    public static Genome createRandomPermutation(int genomeSize, int n, Random seed) {
     	Genome res = new Genome();
+    	List<Integer> bag = new ArrayList<>();
+    	for (int i = 1; i <= n; i++) {
+    		bag.add(i);
+    	}
+    	Collections.shuffle(bag, seed);
+    	for (Integer i : bag) {
+    		res.addGene(new IntegerGene(i.intValue()));
+    	}
     	return res;
     }
 }

@@ -8,6 +8,7 @@ import model.solvers.Solver;
 import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
 import model.solvers.fitness.*;
+import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;
 import model.solvers.selection.Roulette;
 import model.solvers.selection.SelectionAlgorithm;
@@ -72,7 +73,7 @@ public class Controller {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent, seed);
         System.out.println(parameters);
 
-        Problem firstFunction = new Problem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
+        Problem firstFunction = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
 
         CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();
