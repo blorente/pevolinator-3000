@@ -7,6 +7,7 @@ import model.solvers.MutationAlgorithm;
 import model.solvers.Solver;
 import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
+import model.solvers.cross.NPointCrossAlgorithm;
 import model.solvers.fitness.*;
 import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;
@@ -75,7 +76,7 @@ public class Controller {
 
         Problem firstFunction = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
 
-        CrossAlgorithm crossAlgorithm = new CrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
+        CrossAlgorithm crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();
 
         Solver solver = new Solver(parameters, firstFunction, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);

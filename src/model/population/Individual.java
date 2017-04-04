@@ -47,14 +47,6 @@ public class Individual {
 		return genome;
 	}
 	
-	public void crossSelf(Individual selected, SortedSet<Integer> crossIndices) {
-		for (Integer point : crossIndices) {
-			Genome temp = new Genome(genome);			
-			genome.copyFrom(selected.genome, point.intValue());
-			selected.genome.copyFrom(temp, point.intValue());
-		}
-	}
-
 	public void mutateSelf(double mutationPercent) {
 		genome.mutateSelf(mutationPercent);
 	}

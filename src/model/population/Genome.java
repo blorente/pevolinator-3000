@@ -51,6 +51,12 @@ public class Genome {
             genes.get(gene).copyFrom(source.getGene(gene), 0);
         }
 	}
+	
+	public void copyFromDiscrete(Genome source, int from, int to) {
+		for (int gene = from; gene < to; gene++) {
+			genes.get(gene).copyFrom(source.getGene(gene), 0);
+		}
+	}
 
     private int[] findStartingGene(int from) {
 	    int index = 0;
