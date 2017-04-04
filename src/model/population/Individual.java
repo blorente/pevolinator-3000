@@ -66,4 +66,8 @@ public class Individual {
 		else
 			return 0;
 	}
+
+	public void shiftInsert(int from, int to) {
+		genome.shiftInsert(from, to);
+	}
 }

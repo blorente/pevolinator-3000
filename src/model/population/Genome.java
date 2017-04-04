@@ -86,4 +86,12 @@ public class Genome {
 	public List<Gene> getGenes(int first, int last) {		
 		return genes.subList(first, last);
 	}
+
+	public void shiftInsert(int from, int to) {
+		Gene tmp = genes.get(from);
+		for (int i = from; i > to; i--) {
+			genes.set(i, genes.get(i - 1));
+		}
+		genes.set(to, tmp);
+	}
 }
