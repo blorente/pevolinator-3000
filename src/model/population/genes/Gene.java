@@ -4,8 +4,8 @@ import java.util.Random;
 
 public interface Gene {
 	int size();
-	void mutateSelf(double mutationPercent);
-	void mutateSelf(double mutationPercent, Random seed);
+	void mutateSelfGranular(double mutationPercent);
+	void mutateSelfGranular(double mutationPercent, Random seed);
 	void copyFrom(Gene source, int startIndex);
 	
 	int intValue();

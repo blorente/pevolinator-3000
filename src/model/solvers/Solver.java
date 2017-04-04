@@ -7,6 +7,7 @@ import model.population.Population;
 import model.population.PopulationFactory;
 import model.reporter.PopulationReporter;
 import model.solvers.cross.CrossAlgorithm;
+import model.solvers.mutation.MutationAlgorithm;
 import model.solvers.problems.Problem;
 import model.solvers.selection.SelectionAlgorithm;
 

@@ -68,12 +68,6 @@ public class Genome {
         return new int[]{index - 1, (size - from)};
     }
 
-    public void mutateSelf(double mutationPercent) {
-	    for (Gene gene : genes) {
-	        gene.mutateSelf(mutationPercent);
-        }
-    }
-
     @Override
     public String toString() {
 	    StringBuilder res = new StringBuilder();

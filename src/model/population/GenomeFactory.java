@@ -18,7 +18,7 @@ public class GenomeFactory {
         Genome res = new Genome();
         for (int i = 0; i < genomeSize; i++) {
             Gene randomGene = new BinaryArrayGene(minMaxParameters.get(i).right, minMaxParameters.get(i).left, tolerance);
-            randomGene.mutateSelf(UNIFORM_MUTATION_PERCENT, seed);
+            randomGene.mutateSelfGranular(UNIFORM_MUTATION_PERCENT, seed);
             res.addGene(randomGene);
         }
         return res;

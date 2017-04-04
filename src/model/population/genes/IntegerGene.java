@@ -16,13 +16,13 @@ public class IntegerGene implements Gene {
 	}
 
 	@Override
-	public void mutateSelf(double mutationPercent) {
-		// TODO Auto-generated method stub
+	public void mutateSelfGranular(double mutationPercent) {
+		throw new RuntimeException("Integers don't have this. Fkn nub.");
 	}
 
 	@Override
-	public void mutateSelf(double mutationPercent, Random seed) {
-		// TODO Auto-generated method stub
+	public void mutateSelfGranular(double mutationPercent, Random seed) {
+		throw new RuntimeException("Integers don't have this. Fkn nub.");
 	}
 
 	@Override

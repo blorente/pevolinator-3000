@@ -43,7 +43,7 @@ public class BinaryArrayGene implements Gene {
 	}
 
 	@Override
-	public void mutateSelf(double mutationPercent) {
+	public void mutateSelfGranular(double mutationPercent) {
 		for (int i = 0; i < size; i++) {
 			if(Math.random() < mutationPercent)
 				bits[i] = !bits[i];
@@ -51,7 +51,7 @@ public class BinaryArrayGene implements Gene {
 	}
 
     @Override
-    public void mutateSelf(double mutationPercent, Random seed) {
+    public void mutateSelfGranular(double mutationPercent, Random seed) {
         for (int i = 0; i < size; i++) {
             bits[i] = seed.nextDouble() < mutationPercent;
         }

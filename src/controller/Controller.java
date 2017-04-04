@@ -3,13 +3,14 @@ package controller;
 import model.reporter.GUIGraphReporter;
 import model.reporter.GUITextReporter;
 import model.reporter.PopulationReporter;
-import model.solvers.MutationAlgorithm;
 import model.solvers.Solver;
 import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
 import model.solvers.cross.NPointCrossAlgorithm;
 import model.solvers.cross.PMXCrossAlgorithm;
 import model.solvers.fitness.*;
+import model.solvers.mutation.GranularMutationAlgorithm;
+import model.solvers.mutation.MutationAlgorithm;
 import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;
 import model.solvers.selection.Roulette;
@@ -78,7 +79,7 @@ public class Controller {
         Problem firstFunction = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
 
         CrossAlgorithm crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
-        MutationAlgorithm mutationAlgorithm = new MutationAlgorithm();
+        MutationAlgorithm mutationAlgorithm = new GranularMutationAlgorithm();
 
         Solver solver = new Solver(parameters, firstFunction, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();

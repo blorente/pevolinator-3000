@@ -47,10 +47,6 @@ public class Individual {
 		return genome;
 	}
 	
-	public void mutateSelf(double mutationPercent) {
-		genome.mutateSelf(mutationPercent);
-	}
-
     @Override
     public String toString() {
 	    StringBuilder ret = new StringBuilder();
