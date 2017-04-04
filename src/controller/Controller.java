@@ -8,6 +8,7 @@ import model.solvers.Solver;
 import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
 import model.solvers.cross.NPointCrossAlgorithm;
+import model.solvers.cross.PMXCrossAlgorithm;
 import model.solvers.fitness.*;
 import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;

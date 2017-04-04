@@ -88,4 +88,8 @@ public class Genome {
 	public List<Gene> getGenes() {
 		return genes;
 	}
+
+	public List<Gene> getGenes(int first, int last) {		
+		return genes.subList(first, last);
+	}
 }
