@@ -197,7 +197,10 @@ public class MainForm {
         controller.setSeed(gatherSeed());
 
         controller.setTolerance(gatherTolerance());
-        controller.setInputFilePath(gatherInputFilePath());
+        
+        if (inputFileSelectorPanel.isVisible()) {
+        	controller.setInputFilePath(gatherInputFilePath());
+        }
         launchSelectedTab();
     }
 

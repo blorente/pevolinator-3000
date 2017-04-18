@@ -37,6 +37,8 @@ public class GUIGraphReporter implements PopulationReporter {
 
 	@Override
 	public void teardown() {
+		target.addLabel("Best individual: " + absoluteBest.getGenome().toString(), Color.PINK, 15, 35);
+		target.addLabel("Best fitness: " + absoluteBest.getAbsoluteFitness(), Color.pink, 10, 50);
 		target.addLegend("SOUTH");
 		plotList("Best Overall", bestOverall, colorBestOverall);
 		plotList("Best on Generation", bestOnGeneration, colorBestGeneration);

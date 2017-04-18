@@ -61,5 +61,12 @@ public class IntegerGene implements Gene {
 	public Gene createCopy(Gene source) {
 		return new IntegerGene(source.intValue());
 	}
+	
+	@Override
+    public String toString() {
+	    StringBuilder res = new StringBuilder();	   
+        res.append(intValue());
+        return res.toString();
+    }
 
 }
