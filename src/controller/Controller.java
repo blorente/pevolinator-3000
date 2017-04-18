@@ -12,6 +12,7 @@ import model.solvers.fitness.*;
 import model.solvers.mutation.GranularMutationAlgorithm;
 import model.solvers.mutation.InsertionMutationAlgorithm;
 import model.solvers.mutation.MutationAlgorithm;
+import model.solvers.problems.CombinatoricsProblem;
 import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;
 import model.solvers.selection.Roulette;
@@ -65,6 +66,10 @@ public class Controller {
     private int seed;
 
 	private SelectionAlgorithm selectionAlgorithm;
+	Problem problem;
+	PairTuple<int[][], int[][]> combinatoricsProblemData;
+
+	private int funIndex;
 
 
     public Controller() {
@@ -78,18 +83,24 @@ public class Controller {
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
         this.isMinimization = IS_MINIMIZATION;
+        this.problem = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
     }
     
     private void launch(PopulationReporter reporter) {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent, seed);
-        System.out.println(parameters);
+        System.out.println(parameters);        
 
-        Problem firstFunction = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
-
+        if (funIndex == 5) {        	
+        	fitness = new HospitalFitness(combinatoricsProblemData);
+        	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
+        } else {
+        	problem = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
+        }
+        
         CrossAlgorithm crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
         MutationAlgorithm mutationAlgorithm = new InsertionMutationAlgorithm(1);
 
-        Solver solver = new Solver(parameters, firstFunction, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
+        Solver solver = new Solver(parameters, problem, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();
     }
 
@@ -103,7 +114,6 @@ public class Controller {
 	}
 
     public void setFitnessFunction(String function) {
-    	int funIndex = 0;
         if (function.equals(FitnessFunctionData.fitnessFunctions[0].toString())) {
             fitness = new FirstFunctionFitness();
             funIndex = 0;
@@ -119,10 +129,12 @@ public class Controller {
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[4].toString())) {
             fitness = new FifthFunctionFitness();
             funIndex = 4;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[5].toString())) {    
+            funIndex = 5;
         }
         
         this.genomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
-        this.minMaxParameters = new ArrayList<>(FitnessFunctionData.fitnessFunctions[funIndex].minMax);        
+        this.minMaxParameters = new ArrayList<>(FitnessFunctionData.fitnessFunctions[funIndex].minMax);
     }
 
     public void setCrossPercent(double crossPercent) {
@@ -169,9 +181,9 @@ public class Controller {
 	}
 	
 	public void setInputFilePath(String path) {
-		PairTuple<int[][], int[][]> problemData = readDATFile(path);
-		System.out.println("Distances:" + Arrays.deepToString(problemData.left));
-		System.out.println("Fluxes:" + Arrays.deepToString(problemData.right));
+		combinatoricsProblemData = readDATFile(path);
+		System.out.println("Distances:" + Arrays.deepToString(combinatoricsProblemData.left));
+		System.out.println("Fluxes:" + Arrays.deepToString(combinatoricsProblemData.right));
 	}
 
 	private PairTuple<int[][], int[][]> readDATFile(String path) {

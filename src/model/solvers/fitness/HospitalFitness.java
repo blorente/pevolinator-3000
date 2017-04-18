@@ -1,5 +1,6 @@
 package model.solvers.fitness;
 
+import controller.PairTuple;
 import model.population.Genome;
 import model.population.genes.Gene;
 
@@ -9,11 +10,11 @@ public class HospitalFitness extends Fitness {
 	private int[][] F;
 	private int[][] D;
 	
-	public HospitalFitness(int n, int[][] f, int[][] d) {
+	public HospitalFitness(PairTuple<int[][], int[][]> params) {
 		super();
-		this.n = n;
-		F = f;
-		D = d;
+		this.n = params.left[0].length;
+		F = params.right;
+		D = params.left;
 	}
 
 	@Override

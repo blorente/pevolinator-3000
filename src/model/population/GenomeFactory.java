@@ -28,7 +28,7 @@ public class GenomeFactory {
     	Genome res = new Genome();
     	List<Integer> bag = new ArrayList<>();
     	for (int i = 1; i <= n; i++) {
-    		bag.add(i);
+    		bag.add(i-1);
     	}
     	Collections.shuffle(bag, seed);
     	for (Integer i : bag) {

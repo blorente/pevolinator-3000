@@ -183,7 +183,6 @@ public class MainForm {
 	}
 
 	protected void showInputFileSelector() {
-		controller.setGenomeSize(gatherGenomeSize());
 		inputFileSelectorPanel.setVisible(true);
 	}
 
