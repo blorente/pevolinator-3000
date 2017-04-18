@@ -26,13 +26,15 @@ public class FitnessFunctionData {
 	public static final FitnessFunctionData ThirdFunctionData = new FitnessFunctionData("Third Function", 2, -3.0, 12.1, 4.1, 5.8);
 	public static final FitnessFunctionData FourthFunctionData = new FitnessFunctionData("Fourth Function", -1, 0, Fitness.PI());
 	public static final FitnessFunctionData FifthFunctionData = new FitnessFunctionData("Fifth Function", 2, -10.0, 10.0, -10.0, 10.0);
+	public static final FitnessFunctionData HospitalFunctionData = new FitnessFunctionData("Hospital Problem", -2);
 	
 	public static final FitnessFunctionData[] fitnessFunctions = {
 		FirstFunctionData,
 		SecondFunctionData,
 		ThirdFunctionData,
 		FourthFunctionData,
-		FifthFunctionData
+		FifthFunctionData,
+		HospitalFunctionData
 	};
 	
 	@Override

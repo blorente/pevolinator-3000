@@ -13,10 +13,12 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,6 +38,7 @@ import controller.Controller;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import model.solvers.fitness.FitnessFunctionData;
 import model.solvers.selection.SelectionAlgorithmData;
+import java.awt.FlowLayout;
 
 public class MainForm {
 
@@ -73,6 +76,10 @@ public class MainForm {
 	private Plot2DPanel graphReportPanel;
 	private JLabel lblNewLabel_2;
 	private JTextField seedTextField;
+	private JPanel problemSettingsContainer;
+	private JPanel inputFileSelectorPanel;
+	private JTextField selectedFileTextField;
+	private JButton selectFileButton;
 
 	/**
 	 * Launch the application.
@@ -145,10 +152,12 @@ public class MainForm {
 		        String fitness = cb.getSelectedItem().toString();
 		        controller.setFitnessFunction(fitness);		        
 		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
+		        hideNGenomeSizeEntry();
+				hideInputFileSelector();
 		        if (genomeSize == -1) {
 		        	showNGenomeSizeEntry();
-		        } else {
-					hideNGenomeSizeEntry();
+		        } else if (genomeSize == -2) {
+		        	showInputFileSelector();
 		        }
 		    }
 		});
@@ -157,21 +166,7 @@ public class MainForm {
     private void setupSelectionAlgorithms() {
 		selectionAlgorithmCB = new JComboBox<SelectionAlgorithmData>();
 		DefaultComboBoxModel<SelectionAlgorithmData> model = new DefaultComboBoxModel<>(SelectionAlgorithmData.selectionAlgorithms);
-		selectionAlgorithmCB.setModel(model);
-		selectionAlgorithmCB.addActionListener(new ActionListener() {
-			@Override
-		    public void actionPerformed(ActionEvent e) {
-		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
-		        String fitness = cb.getSelectedItem().toString();
-		        controller.setSelectionAlgorithm(cb.getSelectedIndex());		        
-		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
-		        if (genomeSize == -1) {
-		        	showNGenomeSizeEntry();
-		        } else {
-					hideNGenomeSizeEntry();
-		        }
-		    }
-		});
+		selectionAlgorithmCB.setModel(model);		
     }
 	
 	protected void hideNGenomeSizeEntry() {
@@ -181,6 +176,15 @@ public class MainForm {
 	protected void showNGenomeSizeEntry() {
 		controller.setGenomeSize(gatherGenomeSize());
 		nGenomePanel.setVisible(true);
+	}
+	
+	protected void hideInputFileSelector() {
+		inputFileSelectorPanel.setVisible(false);
+	}
+
+	protected void showInputFileSelector() {
+		controller.setGenomeSize(gatherGenomeSize());
+		inputFileSelectorPanel.setVisible(true);
 	}
 
 	private void gatherAndLaunch() {		
@@ -193,7 +197,8 @@ public class MainForm {
         controller.setNumberGenerations(gatherNumberOfGenerations()); 
         controller.setSeed(gatherSeed());
 
-        controller.setTolerance(gatherTolerance()); 
+        controller.setTolerance(gatherTolerance());
+        // TODO: Controller.setInputFilePath();
         launchSelectedTab();
     }
 
@@ -274,8 +279,28 @@ public class MainForm {
 		problemSelectionPanel.setLayout(new BorderLayout(0, 0));
 		problemSelectionPanel.add(functionCB);
 		
+		problemSettingsContainer = new JPanel();
+		problemSelectionPanel.add(problemSettingsContainer, BorderLayout.SOUTH);
+		problemSettingsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		inputFileSelectorPanel = new JPanel();
+		problemSettingsContainer.add(inputFileSelectorPanel);
+		
+		selectedFileTextField = new JTextField();
+		inputFileSelectorPanel.add(selectedFileTextField);
+		selectedFileTextField.setColumns(15);
+		
+		selectFileButton = new JButton("...");
+		selectFileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String file = selectInputFile();
+				selectedFileTextField.setText(file);
+			}
+		});
+		inputFileSelectorPanel.add(selectFileButton);
+		
 		nGenomePanel = new JPanel();
-		problemSelectionPanel.add(nGenomePanel, BorderLayout.SOUTH);
+		problemSettingsContainer.add(nGenomePanel);
 		nGenomePanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		lblNewLabel_1 = new JLabel("n");
@@ -308,6 +333,7 @@ public class MainForm {
 		nGenomePanel.add(nTextField);
 		nTextField.setColumns(10);
 		hideNGenomeSizeEntry();
+		hideInputFileSelector();
 		
 		solverParametersMutationPanel = new JPanel();
 		solverParametersMutationPanel.setBorder(new TitledBorder(null, "Solver Paremeters", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -438,6 +464,18 @@ public class MainForm {
 		
 		textReportScroll = new JScrollPane(textReportField);
 		textReportPanel.add(textReportScroll);
+	}
+
+	protected String selectInputFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this.frmXxPevolinator);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    return selectedFile.getAbsolutePath();
+		}
+		return "Not found";
 	}
 
 }
