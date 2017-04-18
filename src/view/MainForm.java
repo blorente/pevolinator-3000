@@ -198,7 +198,7 @@ public class MainForm {
         controller.setSeed(gatherSeed());
 
         controller.setTolerance(gatherTolerance());
-        // TODO: Controller.setInputFilePath();
+        controller.setInputFilePath(gatherInputFilePath());
         launchSelectedTab();
     }
 
@@ -244,6 +244,10 @@ public class MainForm {
 
 	private int gatherGenomeSize() {
 		return FormCheck.readInt(nTextField);
+	}
+
+	private String gatherInputFilePath() {
+		return selectedFileTextField.getText();
 	}
 
 	/**

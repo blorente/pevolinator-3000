@@ -18,8 +18,15 @@ import model.solvers.selection.Roulette;
 import model.solvers.selection.SelectionAlgorithm;
 import model.solvers.selection.SelectionAlgorithmData;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
@@ -159,5 +166,38 @@ public class Controller {
 
 	public void setSeed(int seed) {
 		this.seed = seed;
+	}
+	
+	public void setInputFilePath(String path) {
+		PairTuple<int[][], int[][]> problemData = readDATFile(path);
+		System.out.println("Distances:" + Arrays.deepToString(problemData.left));
+		System.out.println("Fluxes:" + Arrays.deepToString(problemData.right));
+	}
+
+	private PairTuple<int[][], int[][]> readDATFile(String path) {
+		int[][] dist = null, flux = null;
+		File file = new File(path);
+		Scanner reader = null;
+
+	    try {
+			reader = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    int n = reader.nextInt();
+	    dist = new int[n][n];
+	    flux = new int[n][n];
+	    
+	    for(int i = 0; i < n * n; i++) {
+	    	dist[i / n][i % n] = reader.nextInt();
+	    }
+	    for(int i = 0; i < n * n; i++) {
+	    	flux[i / n][i % n] = reader.nextInt();
+	    }
+		reader.close();
+		
+		return new PairTuple<>(dist, flux);
+
 	}
 }
