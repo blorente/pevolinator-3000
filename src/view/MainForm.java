@@ -36,9 +36,13 @@ import org.math.plot.Plot2DPanel;
 
 import controller.Controller;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import model.solvers.cross.CrossAlgorithmData;
 import model.solvers.fitness.FitnessFunctionData;
+import model.solvers.mutation.MutationAlgorithmData;
 import model.solvers.selection.SelectionAlgorithmData;
 import java.awt.FlowLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class MainForm {
 
@@ -80,6 +84,11 @@ public class MainForm {
 	private JPanel inputFileSelectorPanel;
 	private JTextField selectedFileTextField;
 	private JButton selectFileButton;
+	private JLabel lblHello;
+	private JLabel lblCrossAlgorithm;
+	private JComboBox<CrossAlgorithmData> crossAlgorithmCB;
+	private JLabel lblMutationAlgorithm;
+	private JComboBox mutationAlgorithmCB;
 
 	/**
 	 * Launch the application.
@@ -166,7 +175,40 @@ public class MainForm {
     private void setupSelectionAlgorithms() {
 		selectionAlgorithmCB = new JComboBox<SelectionAlgorithmData>();
 		DefaultComboBoxModel<SelectionAlgorithmData> model = new DefaultComboBoxModel<>(SelectionAlgorithmData.selectionAlgorithms);
-		selectionAlgorithmCB.setModel(model);		
+		selectionAlgorithmCB.setModel(model);
+		selectionAlgorithmCB.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
+		        controller.setSelectionAlgorithm(selectionAlgorithmCB.getSelectedIndex());
+		    }
+		});
+    }
+    
+    private void setupCrossAlgorithms() {
+    	crossAlgorithmCB = new JComboBox<CrossAlgorithmData>();
+    	DefaultComboBoxModel<CrossAlgorithmData> model = new DefaultComboBoxModel<>(CrossAlgorithmData.crossAlgorithms);
+    	crossAlgorithmCB.setModel(model);
+    	crossAlgorithmCB.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
+		        controller.setCrossAlgorithm(crossAlgorithmCB.getSelectedIndex());
+		    }
+		});
+    }
+    
+    private void setupMutationAlgorithms() {
+    	mutationAlgorithmCB = new JComboBox<MutationAlgorithmData>();
+    	DefaultComboBoxModel<MutationAlgorithmData> model = new DefaultComboBoxModel<>(MutationAlgorithmData.mutationAlgorithms);
+    	mutationAlgorithmCB.setModel(model);
+    	mutationAlgorithmCB.addActionListener(new ActionListener() {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
+		        controller.setMutationAlgorithm(mutationAlgorithmCB.getSelectedIndex());
+		    }
+		});
     }
 	
 	protected void hideNGenomeSizeEntry() {
@@ -258,7 +300,7 @@ public class MainForm {
 	private void initialize() {
 		frmXxPevolinator = new JFrame();
 		frmXxPevolinator.setTitle("xX PEVOLINATOR  - 3000 Xx");
-		frmXxPevolinator.setBounds(100, 100, 801, 507);
+		frmXxPevolinator.setBounds(100, 100, 801, 662);
 		frmXxPevolinator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -384,27 +426,32 @@ public class MainForm {
 		toleranceTextField.setColumns(10);
 		
 		selectionPanel = new JPanel();
-		selectionPanel.setBorder(new TitledBorder(null, "Selection Algorithm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		selectionPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Algorithm Selection", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_selectionPanel = new GridBagConstraints();
 		gbc_selectionPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_selectionPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_selectionPanel.gridx = 0;
 		gbc_selectionPanel.gridy = 2;
 		formPanel.add(selectionPanel, gbc_selectionPanel);
-		GridBagLayout gbl_selectionPanel = new GridBagLayout();
-		gbl_selectionPanel.columnWidths = new int[] {244};
-		gbl_selectionPanel.rowHeights = new int[] {0};
-		gbl_selectionPanel.columnWeights = new double[]{0.0};
-		gbl_selectionPanel.rowWeights = new double[]{0.0};
-		selectionPanel.setLayout(gbl_selectionPanel);
 		
 		setupSelectionAlgorithms();
-		GridBagConstraints gbc_selectionAlgorithmCB = new GridBagConstraints();
-		gbc_selectionAlgorithmCB.anchor = GridBagConstraints.NORTH;
-		gbc_selectionAlgorithmCB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_selectionAlgorithmCB.gridx = 0;
-		gbc_selectionAlgorithmCB.gridy = 0;
-		selectionPanel.add(selectionAlgorithmCB, gbc_selectionAlgorithmCB);
+		selectionPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		lblHello = new JLabel("Selection Algorithm");
+		selectionPanel.add(lblHello);
+		selectionPanel.add(selectionAlgorithmCB);
+		
+		lblCrossAlgorithm = new JLabel("Cross Algorithm");
+		selectionPanel.add(lblCrossAlgorithm);
+		
+		setupCrossAlgorithms();
+		selectionPanel.add(crossAlgorithmCB);
+		
+		lblMutationAlgorithm = new JLabel("Mutation Algorithm");
+		selectionPanel.add(lblMutationAlgorithm);
+		
+		setupMutationAlgorithms();
+		selectionPanel.add(mutationAlgorithmCB);
 		
 		populationPanel = new JPanel();
 		populationPanel.setBorder(new TitledBorder(null, "Population Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, null));

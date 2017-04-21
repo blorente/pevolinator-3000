@@ -1,5 +1,6 @@
 PEVOLINATOR - 3000
 ===============
+Pedro García Castillo, Borja Lorente Escobar
 
 Aplicación
 ---------

@@ -6,12 +6,14 @@ import model.reporter.PopulationReporter;
 import model.solvers.Solver;
 import model.solvers.SolverParameters;
 import model.solvers.cross.CrossAlgorithm;
+import model.solvers.cross.CrossAlgorithmData;
 import model.solvers.cross.NPointCrossAlgorithm;
 import model.solvers.cross.PMXCrossAlgorithm;
 import model.solvers.fitness.*;
 import model.solvers.mutation.GranularMutationAlgorithm;
 import model.solvers.mutation.InsertionMutationAlgorithm;
 import model.solvers.mutation.MutationAlgorithm;
+import model.solvers.mutation.MutationAlgorithmData;
 import model.solvers.problems.CombinatoricsProblem;
 import model.solvers.problems.PlainFunctionProblem;
 import model.solvers.problems.Problem;
@@ -50,7 +52,6 @@ public class Controller {
     private static final int GENOME_SIZE = 1;
 
     private static final int NUMBER_CROSS_POINTS = 1;
-    private static final boolean IS_MINIMIZATION = true;
     
     private double mutationPercent;
     private double crossPercent;
@@ -62,12 +63,14 @@ public class Controller {
     private int genomeSize;
     private int numberCrossPoints;
     private Fitness fitness;
-    private boolean isMinimization;
     private int seed;
 
 	private SelectionAlgorithm selectionAlgorithm;
-	Problem problem;
-	PairTuple<int[][], int[][]> combinatoricsProblemData;
+	private Problem problem;
+    private PairTuple<int[][], int[][]> combinatoricsProblemData;
+
+    private CrossAlgorithm crossAlgorithm;
+    private MutationAlgorithm mutationAlgorithm;
 
 	private int funIndex;
 
@@ -82,8 +85,9 @@ public class Controller {
         this.minMaxParameters = MinMaxParameters;
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
-        this.isMinimization = IS_MINIMIZATION;
         this.problem = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
+        this.crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, crossPercent);
+        this.mutationAlgorithm = new InsertionMutationAlgorithm(1);
     }
     
     private void launch(PopulationReporter reporter) {
@@ -95,10 +99,9 @@ public class Controller {
         	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
         } else {
         	problem = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
+            mutationAlgorithm = new GranularMutationAlgorithm();
+            crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, crossPercent);
         }
-        
-        CrossAlgorithm crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, parameters.getCrossPercent());
-        MutationAlgorithm mutationAlgorithm = new InsertionMutationAlgorithm(1);
 
         Solver solver = new Solver(parameters, problem, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();
@@ -107,7 +110,6 @@ public class Controller {
     public void launch(JTextComponent target) {
         launch(new GUITextReporter(target));
     }
-    
 
 	public void launch(Plot2DPanel target) {
 		launch(new GUIGraphReporter(target));	
@@ -174,6 +176,14 @@ public class Controller {
 
 	public void setSelectionAlgorithm(int selectedIndex) {
 		this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedIndex].algorithm();
+	}
+	
+	public void setCrossAlgorithm(int selectedIndex) {
+		this.crossAlgorithm = CrossAlgorithmData.crossAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberCrossPoints, crossPercent);
+	}
+	
+	public void setMutationAlgorithm(int selectedIndex) {
+		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, 2);
 	}
 
 	public void setSeed(int seed) {
