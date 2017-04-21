@@ -52,6 +52,7 @@ public class Controller {
     private static final int GENOME_SIZE = 1;
 
     private static final int NUMBER_CROSS_POINTS = 1;
+    private static final int NUMBER_MUTATION_POINTS = 2;
     
     private double mutationPercent;
     private double crossPercent;
@@ -62,6 +63,7 @@ public class Controller {
     private double tolerance;
     private int genomeSize;
     private int numberCrossPoints;
+    private int numberMutationPoints;
     private Fitness fitness;
     private int seed;
 
@@ -80,6 +82,7 @@ public class Controller {
 
         this.genomeSize = GENOME_SIZE;
         this.numberCrossPoints = NUMBER_CROSS_POINTS;
+        this.numberMutationPoints = NUMBER_MUTATION_POINTS;
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
         this.minMaxParameters = MinMaxParameters;
@@ -165,6 +168,10 @@ public class Controller {
     public void setNumberCrossPoints(int numberCrossPoints) {
         this.numberCrossPoints = numberCrossPoints;
     }
+    
+    public void setNumberMutationPoints(int numberMutationPoints) {
+        this.numberMutationPoints = numberMutationPoints;
+    }
 
     public void setPopulationSize(int populationSize) {
         this.populationSize = populationSize;
@@ -183,7 +190,7 @@ public class Controller {
 	}
 	
 	public void setMutationAlgorithm(int selectedIndex) {
-		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, 2);
+		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberMutationPoints);
 	}
 
 	public void setSeed(int seed) {

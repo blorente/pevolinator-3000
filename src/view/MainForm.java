@@ -89,6 +89,8 @@ public class MainForm {
 	private JComboBox<CrossAlgorithmData> crossAlgorithmCB;
 	private JLabel lblMutationAlgorithm;
 	private JComboBox mutationAlgorithmCB;
+	private JLabel lblNoMutationPoints;
+	private JTextField numberOfMutationPointsTextField;
 
 	/**
 	 * Launch the application.
@@ -146,6 +148,9 @@ public class MainForm {
         HintedInputListener numberOfCrossPointsTextFieldListener = new HintedInputListener(numberOfCrossPointsTextField);
         numberOfCrossPointsTextField.addFocusListener(numberOfCrossPointsTextFieldListener);
         
+        HintedInputListener numberOfMututationPointsTextFieldListener = new HintedInputListener(numberOfMutationPointsTextField);
+        numberOfMutationPointsTextField.addFocusListener(numberOfMututationPointsTextFieldListener);
+        
         HintedInputListener seedTextFieldListener = new HintedInputListener(seedTextField);
         seedTextField.addFocusListener(seedTextFieldListener);
     }
@@ -188,8 +193,8 @@ public class MainForm {
     private void setupCrossAlgorithms() {
     	crossAlgorithmCB = new JComboBox<CrossAlgorithmData>();
     	DefaultComboBoxModel<CrossAlgorithmData> model = new DefaultComboBoxModel<>(CrossAlgorithmData.crossAlgorithms);
-    	crossAlgorithmCB.setModel(model);
-    	crossAlgorithmCB.addActionListener(new ActionListener() {
+		crossAlgorithmCB.setModel(model);
+		crossAlgorithmCB.addActionListener(new ActionListener() {
 			@Override
 		    public void actionPerformed(ActionEvent e) {
 		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
@@ -235,6 +240,7 @@ public class MainForm {
         
         controller.setPopulationSize(gatherPopulationSize());
         controller.setNumberCrossPoints(gatherNumberCrossPoints());
+        controller.setNumberMutationPoints(gatherNumberMutationPoints());
         controller.setNumberGenerations(gatherNumberOfGenerations()); 
         controller.setSeed(gatherSeed());
 
@@ -269,6 +275,10 @@ public class MainForm {
     private int gatherNumberCrossPoints() {
         return FormCheck.readInt(numberOfCrossPointsTextField);
     }
+    
+    private int gatherNumberMutationPoints() {
+        return FormCheck.readInt(numberOfMutationPointsTextField);
+    }
 
     private int gatherPopulationSize() {
         return FormCheck.readInt(populationSizeTextField);
@@ -300,7 +310,7 @@ public class MainForm {
 	private void initialize() {
 		frmXxPevolinator = new JFrame();
 		frmXxPevolinator.setTitle("xX PEVOLINATOR  - 3000 Xx");
-		frmXxPevolinator.setBounds(100, 100, 801, 662);
+		frmXxPevolinator.setBounds(100, 100, 1106, 662);
 		frmXxPevolinator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -445,7 +455,9 @@ public class MainForm {
 		selectionPanel.add(lblCrossAlgorithm);
 		
 		setupCrossAlgorithms();
+		
 		selectionPanel.add(crossAlgorithmCB);
+		
 		
 		lblMutationAlgorithm = new JLabel("Mutation Algorithm");
 		selectionPanel.add(lblMutationAlgorithm);
@@ -461,7 +473,7 @@ public class MainForm {
 		gbc_populationPanel.gridx = 0;
 		gbc_populationPanel.gridy = 3;
 		formPanel.add(populationPanel, gbc_populationPanel);
-		populationPanel.setLayout(new GridLayout(4, 2, 0, 0));
+		populationPanel.setLayout(new GridLayout(5, 2, 0, 0));
 		
 		lblPopulationSize = new JLabel("Population Size");
 		populationPanel.add(lblPopulationSize);
@@ -486,6 +498,14 @@ public class MainForm {
 		numberOfCrossPointsTextField.setText("1");
 		populationPanel.add(numberOfCrossPointsTextField);
 		numberOfCrossPointsTextField.setColumns(10);
+		
+		lblNoMutationPoints = new JLabel("No. Mutation Points");
+		populationPanel.add(lblNoMutationPoints);
+		
+		numberOfMutationPointsTextField = new JTextField();
+		numberOfMutationPointsTextField.setText("2");
+		populationPanel.add(numberOfMutationPointsTextField);
+		numberOfMutationPointsTextField.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Seed");
 		populationPanel.add(lblNewLabel_2);
