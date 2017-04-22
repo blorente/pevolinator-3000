@@ -1,12 +1,17 @@
 package model.reporter;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.JTextComponent;
 
 import org.math.plot.Plot2DPanel;
+import org.math.plot.plotObjects.BaseLabel;
 
 import model.population.Individual;
 import model.population.Population;
@@ -14,6 +19,8 @@ import model.population.Population;
 public class GUIGraphReporter implements PopulationReporter {
 	
 	private Plot2DPanel target;
+	private JLabel fitnessResult;
+	private JLabel indivResult;
 	private List<Double> bestOverall;
 	private List<Double> bestOnGeneration;
 	private List<Double> averagesOnGeneration;
@@ -23,8 +30,10 @@ public class GUIGraphReporter implements PopulationReporter {
 	private static final Color colorBestGeneration = Color.red;
 	private static final Color colorAverages = Color.green;
 	
-	public GUIGraphReporter(Plot2DPanel container) {
-		this.target = container;
+	public GUIGraphReporter(Plot2DPanel container, JLabel fitnessResult, JLabel indivResult) {
+		target = container;
+		this.fitnessResult = fitnessResult;
+		this.indivResult = indivResult;
 		bestOverall = new ArrayList<>();
 		bestOnGeneration = new ArrayList<>();
 		averagesOnGeneration = new ArrayList<>();
@@ -37,12 +46,12 @@ public class GUIGraphReporter implements PopulationReporter {
 
 	@Override
 	public void teardown() {
-		target.addLabel("Best individual: " + absoluteBest.getGenome().toString(), Color.PINK, 15, 35);
-		target.addLabel("Best fitness: " + absoluteBest.getAbsoluteFitness(), Color.pink, 10, 50);
-		target.addLegend("SOUTH");
+        target.addLegend("SOUTH");
 		plotList("Best Overall", bestOverall, colorBestOverall);
 		plotList("Best on Generation", bestOnGeneration, colorBestGeneration);
-		plotList("Average on Generation", averagesOnGeneration, colorAverages);
+		plotList("Average on Generation", averagesOnGeneration, colorAverages);		
+		fitnessResult.setText("Best fitness: " + absoluteBest.getAbsoluteFitness());
+		indivResult.setText("Best individual: " + absoluteBest.getGenome());
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
@@ -127,8 +128,8 @@ public class Controller {
         launch(new GUITextReporter(target));
     }
 
-	public void launch(Plot2DPanel target) {
-		launch(new GUIGraphReporter(target));	
+	public void launch(Plot2DPanel target, JLabel fitnessResults, JLabel indivResults) {
+		launch(new GUIGraphReporter(target, fitnessResults, indivResults));	
 	}
 
     public void setFitnessFunction(String function) {

@@ -1,5 +1,6 @@
 package model.population.genes;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class BinaryArrayGene implements Gene {
@@ -110,10 +111,14 @@ public class BinaryArrayGene implements Gene {
     @Override
     public String toString() {
 	    StringBuilder res = new StringBuilder();
+	    /*
 	    for (int i = 0; i < size; i++) {
 	        res.append(bits[i] ? "1" : "0");
         }
         res.append("(").append(doubleValue()).append(")");
+        */
+	    DecimalFormat df = new DecimalFormat("#.###"); 
+	    res.append(df.format(doubleValue()));
         return res.toString();
     }
 }
