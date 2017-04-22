@@ -101,4 +101,10 @@ public class Population {
 		}
 		
 	}
+
+	public Individual getBest(Comparator<Individual> comp) {
+		Collections.sort(individuals, comp);
+		Individual ret = new Individual(individuals.get(0));
+		return ret;
+	}
 }

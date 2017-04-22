@@ -101,4 +101,14 @@ public class Genome {
 		genes.set(first, genes.get(second));
 		genes.set(second, tmp);
 	}
+
+	public void swapGenes(Integer[] basePositions, Integer[] targetPositions) {
+		List<Gene> baseGenes = new ArrayList<>(); 
+		for (int i : basePositions) {
+			baseGenes.add(genes.get(i));
+		}
+		for (int i = 0; i < baseGenes.size(); i++) {
+			genes.set(targetPositions[i], baseGenes.get(i));
+		}
+	}
 }
