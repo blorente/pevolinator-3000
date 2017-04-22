@@ -25,8 +25,12 @@ public class PopulationFactory {
          Random random = new Random(seed);
          for (int i = 0; i < populationSize; i++) {
              Genome randomGenome = GenomeFactory.createRandomPermutation(genomeSize, n, random);
-             randomPopulation.addIndividual(new Individual(randomGenome));
-         }       
+             Individual ind = new Individual(randomGenome);
+             if(!ind.isPermutation()) {
+				throw new RuntimeException("Yo dawg! You generated an invalid individual!");
+             }
+             randomPopulation.addIndividual(ind);
+         }
          return randomPopulation;
     }
     
@@ -45,6 +49,9 @@ public class PopulationFactory {
 		if(index >= exchangePoints.length - 1){
 			Individual newInd = new Individual(base);
 			newInd.swapGenes(basePoints, exchangePoints);
+			if(!newInd.isPermutation()) {
+				throw new RuntimeException("Yo dawg! You generated an invalid individual!");
+            }
 			pop.addIndividual(newInd);
 	    }
 

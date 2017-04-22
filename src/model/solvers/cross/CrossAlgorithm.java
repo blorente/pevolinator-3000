@@ -33,8 +33,8 @@ public abstract class CrossAlgorithm {
 					List<Individual> children = crossPair(ind, selected);
 					for (Individual child : children) {
 						crossed.addIndividual(child);
-						if(!isValid(ind)) {
-							throw new RuntimeException("Yo dawg! You generated an invalid individual!");
+						if(!isValid(child)) {
+							throw new RuntimeException("Yo dawg! You crossed an invalid individual!");
 						}
 					}
 					readyToPair = false;
