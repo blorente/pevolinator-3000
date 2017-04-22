@@ -2,7 +2,7 @@ package model.solvers.mutation;
 
 import model.population.Individual;
 
-public class InsertionMutationAlgorithm extends MutationAlgorithm {
+public class InsertionMutationAlgorithm extends CombinatoricsMutation {
 	
 	private int numPoints;
 	

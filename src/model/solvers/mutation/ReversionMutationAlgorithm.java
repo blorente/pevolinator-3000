@@ -2,7 +2,7 @@ package model.solvers.mutation;
 
 import model.population.Individual;
 
-public class ReversionMutationAlgorithm extends MutationAlgorithm {
+public class ReversionMutationAlgorithm extends CombinatoricsMutation {
 
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {

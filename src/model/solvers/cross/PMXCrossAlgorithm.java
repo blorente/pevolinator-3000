@@ -16,6 +16,11 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 	public PMXCrossAlgorithm(double crossRate) {
 		super(crossRate);
 	}
+	
+	@Override
+	boolean isValid(Individual ind) {
+		return ind.isPermutation();
+	}
 
 	@Override
 	List<Individual> crossPair(Individual ind, Individual selected) {

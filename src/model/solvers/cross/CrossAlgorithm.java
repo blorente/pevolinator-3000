@@ -20,6 +20,7 @@ public abstract class CrossAlgorithm {
 	}
 
 	abstract List<Individual> crossPair(Individual ind, Individual selected);
+	abstract boolean isValid(Individual ind);
 	
 	public Population cross(Population population) {		
 		Population crossed = new Population();
@@ -32,6 +33,9 @@ public abstract class CrossAlgorithm {
 					List<Individual> children = crossPair(ind, selected);
 					for (Individual child : children) {
 						crossed.addIndividual(child);
+						if(!isValid(ind)) {
+							throw new RuntimeException("Yo dawg! You generated an invalid individual!");
+						}
 					}
 					readyToPair = false;
 					selected = null;
