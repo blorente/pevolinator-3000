@@ -190,7 +190,7 @@ public class Controller {
 	}
 	
 	public void setMutationAlgorithm(int selectedIndex) {
-		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberMutationPoints);
+		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberMutationPoints, fitness);
 	}
 
 	public void setSeed(int seed) {

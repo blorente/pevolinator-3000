@@ -13,11 +13,11 @@ public class HeuristicMutationAlgorithm extends MutationAlgorithm {
 	private Fitness fitnessMethod;
 	private boolean isMinimization;
 	
-	public HeuristicMutationAlgorithm(int numPoints, Fitness fitnessMethod, boolean isMinimization) {
+	public HeuristicMutationAlgorithm(int numPoints, Fitness fitnessMethod) {
 		super();
 		this.numPoints = numPoints;
 		this.fitnessMethod = fitnessMethod;
-		this.isMinimization = isMinimization;
+		this.isMinimization = fitnessMethod.isMinimization();
 	}
 
 	@Override
