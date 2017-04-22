@@ -94,4 +94,11 @@ public class Genome {
 		}
 		genes.set(to, tmp);
 	}
+	
+	public void swapGenes(int first, int second) {
+		assert(first <= second);
+		Gene tmp = genes.get(first);
+		genes.set(first, genes.get(second));
+		genes.set(second, tmp);
+	}
 }
