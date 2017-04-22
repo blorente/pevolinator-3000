@@ -22,8 +22,11 @@ public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 		SortedSet<Integer> points = this.getCrossPoints(genomeSize, numPoints);
 		
 		performOXPriorityPosCross(ind, selected, points);		
-	
-		return null;
+
+		List<Individual> children = new ArrayList<>();
+		children.add(ind);
+		children.add(selected);	
+		return children;
 	}
 
 	private void performOXPriorityPosCross(Individual ind, Individual selected, SortedSet<Integer> points) {

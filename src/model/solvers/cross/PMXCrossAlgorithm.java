@@ -23,8 +23,11 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		SortedSet<Integer> points = this.getCrossPoints(genomeSize, NUM_CROSS_POINTS);
 		
 		performPMXCross(ind, selected, points);		
-	
-		return null;
+
+		List<Individual> children = new ArrayList<>();
+		children.add(ind);
+		children.add(selected);	
+		return children;
 	}
 
 	private void performPMXCross(Individual ind, Individual selected,

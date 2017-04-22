@@ -23,7 +23,10 @@ public class OXCrossPriorityOrderAlgorithm extends CrossAlgorithm {
 		
 		performOXPriorityOrderCross(ind, selected, nums);		
 	
-		return null;
+		List<Individual> children = new ArrayList<>();
+		children.add(ind);
+		children.add(selected);	
+		return children;
 	}
 
 	private void performOXPriorityOrderCross(Individual ind, Individual selected, List<Integer> points) {
