@@ -70,4 +70,12 @@ public class Individual {
 	public void shiftInsert(int from, int to) {
 		genome.shiftInsert(from, to);
 	}
+	
+	public void swapGenes(int first, int second) {
+		genome.swapGenes(first, second);
+	}
+	
+	public void swapGenes(Integer[] basePositions, Integer[] targetPositions) {		
+		genome.swapGenes(basePositions, targetPositions);
+	}
 }
