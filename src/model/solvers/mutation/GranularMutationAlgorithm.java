@@ -13,4 +13,9 @@ public class GranularMutationAlgorithm extends MutationAlgorithm {
 	    }
 	}
 
+	@Override
+	boolean isValid(Individual ind) {
+		return true;
+	}
+
 }

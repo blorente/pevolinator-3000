@@ -15,6 +15,11 @@ public class NPointCrossAlgorithm extends CrossAlgorithm {
 		super(crossRate);
 		this.numPoints = numPoints;
 	}
+	
+	@Override
+	boolean isValid(Individual ind) {
+		return true;
+	}
 
 	List<Individual> crossPair(Individual ind, Individual selected) {
 		int genomeSize = ind.getGenome().totalSize();
