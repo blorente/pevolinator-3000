@@ -28,6 +28,11 @@ public class ERXSpecialCrossAlgorithm extends CrossAlgorithm {
 		return null;
 	}
 
+	@Override
+	boolean isValid(Individual ind) {
+		return ind.isPermutation();
+	}
+
 	
 
 }
