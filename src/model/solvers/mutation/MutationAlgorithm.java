@@ -19,6 +19,7 @@ public abstract class MutationAlgorithm {
 	abstract void mutateIndividual(Individual ind, double mutationPercent);
 
 	protected Integer[] getPoints(int numPoints, int size) {
+		assert(numPoints <= size);
 		SortedSet<Integer> points = new TreeSet<>();
 		Random r = new Random();
 		while(points.size() != numPoints) {

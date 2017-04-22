@@ -6,7 +6,7 @@ public class ReversionMutationAlgorithm extends MutationAlgorithm {
 
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {
-		Integer[] points = getPoints(2, ind.getGenome().totalSize());
+		Integer[] points = getPoints(2, ind.getGenome().getGenes().size());
 		int start = points[0].intValue();
 		int end = points[1].intValue();
 		int segmentSize = end - start;

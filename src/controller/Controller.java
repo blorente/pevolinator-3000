@@ -76,6 +76,12 @@ public class Controller {
 
 	private int funIndex;
 
+	private int selectedSelectionAlgorithm;
+
+	private int selectedCrossAlgorithm;
+
+	private int selectedMutationAlgorithm;
+
 
     public Controller() {
         this.tolerance = TOLERANCE;
@@ -95,17 +101,24 @@ public class Controller {
     
     private void launch(PopulationReporter reporter) {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent, seed);
-        System.out.println(parameters);        
-
-        if (funIndex == 5) {        	
-        	fitness = new HospitalFitness(combinatoricsProblemData);
+        System.out.println(parameters);
+        
+        this.fitness = FitnessFunctionData.fitnessFunctions[funIndex].createAlgorithm(funIndex, combinatoricsProblemData);
+        if (funIndex == 5) {
         	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
         } else {
+        	int storedGenomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
+        	if (storedGenomeSize > 0) {
+        		genomeSize = storedGenomeSize;
+        		minMaxParameters = new ArrayList<>(FitnessFunctionData.fitnessFunctions[funIndex].minMax);
+        	}
         	problem = new PlainFunctionProblem(populationSize, numberGenerations, fitness,  minMaxParameters, tolerance, genomeSize, fitness.isMinimization());
-            mutationAlgorithm = new GranularMutationAlgorithm();
-            crossAlgorithm = new NPointCrossAlgorithm(numberCrossPoints, crossPercent);
         }
-
+        
+        this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedSelectionAlgorithm].algorithm();
+        this.crossAlgorithm = CrossAlgorithmData.crossAlgorithms[selectedCrossAlgorithm].createAlgorithm(selectedCrossAlgorithm, numberCrossPoints, crossPercent);
+        this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedMutationAlgorithm].createAlgorithm(selectedMutationAlgorithm, numberMutationPoints, fitness);
+                
         Solver solver = new Solver(parameters, problem, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();
     }
@@ -119,27 +132,19 @@ public class Controller {
 	}
 
     public void setFitnessFunction(String function) {
-        if (function.equals(FitnessFunctionData.fitnessFunctions[0].toString())) {
-            fitness = new FirstFunctionFitness();
+        if (function.equals(FitnessFunctionData.fitnessFunctions[0].toString())) {            
             funIndex = 0;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[1].toString())) {
-            fitness = new SecondFunctionFitness();
             funIndex = 1;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[2].toString())) {
-            fitness = new ThirdFunctionFitness();
             funIndex = 2;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[3].toString())) {
-            fitness = new FourthFunctionFitness();
             funIndex = 3;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[4].toString())) {
-            fitness = new FifthFunctionFitness();
             funIndex = 4;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[5].toString())) {    
             funIndex = 5;
         }
-        
-        this.genomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
-        this.minMaxParameters = new ArrayList<>(FitnessFunctionData.fitnessFunctions[funIndex].minMax);
     }
 
     public void setCrossPercent(double crossPercent) {
@@ -182,15 +187,15 @@ public class Controller {
 	}
 
 	public void setSelectionAlgorithm(int selectedIndex) {
-		this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedIndex].algorithm();
+		this.selectedSelectionAlgorithm = selectedIndex;		
 	}
 	
 	public void setCrossAlgorithm(int selectedIndex) {
-		this.crossAlgorithm = CrossAlgorithmData.crossAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberCrossPoints, crossPercent);
+		this.selectedCrossAlgorithm = selectedIndex;		
 	}
 	
 	public void setMutationAlgorithm(int selectedIndex) {
-		this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedIndex].createAlgorithm(selectedIndex, numberMutationPoints, fitness);
+		this.selectedMutationAlgorithm = selectedIndex;		
 	}
 
 	public void setSeed(int seed) {

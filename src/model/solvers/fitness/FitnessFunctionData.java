@@ -41,4 +41,23 @@ public class FitnessFunctionData {
 	public String toString() {
 		return name;
 	}
+
+	public Fitness createAlgorithm(int funIndex, PairTuple<int[][], int[][]> combinatoricsProblemData) {
+		if (funIndex == 0) {
+            return new FirstFunctionFitness();
+        } else if (funIndex == 1) {
+            return new SecondFunctionFitness();
+        } else if (funIndex == 2) {
+            return new ThirdFunctionFitness();
+        } else if (funIndex == 3) {
+            return new FourthFunctionFitness();
+        } else if (funIndex == 4) {
+            return new FifthFunctionFitness();
+        } else if (funIndex == 5) {  
+        	return new HospitalFitness(combinatoricsProblemData);
+        }
+		return new FirstFunctionFitness();
+	}
+	
+	
 }
