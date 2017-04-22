@@ -1,11 +1,14 @@
 package model.solvers.cross;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import model.population.Genome;
 import model.population.Individual;
 import model.population.Population;
+import model.population.genes.Gene;
 
 
 public abstract class CrossAlgorithm {
@@ -60,6 +63,13 @@ public abstract class CrossAlgorithm {
 		}
 		return crossIndices;
 	}
+	protected List<Integer> getCrossPointsList(int genomeSize, int numPoints) {
+		List<Integer> crossIndices = new ArrayList<>(numPoints);
+		for (int i = 0; i < numPoints; i++) {
+			crossIndices.add(newCrossPoint(crossIndices, genomeSize));
+		}
+		return crossIndices;
+	}
 
 	private Integer newCrossPoint(SortedSet<Integer> crossIndices, int size) {
 		int rand = (int) (Math.random() * (size - 2)) + 1;
@@ -68,4 +78,22 @@ public abstract class CrossAlgorithm {
 		}	
 		return rand;
 	}
+	
+	private Integer newCrossPoint(List<Integer> crossIndices, int size) {
+		int rand = (int) (Math.random() * (size - 2)) + 1;
+		while (crossIndices.contains(rand)) {
+			rand = (int) (Math.random() * (size - 2)) + 1;
+		}	
+		return rand;
+	}
+	
+	public List<Gene> arrayToList(Gene[] genes){
+		List<Gene> geneList = new ArrayList<>(genes.length);
+		for(int i = 0; i < genes.length; i++){
+			geneList.add(genes[i]);
+		}
+		return geneList;
+	}
+
+		
 }

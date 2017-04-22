@@ -22,6 +22,10 @@ public class Genome {
 	        genes.add(gene.createCopy(gene));
         }
     }
+    
+    public Genome(List<Gene> genes){
+    	this.genes = genes;
+    }
 
     public void addGene(Gene gene) {
 	    genes.add(gene);
