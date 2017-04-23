@@ -11,7 +11,7 @@ Por conveniencia, hemos incluido una representación de genes basada en enteros,
 
 ### Poblaciones combinatorias
 
-Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan el invariante de las permutaciones. Para mantener el invariante de evitar crear individuos duplicados, hemos intentado crear individuos por bloques, teniendo en cuenta el número máximo de permutaciones que hay en un genoma de tanaño n (pseudocódigo a continuación). Por supuesto, esta función depende de la corrección de `createAllPermutations`, pero ésta contiene chequeos para comprobar que cada individuo generado es de hecho una permutación. Somos conscientes de la ligera ineficiencia de generar todas las permutaciones para el último bloque, pero creemos que no es un problema demasiado grande ya que esta función solo se ejecuta una vez en cada lanzamiento del AG.
+Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan el invariante de las permutaciones. Para mantener el invariante de evitar crear individuos duplicados, hemos intentado crear individuos por bloques, teniendo en cuenta el número máximo de permutaciones que hay en un genoma de tanaño n (pseudocódigo a continuación). Por supuesto, esta función depende de la corrección de `createPermutations`, pero ésta contiene chequeos para comprobar que cada individuo generado es de hecho una permutación.
 
   ```java
   public static Population createIntegerCombinatorics(int populationSize, int genomeSize, int seed, int n) {
