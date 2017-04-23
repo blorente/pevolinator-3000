@@ -44,7 +44,7 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		selected.getGenome().copyFromDiscrete(temp, first, last);
 		
 		List<Gene> indCrossedWhole = ind.getGenome().getGenes();
-		List<Gene> selectedCrossedWhole = ind.getGenome().getGenes();
+		List<Gene> selectedCrossedWhole = selected.getGenome().getGenes();
 		
 		List<Gene> indCrossedSection = ind.getGenome().getGenes(first, last);
 		List<Gene> selectedCrossedSection = selected.getGenome().getGenes(first, last);
