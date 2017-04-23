@@ -23,7 +23,7 @@ public class HeuristicMutationAlgorithm extends CombinatoricsMutation {
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {
 		Integer[] points = getPoints(numPoints, ind.getGenome().getGenes().size());
-		Population permutations = PopulationFactory.createIntegerPermutations(ind, points);
+		Population permutations = PopulationFactory.createIndexPermutations(ind, points);
 		if (isMinimization)
 			permutations.evaluateMinimize(fitnessMethod);
 		else 
