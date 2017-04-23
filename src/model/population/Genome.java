@@ -24,7 +24,10 @@ public class Genome {
     }
     
     public Genome(List<Gene> genes){
-    	this.genes = genes;
+    	this.genes = new ArrayList<>();
+    	for (Gene g : genes) {
+    		this.genes.add(g.createCopy(g));
+    	}
     }
 
     public void addGene(Gene gene) {
@@ -32,7 +35,7 @@ public class Genome {
     }
 
 	public Gene getGene(int index) {
-	    return genes.get(index);
+	    return genes.get(index).createCopy(genes.get(index));
 	}
 	
 	public int totalSize() {
@@ -84,7 +87,7 @@ public class Genome {
     }
 
 	public List<Gene> getGenes() {
-		return genes;
+		return new ArrayList<>(genes);
 	}
 
 	public List<Gene> getGenes(int first, int last) {		
