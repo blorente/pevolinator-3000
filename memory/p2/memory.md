@@ -22,14 +22,15 @@ Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan
 
         // Crear bloques de todas las permutaciones de un individuo
         for (int i = 0; i < populationSize / numPermutations; i++) {
-            randomPopulation.insertAll(createAllPermutations(base));
+            randomPopulation.insertAll(createPermutations(base, numPermutations));
         }
 
         // Insertar los populationSize % numPermutations individuos restantes
-        Population lastBatch = createAllPermutations(base);
-        for (int i = 0; i + randomPopulation.getSize() < populationSize; i++) {
-            randomPopulation.addIndividual(lastBatch.getPopulation().get(i));
-        }
+        int remainingPermutations = populationSize - randomPopulation.getSize();
+  	    Population lastBatch = createPermutations(base, remainingPermutations);
+  	    for (int i = 0; i  < lastBatch.getSize(); i++) {
+  	    	randomPopulation.addIndividual(lastBatch.getPopulation().get(i));
+  	    }
 
         return randomPopulation;
     }

@@ -14,8 +14,10 @@ public class RoundInsertionMutationAlgorithm extends CombinatoricsMutation {
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {
 		for (int i = 0; i < numPoints; i++) {
-			Integer[] points = getPoints(2, ind.getGenome().getGenes().size());
-			ind.swapGenes(points[0].intValue(), points[1].intValue());
+			int n = ind.getGenome().getGenes().size();
+			int from = (int) Math.ceil(Math.random() * (n - 1));
+			int to = (from + (int) Math.ceil(Math.random() * (n - 1))) % n;
+			ind.swapGenes(from, to);
 		}
 	}
 
