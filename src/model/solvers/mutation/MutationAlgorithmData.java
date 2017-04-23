@@ -1,9 +1,5 @@
 package model.solvers.mutation;
 
-import model.solvers.cross.CrossAlgorithm;
-import model.solvers.cross.CrossAlgorithmData;
-import model.solvers.cross.NPointCrossAlgorithm;
-import model.solvers.cross.PMXCrossAlgorithm;
 import model.solvers.fitness.Fitness;
 
 public class MutationAlgorithmData {
@@ -16,6 +12,7 @@ public class MutationAlgorithmData {
 
     public static final MutationAlgorithmData Granular = new MutationAlgorithmData("Granular");
     public static final MutationAlgorithmData Insertion = new MutationAlgorithmData("Insertion");
+    public static final MutationAlgorithmData RoundInsertion = new MutationAlgorithmData("Round Insertion");
     public static final MutationAlgorithmData Exchange = new MutationAlgorithmData("Exchange");
     public static final MutationAlgorithmData Reversion = new MutationAlgorithmData("Reversion");
     public static final MutationAlgorithmData Heuristic = new MutationAlgorithmData("Heuristic");
@@ -25,7 +22,8 @@ public class MutationAlgorithmData {
     		Insertion,
     		Exchange,
     		Reversion,
-    		Heuristic
+    		Heuristic,
+    		RoundInsertion
     };
     
     public MutationAlgorithm createAlgorithm(int selected, int mutationPoints, Fitness fitnessFunction) {
@@ -39,6 +37,8 @@ public class MutationAlgorithmData {
     		return new ReversionMutationAlgorithm();
     	} else if (selected == 4) {
     		return new HeuristicMutationAlgorithm(mutationPoints, fitnessFunction);
+    	} else if (selected == 5) {
+    		return new RoundInsertionMutationAlgorithm(mutationPoints);
     	}
     	return null;
     }
