@@ -8,6 +8,7 @@ import model.population.Genome;
 import model.population.Individual;
 import model.population.Population;
 import model.population.genes.Gene;
+import model.population.genes.IntegerGene;
 
 public class PMXCrossAlgorithm extends CrossAlgorithm {
 
@@ -39,33 +40,60 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 			SortedSet<Integer> points) {
 		int first = points.first().intValue();
 		int last = points.last().intValue();
-		Genome previousInd = new Genome(ind.getGenome());
-		ind.getGenome().copyFromDiscrete(selected.getGenome(), first, last);
-		selected.getGenome().copyFromDiscrete(previousInd, first, last);
+		int genomeSize = ind.getGenome().getGenes().size();
 		
-		List<Gene> indCrossedSection = ind.getGenome().getGenes(first, last);
-		List<Gene> selectedCrossedSection = selected.getGenome().getGenes(first, last);
+		Genome indOrig = new Genome(ind.getGenome()); //debug
+		Genome selOrig = new Genome(selected.getGenome()); //debug
+				
+		Genome newGenomeSel = getSelectedForCrossing(ind, first, last, genomeSize);
+		Genome newGenomeInd = getSelectedForCrossing(selected, first, last, genomeSize);
 		
-		for (int i = 0; i < first; i++) {
-			discardRepetitions(ind, indCrossedSection,
-					selectedCrossedSection, i);
-			discardRepetitions(selected, selectedCrossedSection,
-					indCrossedSection, i);
+		fill(newGenomeInd, selected.getGenome(), ind.getGenome(), genomeSize);
+		fill(newGenomeSel, ind.getGenome(), selected.getGenome(), genomeSize);
+		
+		Genome indNonConflict = new Genome(newGenomeInd); // DEBUG
+		Genome selNonConflict = new Genome(newGenomeSel); // DEBUG
+		
+		ind.getGenome().copyFromDiscrete(newGenomeInd, 0, genomeSize);
+		if (!ind.isPermutation()) {  //DEBUG
+			System.out.println("Somethong went wring with ind");
+			System.out.println("Ind original: " + indOrig);
+			System.out.println("Sel original: " + selOrig);
+			System.out.println("Points:       (" + first + ", " + last + ")");
+			System.out.println("indNonConflt: " + indNonConflict);
+			System.out.println("selNonConflt: " + selNonConflict);
+			System.out.println("newGenomeInd: " + newGenomeInd);
+			System.out.println("newGenomeSel: " + newGenomeSel);
 		}
 		
-		for (int i = last; i < ind.getGenome().totalSize(); i++) {
-			discardRepetitions(ind, indCrossedSection,
-					selectedCrossedSection, i);
-			discardRepetitions(selected, selectedCrossedSection,
-					indCrossedSection, i);
-		}
+		selected.getGenome().copyFromDiscrete(newGenomeSel, 0, genomeSize);		
+		if (!selected.isPermutation()) { System.out.println("SOmethong went wring with selected"); }
+	}
+	
+	private void fill(Genome newGenome, Genome parent, Genome otherChain, int genomeSize) {
+		for(int i = 0; i < genomeSize; i++) {
+			if (newGenome.getGenes().get(i).intValue() == -1) {
+				Gene toAdd = parent.getGene(i);
+				int index = newGenome.getGenes().indexOf(toAdd);
+				if (index != -1) {
+					toAdd = otherChain.getGene(index);
+				}
+				newGenome.setGene(i, toAdd);
+				System.out.println(newGenome);
+			}
+		}		
 	}
 
-	private void discardRepetitions(Individual ind, List<Gene> indCrossedSection, List<Gene> selectedCrossedSection, int i) {
-		int repeatIndex = indCrossedSection.indexOf(ind.getGenome().getGenes().get(i));
-		if (repeatIndex != -1) {
-			ind.getGenome().setGene(i,selectedCrossedSection.get(repeatIndex));				
+	private Genome getSelectedForCrossing(Individual ind, int first, int last, int genomeSize) {
+		Gene nullGene = new IntegerGene(-1);
+		List<Gene> selectedGenes = new ArrayList<>();
+		for (int i = 0; i < genomeSize; i++) {
+			if (i >= first && i <= last) {
+				selectedGenes.add(ind.getGenome().getGene(i));
+			} else {
+				selectedGenes.add(nullGene);
+			}
 		}
+		return new Genome(selectedGenes);
 	}
-
 }
