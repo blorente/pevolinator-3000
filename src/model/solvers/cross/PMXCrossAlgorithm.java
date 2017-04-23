@@ -39,36 +39,32 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 			SortedSet<Integer> points) {
 		int first = points.first().intValue();
 		int last = points.last().intValue();
-		Genome temp = new Genome(ind.getGenome());	
+		Genome previousInd = new Genome(ind.getGenome());
 		ind.getGenome().copyFromDiscrete(selected.getGenome(), first, last);
-		selected.getGenome().copyFromDiscrete(temp, first, last);
-		
-		List<Gene> indCrossedWhole = ind.getGenome().getGenes();
-		List<Gene> selectedCrossedWhole = selected.getGenome().getGenes();
+		selected.getGenome().copyFromDiscrete(previousInd, first, last);
 		
 		List<Gene> indCrossedSection = ind.getGenome().getGenes(first, last);
 		List<Gene> selectedCrossedSection = selected.getGenome().getGenes(first, last);
 		
 		for (int i = 0; i < first; i++) {
-			discardRepetitions(ind, selected, indCrossedWhole,
-					indCrossedSection, i);
-			discardRepetitions(selected, ind, selectedCrossedWhole,
+			discardRepetitions(ind, indCrossedSection,
 					selectedCrossedSection, i);
+			discardRepetitions(selected, selectedCrossedSection,
+					indCrossedSection, i);
 		}
 		
 		for (int i = last; i < ind.getGenome().totalSize(); i++) {
-			discardRepetitions(ind, selected, indCrossedWhole,
-					indCrossedSection, i);
-			discardRepetitions(selected, ind, selectedCrossedWhole,
+			discardRepetitions(ind, indCrossedSection,
 					selectedCrossedSection, i);
+			discardRepetitions(selected, selectedCrossedSection,
+					indCrossedSection, i);
 		}
 	}
 
-	private void discardRepetitions(Individual ind, Individual selected,
-			List<Gene> indCrossedWhole, List<Gene> indCrossedSection, int i) {
-		int repeatIndex = indCrossedSection.indexOf(indCrossedWhole.get(i));
+	private void discardRepetitions(Individual ind, List<Gene> indCrossedSection, List<Gene> selectedCrossedSection, int i) {
+		int repeatIndex = indCrossedSection.indexOf(ind.getGenome().getGenes().get(i));
 		if (repeatIndex != -1) {
-			ind.getGenome().copyFromDiscrete(selected.getGenome(), repeatIndex, repeatIndex + 1);				
+			ind.getGenome().setGene(i,selectedCrossedSection.get(repeatIndex));				
 		}
 	}
 

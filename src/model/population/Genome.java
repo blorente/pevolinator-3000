@@ -118,4 +118,8 @@ public class Genome {
 			genes.set(targetPositions[i], baseGenes.get(i));
 		}
 	}
+
+	public void setGene(int i, Gene gene) {
+		this.genes.set(i, gene);
+	}
 }
