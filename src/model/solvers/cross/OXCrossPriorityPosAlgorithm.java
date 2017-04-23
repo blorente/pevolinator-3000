@@ -22,7 +22,7 @@ public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 	@Override
 	List<Individual> crossPair(Individual ind, Individual selected) {
 		int genomeSize = ind.getGenome().getGenes().size();
-		int numPoints = (int) (Math.random() * (ind.getGenome().totalSize() - 1));
+		int numPoints = (int) (Math.random() * (ind.getGenome().getGenes().size() - 1) + 1);
 		
 		SortedSet<Integer> points = this.getCrossPoints(genomeSize, numPoints);
 		
