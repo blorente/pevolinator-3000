@@ -7,7 +7,7 @@ import model.population.Population;
 import model.population.PopulationFactory;
 import model.solvers.fitness.Fitness;
 
-public class HeuristicMutationAlgorithm extends MutationAlgorithm {
+public class HeuristicMutationAlgorithm extends CombinatoricsMutation {
 	
 	private int numPoints;
 	private Fitness fitnessMethod;

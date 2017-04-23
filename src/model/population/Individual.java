@@ -3,7 +3,9 @@ package model.population;
 import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
+import model.population.genes.Gene;
 import model.solvers.fitness.Fitness;
 
 public class Individual {
@@ -77,5 +79,13 @@ public class Individual {
 	
 	public void swapGenes(Integer[] basePositions, Integer[] targetPositions) {		
 		genome.swapGenes(basePositions, targetPositions);
+	}
+	
+	public boolean isPermutation() {
+		Set<Integer> values = new TreeSet<>();
+		for (Gene g : getGenome().getGenes()) {
+			values.add(g.intValue());
+		}
+		return values.size() == getGenome().getGenes().size();
 	}
 }

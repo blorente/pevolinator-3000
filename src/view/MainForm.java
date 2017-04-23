@@ -91,6 +91,10 @@ public class MainForm {
 	private JComboBox mutationAlgorithmCB;
 	private JLabel lblNoMutationPoints;
 	private JTextField numberOfMutationPointsTextField;
+	private JPanel resultsPanel;
+	private JLabel fitnessResultsLabel;
+	private JLabel indivResultsLabel;
+	private JPanel resultsLabels;
 
 	/**
 	 * Launch the application.
@@ -254,7 +258,7 @@ public class MainForm {
 
 	private void launchSelectedTab() {
 		if (this.reportPanel.getSelectedComponent() == this.graphReportPanel) {
-			controller.launch(graphReportPanel);
+			controller.launch(graphReportPanel, fitnessResultsLabel, indivResultsLabel);
 		} else {
 	        controller.launch(textReportField);
 		}
@@ -350,8 +354,14 @@ public class MainForm {
 		
 		selectFileButton = new JButton("...");
 		selectFileButton.addActionListener(new ActionListener() {
+			
+			String path = System.getProperty("user.home");
+			
 			public void actionPerformed(ActionEvent e) {
-				String file = selectInputFile();
+				String file = selectInputFile(path);
+				if (file != "Not found") {
+					path = file;
+				}
 				selectedFileTextField.setText(file);
 			}
 		});
@@ -521,8 +531,26 @@ public class MainForm {
 		gbc_launchNewGA.gridy = 4;
 		formPanel.add(launchNewGA, gbc_launchNewGA);
 		
+		resultsPanel = new JPanel();
+		frmXxPevolinator.getContentPane().add(resultsPanel, BorderLayout.CENTER);
+		resultsPanel.setLayout(new BorderLayout(0, 0));
+		
+		resultsLabels = new JPanel();
+		resultsPanel.add(resultsLabels, BorderLayout.SOUTH);
+		resultsLabels.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		fitnessResultsLabel = new JLabel("Best fitness: ");
+		resultsLabels.add(fitnessResultsLabel);
+		fitnessResultsLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		fitnessResultsLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+		
+		indivResultsLabel = new JLabel("Best individual: ");
+		indivResultsLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+		indivResultsLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		resultsLabels.add(indivResultsLabel);
+		
 		reportPanel = new JTabbedPane(JTabbedPane.TOP);
-		frmXxPevolinator.getContentPane().add(reportPanel);
+		resultsPanel.add(reportPanel);
 		
 		graphReportPanel = new Plot2DPanel();
 		reportPanel.addTab("Graph Report", null, graphReportPanel, null);
@@ -539,9 +567,9 @@ public class MainForm {
 		textReportPanel.add(textReportScroll);
 	}
 
-	protected String selectInputFile() {
+	protected String selectInputFile(String startingPath) {
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		fileChooser.setCurrentDirectory(new File(startingPath));
 		int result = fileChooser.showOpenDialog(this.frmXxPevolinator);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = fileChooser.getSelectedFile();
@@ -550,5 +578,4 @@ public class MainForm {
 		}
 		return "Not found";
 	}
-
 }
