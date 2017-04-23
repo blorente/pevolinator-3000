@@ -35,7 +35,7 @@ public class OXCrossPriorityOrderAlgorithm extends CrossAlgorithm {
 	}
 
 	private void performOXPriorityOrderCross(Individual ind, Individual selected, List<Integer> points) {
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		
 		List<Integer> indPositions = getPointExchanged(points, ind.getGenome());
 		List<Integer> selectedPositions = getPointExchanged(points, ind.getGenome());

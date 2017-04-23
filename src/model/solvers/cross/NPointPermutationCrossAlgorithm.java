@@ -20,7 +20,7 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 
 	@Override
 	List<Individual> crossPair(Individual ind, Individual selected) {
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		List<Individual> children = new ArrayList<>();
 		SortedSet<Integer> crossIndices = getCrossPoints(genomeSize, numPoints);
 		

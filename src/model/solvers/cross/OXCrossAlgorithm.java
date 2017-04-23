@@ -37,7 +37,7 @@ public class OXCrossAlgorithm extends CrossAlgorithm {
 	private void performOXCross(Individual ind, Individual selected, SortedSet<Integer> points) {
 		int first = points.first().intValue();
 		int last = points.last().intValue();
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		Gene firstChild[] = copyFromDiscreteInArray(ind.getGenome(), first, last, genomeSize);
 		Gene secondChild[] = copyFromDiscreteInArray(selected.getGenome(), first, last, genomeSize);
 		

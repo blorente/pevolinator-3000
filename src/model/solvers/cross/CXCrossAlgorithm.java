@@ -50,6 +50,8 @@ public class CXCrossAlgorithm extends CrossAlgorithm {
 			while(j < genomeSize && !found){
 				if(firstG.getGene(0).intValue() == nextV){
 					found = true;
+				}else{
+					j++;
 				}
 			}
 			son[j] = firstG.getGene(j);

@@ -17,7 +17,7 @@ public class ERXSpecialCrossAlgorithm extends CrossAlgorithm {
 
 	@Override
 	List<Individual> crossPair(Individual ind, Individual selected) {
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		Random randomfirst = new Random(Integer.MAX_VALUE);
 		Genome firstChild = GenomeFactory.createRandomPermutation(ind.getGenome().totalSize(), ind.getGenome().totalSize(), randomfirst);
 		Random randomsecond = new Random(Integer.MAX_VALUE);

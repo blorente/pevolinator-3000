@@ -24,7 +24,7 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 
 	@Override
 	List<Individual> crossPair(Individual ind, Individual selected) {
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		SortedSet<Integer> points = this.getCrossPoints(genomeSize, NUM_CROSS_POINTS);
 		
 		performPMXCross(ind, selected, points);		
