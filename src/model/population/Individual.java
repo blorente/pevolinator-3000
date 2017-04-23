@@ -13,7 +13,7 @@ public class Individual {
 	private double absoluteFitness;
 	private double shiftedFitness;
 	
-	Individual(Genome genome) {
+	public Individual(Genome genome) {
         this.genome = genome;
         absoluteFitness = 0.0;
         shiftedFitness = 0.0;

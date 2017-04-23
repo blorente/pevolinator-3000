@@ -16,6 +16,7 @@ public class CrossAlgorithmData {
     public static final CrossAlgorithmData CX = new CrossAlgorithmData("CX");
     public static final CrossAlgorithmData ERX = new CrossAlgorithmData("ERX");
     public static final CrossAlgorithmData NPointPermutation = new CrossAlgorithmData("N Point Permutation");
+    public static final CrossAlgorithmData IndexCross = new CrossAlgorithmData("Index Cross");
 
     public static final CrossAlgorithmData[] crossAlgorithms = {
             NPointData,
@@ -25,7 +26,8 @@ public class CrossAlgorithmData {
             OXPrioOrder,
             CX,
             ERX,
-            NPointPermutation
+            NPointPermutation,
+            IndexCross
     };
     
     public CrossAlgorithm createAlgorithm(int selected, int numCrossPoints, double crossRate) {
@@ -45,6 +47,8 @@ public class CrossAlgorithmData {
     		return new ERXCrossAlgorithm(crossRate);
     	} else if (selected == 7) {
     		return new NPointPermutationCrossAlgorithm(numCrossPoints,crossRate);
+    	} else if (selected == 8) {
+    		return new IndexCrossAlgorithm(crossRate);
     	}
     	return null;
     }
