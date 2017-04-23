@@ -32,30 +32,33 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 
 	private void crossIndividuals(Individual ind, Individual selected, SortedSet<Integer> crossIndices) {
 		int genomeSize = ind.getGenome().totalSize();
-		int[] orderedValues = createNuewOrderedValues(genomeSize);
+		int[] orderedValuesFirst = createNewOrderedValues(genomeSize);
+		int[] orderedValuesSecond = createNewOrderedValues(genomeSize);
 		
 		int[] firstPath = createAPath(genomeSize);
 		int[] secondPath = createAPath(genomeSize);
 		
-		int[] firstPositionsArray = getPositions(orderedValues, firstPath);
-		int[] secondPositionsArray = getPositions(orderedValues, secondPath);
+		int[] firstPositionsArray = getPositions(orderedValuesFirst, firstPath);
+		int[] secondPositionsArray = getPositions(orderedValuesSecond, secondPath);
 		
 		int[] firstFinalPositions = crossPositions(firstPositionsArray, secondPositionsArray, crossIndices);
 		int[] secondFinalPositions = crossPositions(secondPositionsArray, firstPositionsArray, crossIndices);
 		
-		int[] firstGenome = createGenome(orderedValues, firstFinalPositions);
-		int[] secondGenome = createGenome(orderedValues, secondFinalPositions);
 		
-		Gene[] firstGenomeGene = intToGeneInArray(firstGenome);
-		Gene[] secondGenomeGene = intToGeneInArray(secondGenome);
+		orderedValuesFirst = createNewOrderedValues(genomeSize);
+		orderedValuesSecond = createNewOrderedValues(genomeSize);
+		int[] firstGenome = createGenome(orderedValuesFirst, firstFinalPositions);
+		int[] secondGenome = createGenome(orderedValuesSecond, secondFinalPositions);
+		
+		Gene[] firstGenomeGene = intToGeneInArray(firstGenome, genomeSize);
+		Gene[] secondGenomeGene = intToGeneInArray(secondGenome, genomeSize);
 		
 		ind.getGenome().copyFromDiscrete(new Genome(arrayToList(firstGenomeGene)), 0, firstGenome.length);
 		selected.getGenome().copyFromDiscrete(new Genome(arrayToList(secondGenomeGene)), 0, secondGenome.length);
 		
 	}
 
-	private Gene[] intToGeneInArray(int[] firstGenome) {
-		int genomeSize = firstGenome.length;
+	private Gene[] intToGeneInArray(int[] firstGenome, int genomeSize) {
 		Gene[] genome = new Gene[genomeSize];
 		
 		for (int i = 0; i < genomeSize; i++){
@@ -71,19 +74,22 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 			
 		for(int i = 0; i < genomeSize; i++){
 			int j = 0;
+			int counter = -1;
 			boolean found = false;
 			while(!found){
-				if(orderedValues[j] == finalPositions[i]){
+				if(orderedValues[j] != -1){
+					counter++;
+				}
+				if(counter == finalPositions[i]){
 					genome[i] = orderedValues[j];
 					orderedValues[j] = -1;
 					found = true;
-				}else if(orderedValues[j] != -1){
-					j++;
 				}
+				j++;
 			}
 		}
 		
-		return null;
+		return genome;
 	}
 
 	private int[] crossPositions(int[] firstPositionsArray, int[] secondPositionsArray, SortedSet<Integer> crossIndices) {
@@ -105,6 +111,19 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 			}
 			previous = index;
 		}
+		if(previous < genomeSize){
+			if(first){
+				for(int i = previous; i < genomeSize; i++){
+					resultPositions[i] = firstPositionsArray[i];
+				}
+				first = false;
+			}else{
+				for(int i = previous; i < genomeSize; i++){
+					resultPositions[i] = secondPositionsArray[i];
+				}
+				first = true;
+			}
+		}
 		
 		
 		
@@ -117,13 +136,16 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 		
 		for(int i = 0; i < genomeSize; i++){
 			int j = 0;
+			int offset = 0;
 			boolean found = false;
 			while(!found){
 				if(path[i] == values[j]){
-					positions[i] = j;
-					i++;
+					positions[i] = j + offset;
 					values[j] = -1; //As -1 is not a valid number
 					found = true;
+				}else if(values[j] == -1){
+					offset--;
+					j++;
 				}
 				else{
 					j++;
@@ -131,7 +153,7 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 			}
 		}
 		
-		return null;
+		return positions;
 	}
 
 	private int[] createAPath(int genomeSize) {
@@ -140,19 +162,20 @@ public class NPointPermutationCrossAlgorithm extends CrossAlgorithm {
 		
 		int i = 0;
 		while(i < genomeSize){
-			int value = (int) (Math.random() * (genomeSize-1) + 1);
+			int value = (int) (Math.floor(Math.random() * genomeSize));
 			if(!usedValues.contains(value)){
 				usedValues.add(value);
+				path[i] = value;
 				i++;
 			}
 		}
 		return path;
 	}
 
-	private int[] createNuewOrderedValues(int genomeSize) {
+	private int[] createNewOrderedValues(int genomeSize) {
 		int[] array = new int[genomeSize];
 		for(int i = 0; i<genomeSize; i++){
-			array[i] = i+1;
+			array[i] = i;
 		}
 		return array;
 	}
