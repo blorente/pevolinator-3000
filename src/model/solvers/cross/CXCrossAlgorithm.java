@@ -1,5 +1,6 @@
 package model.solvers.cross;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.population.Genome;
@@ -21,7 +22,10 @@ public class CXCrossAlgorithm extends CrossAlgorithm {
 	List<Individual> crossPair(Individual ind, Individual selected) {
 		performCXCross(ind, selected);		
 		
-		return null;
+		List<Individual> children = new ArrayList<>();
+		children.add(ind);
+		children.add(selected);	
+		return children;
 	}
 
 	private void performCXCross(Individual ind, Individual selected) {

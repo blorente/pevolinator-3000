@@ -25,7 +25,11 @@ public class ERXSpecialCrossAlgorithm extends CrossAlgorithm {
 		
 		ind.getGenome().copyFromDiscrete(firstChild, 0, genomeSize);
 		selected.getGenome().copyFromDiscrete(secondChild, 0, genomeSize);
-		return null;
+		
+		List<Individual> children = new ArrayList<>();
+		children.add(ind);
+		children.add(selected);	
+		return children;
 	}
 
 	@Override
