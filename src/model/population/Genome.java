@@ -88,7 +88,7 @@ public class Genome {
 	}
 
 	public List<Gene> getGenes(int first, int last) {		
-		return genes.subList(first, last);
+		return new ArrayList<>(genes.subList(first, last));
 	}
 
 	public void shiftInsert(int from, int to) {

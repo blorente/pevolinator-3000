@@ -3,7 +3,7 @@ package model.population.genes;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-public class BinaryArrayGene implements Gene {
+public class BinaryArrayGene extends Gene {
 	
 	private int size;
 	private boolean[] bits;

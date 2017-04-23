@@ -2,7 +2,7 @@ package model.population.genes;
 
 import java.util.Random;
 
-public class IntegerGene implements Gene {
+public class IntegerGene extends Gene {
 	
 	int value;
 	
@@ -68,5 +68,7 @@ public class IntegerGene implements Gene {
         res.append(intValue());
         return res.toString();
     }
+	
+	
 
 }

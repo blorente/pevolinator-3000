@@ -2,18 +2,24 @@ package model.population.genes;
 
 import java.util.Random;
 
-public interface Gene {
-	int size();
-	void mutateSelfGranular(double mutationPercent);
-	void mutateSelfGranular(double mutationPercent, Random seed);
-	void copyFrom(Gene source, int startIndex);
+public abstract class Gene {
+	abstract public int size();
+	abstract public void mutateSelfGranular(double mutationPercent);
+	abstract public void mutateSelfGranular(double mutationPercent, Random seed);
+	abstract public void copyFrom(Gene source, int startIndex);
 	
-	int intValue();
-	double doubleValue();
-	boolean[] binaryValue();
+	abstract public int intValue();
+	abstract public double doubleValue();
+	abstract public boolean[] binaryValue();
 
-	double getXMax();
-	double getXMin();
+	abstract public double getXMax();
+	abstract public double getXMin();
 
-	Gene createCopy(Gene source);
+	abstract public Gene createCopy(Gene source);
+	
+	@Override
+	public boolean equals(Object o){
+		Gene g = (Gene) o;
+		return this.doubleValue() == g.doubleValue();
+	}
 }
