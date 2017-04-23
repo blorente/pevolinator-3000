@@ -22,4 +22,11 @@ public abstract class Gene {
 		Gene g = (Gene) o;
 		return this.doubleValue() == g.doubleValue();
 	}
+	
+	@Override
+	public int hashCode() {		
+		return intValue();
+	}
+	
+	
 }

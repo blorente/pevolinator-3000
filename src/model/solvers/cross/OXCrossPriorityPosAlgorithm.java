@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import model.population.Genome;
 import model.population.Individual;
 import model.population.genes.Gene;
+import model.population.genes.IntegerGene;
 
 public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 
@@ -24,7 +25,7 @@ public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 		int genomeSize = ind.getGenome().getGenes().size();
 		int numPoints = (int) (Math.random() * (ind.getGenome().getGenes().size() - 1) + 1);
 		
-		SortedSet<Integer> points = this.getCrossPoints(genomeSize, numPoints);
+		SortedSet<Integer> points = this.getCrossPoints(genomeSize + 1, numPoints);
 		
 		performOXPriorityPosCross(ind, selected, points);		
 
@@ -35,7 +36,7 @@ public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 	}
 
 	private void performOXPriorityPosCross(Individual ind, Individual selected, SortedSet<Integer> points) {
-		int genomeSize = ind.getGenome().totalSize();
+		int genomeSize = ind.getGenome().getGenes().size();
 		Gene firstChild[] = copyFromDiscreteInArrayPerPoint(ind.getGenome(), points, genomeSize);
 		Gene secondChild[] = copyFromDiscreteInArrayPerPoint(selected.getGenome(), points, genomeSize);
 		
@@ -50,43 +51,32 @@ public class OXCrossPriorityPosAlgorithm extends CrossAlgorithm {
 	}
 
 	protected void fixGenomePerPoint(Gene[] takenValues, List<Gene> crossedSection, Genome genome, int last, int size) {
-		int j = last;
-		int i = last;
-		while(i < size){
-			if(takenValues[i] != null){
-				i++;
+		Gene nullGene = new IntegerGene(-1);
+		int insertionSpot = 0;
+		int extractionSpot = 0;
+ 		while(crossedSection.contains(nullGene)) {
+			while (crossedSection.get(insertionSpot).intValue() != -1) {
+				insertionSpot = (insertionSpot + 1) % size;
 			}
-			else if(!crossedSection.contains(genome.getGene(j))){
-				takenValues[i] = genome.getGene(j);
-				crossedSection.add(genome.getGene(j));
-				i++;
-				if(j < size - 1)
-					j++;
-				else
-					j = 0;
+			Gene toInsert = genome.getGene(extractionSpot);
+			while (crossedSection.contains(toInsert)) {
+				extractionSpot = (extractionSpot + 1) % size;
+				toInsert = genome.getGene(extractionSpot);
 			}
-		}
-		i = 0;
-		while(i < last){
-			if(takenValues[i] != null){
-				i++;
-			}
-			else if(!crossedSection.contains(genome.getGene(j))){
-				takenValues[i] = genome.getGene(j);
-				crossedSection.add(genome.getGene(j));
-				i++;
-				if(j < size - 1)
-					j++;
-				else
-					j = 0;
-			}
+			
+			takenValues[insertionSpot] = toInsert;
+			crossedSection.set(insertionSpot, toInsert);
 		}
 	}
 	
 	protected Gene[] copyFromDiscreteInArrayPerPoint(Genome genome, SortedSet<Integer> points, int genomeSize) {
 		Gene[] genes = new Gene[genomeSize];
-		for(Integer point: points){
-			genes[point] = genome.getGene(point);
+		for (int i = 0; i < genomeSize; i++) {
+			if (points.contains(i)) {
+				genes[i] = genome.getGene(i);
+			} else {				
+				genes[i] = new IntegerGene(-1);
+			}
 		}
 		
 		return genes;

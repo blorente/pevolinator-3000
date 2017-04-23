@@ -30,6 +30,7 @@ public class Solver {
 	}
 	
 	public void run() {
+		System.out.println("Creating population...");
 		Population population = problem.createRandomPopulation(parameters.getSeed());
 		Population elitism = new Population();
 		Comparator<Individual> comp = problem.isMinimization() ? (a, b) -> b.compareTo(a) : (a, b) -> a.compareTo(b);
@@ -38,8 +39,11 @@ public class Solver {
 			population.evaluateMinimize(problem.getFitness());
 			elitism = population.saveElite(parameters.elitismPercent(), comp);
 			reporter.report(generation, population, problem.isMinimization());
+			System.out.println("Selecting...");
 			population = selection.select(population);
+			System.out.println("Crossing...");
 			population = cross.cross(population);
+			System.out.println("Mutating...");
 			population = mutation.mutate(population,parameters.getMutationPercent());
 			if (problem.isMinimization())
 				population.evaluateMinimize(problem.getFitness());
