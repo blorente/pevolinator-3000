@@ -53,7 +53,17 @@ Hemos incluído los operadores requeridos de cruce y mutación, de manera que ah
 
 ### Operadores propios
 
-- Cruce
+- **Cruce por índices:** El cruce por índices consiste en tratar uno de los genes padre como lista de índices del segundo padre. Es decir, para el hijo h1 de los padres p1 y p2, el i-ésimo gen h1[i] viene dado por p2[p1[i]]. Por lo tanto, de los padres [2, 1, 3, 0] y [3, 1, 0, 2] saldrán los hijos [0, 1, 2, 3] y [0, 1, 2, 3]. El pseudicódigo sigue:
+
+  ```java
+  private Genome performIndexCross(Genome indices, Genome contents) {
+      List<Gene> newGenes = new ArrayList<>();
+      for (Gene g : indices.getGenes()) {
+          newGenes.add(contents.getGene(g.intValue()));
+      }
+      return new Genome(newGenes);
+  }
+  ```
 
 - **Mutación por Inserción Circular (Round Insertion):** Este método es muy similar a la Mutación por Inserción común. El único cambio es que, a diferencia de ésta, la Inserción Circular puede sobrepasar los límites del genoma al elegir un segundo punto, en cuyo caso usaría aritmética modular para determinar cual es el segundo índice a intercambiar:
 
