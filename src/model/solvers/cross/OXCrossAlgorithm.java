@@ -65,11 +65,9 @@ public class OXCrossAlgorithm extends CrossAlgorithm {
 	protected void fixGenome(Gene[] takenValues, List<Gene> crossedSection, Genome genome,int first, int last, int size) {
 		int j = last;
 		int i = last;
-		Gene g; //DEBUG
 		while(i < size){
 			if(!crossedSection.contains(genome.getGene(j))){
 				takenValues[i] = genome.getGene(j);
-				g = genome.getGene(j); //DEBUG
 				crossedSection.add(genome.getGene(j));
 				i++;
 			}
@@ -82,7 +80,6 @@ public class OXCrossAlgorithm extends CrossAlgorithm {
 		while(i < first){
 			if(!crossedSection.contains(genome.getGene(j))){
 				takenValues[i] = genome.getGene(j);
-				g = genome.getGene(j); //DEBUG
 				crossedSection.add(genome.getGene(j));
 				i++;
 			}

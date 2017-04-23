@@ -42,7 +42,7 @@ public class CrossAlgorithmData {
     	} else if (selected == 5) {
     		return new CXCrossAlgorithm(crossRate);
     	} else if (selected == 6) {
-    		return new ERXSpecialCrossAlgorithm(crossRate);
+    		return new ERXCrossAlgorithm(crossRate);
     	} else if (selected == 7) {
     		return new NPointPermutationCrossAlgorithm(numCrossPoints,crossRate);
     	}
