@@ -11,7 +11,7 @@ Por conveniencia, hemos incluido una representación de genes basada en enteros,
 
 ### Poblaciones combinatorias
 
-Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan el invariante de las permutaciones. Para mantener el invariante de evitar crear individuos duplicados, hemos intentado crear individuos por bloques, teniendo en cuenta el número máximo de permutaciones que hay en un genoma de tanaño n (pseudocódigo a continuación). Por supuesto, esta función depende de la corrección de `createPermutations`, pero ésta contiene chequeos para comprobar que cada individuo generado es de hecho una permutación.
+Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan el invariante de las permutaciones. Para evitar crear individuos duplicados, hemos intentado crear individuos por bloques, teniendo en cuenta el número máximo de permutaciones que hay en un genoma de tanaño n (pseudocódigo a continuación). Por supuesto, esta función depende de la corrección de `createPermutations`, pero ésta contiene chequeos para comprobar que cada individuo generado es de hecho una permutación. La aleatoriedad de la población viene dada por la aleatoriedad del individuo base, del cual se consiguen permutaciones en orden.
 
   ```java
   public static Population createIntegerCombinatorics(int populationSize, int genomeSize, int seed, int n) {
@@ -53,7 +53,7 @@ Hemos incluído los operadores requeridos de cruce y mutación, de manera que ah
 
 ### Operadores propios
 
-- **Cruce por índices:** El cruce por índices consiste en tratar uno de los genes padre como lista de índices del segundo padre. Es decir, para el hijo h1 de los padres p1 y p2, el i-ésimo gen h1[i] viene dado por p2[p1[i]]. Por lo tanto, de los padres [2, 1, 3, 0] y [3, 1, 0, 2] saldrán los hijos [0, 1, 2, 3] y [0, 1, 2, 3]. El pseudicódigo sigue:
+- **Cruce por Indices:** El cruce por índices consiste en tratar uno de los genes padre como lista de índices del segundo padre. Es decir, para el hijo h1 de los padres p1 y p2, el i-ésimo gen h1[i] viene dado por p2[p1[i]]. Por lo tanto, de los padres [2, 1, 3, 0] y [3, 1, 0, 2] saldrán los hijos [0, 1, 2, 3] y [0, 1, 2, 3]. El pseudicódigo sigue:
 
   ```java
   private Genome performIndexCross(Genome indices, Genome contents) {
@@ -100,26 +100,26 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 
 |Mejor Fitness en Ejecución | Mejor Individuo en Ejecución |
 |:--------|:----------------------------|
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 0 4 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
-| 50 | [3 4 0 1 2 ] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 0 4 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
+| 50 | [3 4 0 1 2] |
 
 | Mejor Fitness | Mejor Absoluto | Peor Fitness | Peor Absoluto | Media | Desv. Estándar | 
 |:-------------:|:--------------:|:------------:|:-------------:|:-----:|:--------------:|
@@ -129,27 +129,27 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 
 |Mejor Fitness en Ejecución | Mejor Individuo en Ejecución |
 |:--------|:----------------------------|
-| 237560.0 | [3 11 9 4 7 5 2 1 8 6 0 10 ] |
-| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1 ] |
-| 252472.0 | [5 9 4 1 6 3 10 8 7 0 11 2 ] |
-| 244332.0 | [3 8 7 2 4 11 9 10 6 1 0 5 ] |
-| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1 ] |
-| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3 ] |
-| 243490.0 | [3 0 7 8 2 4 6 10 9 1 11 5 ] |
-| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3 ] |
-| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3 ] |
-| 245162.0 | [3 9 4 0 5 11 8 6 10 1 2 7 ] |
-| 230704.0 | [3 4 10 2 6 9 11 8 7 5 0 1 ] |
-| 230704.0 | [3 4 10 2 6 9 11 8 7 5 0 1 ] |
-| 242748.0 | [3 1 0 4 11 10 8 5 6 2 9 7 ] |
-| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1 ] |
-| 236006.0 | [3 8 4 1 9 2 5 7 6 0 11 10 ] |
-| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3 ] |
-| 241002.0 | [3 2 9 4 7 5 0 1 8 6 11 10 ] |
-| 247488.0 | [4 1 6 9 5 7 0 11 3 10 8 2 ] |
-| 234788.0 | [3 11 10 2 7 5 8 1 4 6 0 9 ] |
-| 235554.0 | [3 5 10 8 6 2 11 9 7 0 4 1 ] |
-| 240718.0 | [7 0 11 3 2 4 10 6 9 1 8 5 ] |
+| 237560.0 | [3 11 9 4 7 5 2 1 8 6 0 10] |
+| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1] |
+| 252472.0 | [5 9 4 1 6 3 10 8 7 0 11 2] |
+| 244332.0 | [3 8 7 2 4 11 9 10 6 1 0 5] |
+| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1] |
+| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3] |
+| 243490.0 | [3 0 7 8 2 4 6 10 9 1 11 5] |
+| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3] |
+| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3] |
+| 245162.0 | [3 9 4 0 5 11 8 6 10 1 2 7] |
+| 230704.0 | [3 4 10 2 6 9 11 8 7 5 0 1] |
+| 230704.0 | [3 4 10 2 6 9 11 8 7 5 0 1] |
+| 242748.0 | [3 1 0 4 11 10 8 5 6 2 9 7] |
+| 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1] |
+| 236006.0 | [3 8 4 1 9 2 5 7 6 0 11 10] |
+| 224416.0 | [7 0 5 1 10 9 2 4 8 6 11 3] |
+| 241002.0 | [3 2 9 4 7 5 0 1 8 6 11 10] |
+| 247488.0 | [4 1 6 9 5 7 0 11 3 10 8 2] |
+| 234788.0 | [3 11 10 2 7 5 8 1 4 6 0 9] |
+| 235554.0 | [3 5 10 8 6 2 11 9 7 0 4 1] |
+| 240718.0 | [7 0 11 3 2 4 10 6 9 1 8 5] |
 
 | Mejor Fitness | Mejor Absoluto | Peor Fitness | Peor Absoluto | Media | Desv. Estándar | 
 |:-------------:|:--------------:|:------------:|:-------------:|:-----:|:--------------:|
