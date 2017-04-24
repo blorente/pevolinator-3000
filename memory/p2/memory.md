@@ -169,7 +169,7 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 
 #### Resultados para el archivo `datos15.dat`:
 
-| Best fitness | Best individual                      |
+| Mejor Fitness en Ejecución | Mejor Individuo en Ejecución                    |
 | ------------ | ------------------------------------ |
 | 398848       | [1 13 3 9 5 12 6 7 2 0 8 14 4 11 10] |
 | 407266       | [0 5 4 10 7 6 8 11 3 2 12 9 14 13 1] |
@@ -198,7 +198,7 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 
 #### Resultados para el archivo `datos30.dat`:
 
-|Best Fitness | Best Individual                                                                 |
+|Mejor Fitness en Ejecución | Mejor Individuo en Ejecución                                                            |
 |:-------- :|:----------------------------------------------------------------------------------|
 | 1948172.0 | [0 8 19 16 29 15 12 18 24 7 3 6 5 25 14 26 9 28 11 20 27 4 10 1 23 17 2 22 21 13] |
 | 1952676.0 | [28 0 21 18 24 25 29 20 15 27 26 19 9 16 5 1 17 7 3 14 11 2 23 22 6 10 8 4 12 13] |
