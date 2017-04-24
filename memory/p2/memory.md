@@ -27,10 +27,10 @@ Hemos creado nuevas funciones para crear poblaciones combinatorias que mantengan
 
         // Insertar los populationSize % numPermutations individuos restantes
         int remainingPermutations = populationSize - randomPopulation.getSize();
-  	    Population lastBatch = createPermutations(base, remainingPermutations);
-  	    for (int i = 0; i  < lastBatch.getSize(); i++) {
-  	    	randomPopulation.addIndividual(lastBatch.getPopulation().get(i));
-  	    }
+        Population lastBatch = createPermutations(base, remainingPermutations);
+        for (int i = 0; i  < lastBatch.getSize(); i++) {
+          randomPopulation.addIndividual(lastBatch.getPopulation().get(i));
+        }
 
         return randomPopulation;
     }
@@ -68,15 +68,15 @@ Hemos incluído los operadores requeridos de cruce y mutación, de manera que ah
 - **Mutación por Inserción Circular (Round Insertion):** Este método es muy similar a la Mutación por Inserción común. El único cambio es que, a diferencia de ésta, la Inserción Circular puede sobrepasar los límites del genoma al elegir un segundo punto, en cuyo caso usaría aritmética modular para determinar cual es el segundo índice a intercambiar:
 
   ```java
-	//Pseudocódigo
-	void mutateIndividual(Individual ind) {
-		for (int i = 0; i < mutationPoints; i++) {
-			int n = ind.numGenes();
-			int from = randomBetween(0, n-1);
-			int to = (from + randomBetween(0, n-1)) % n;
-			ind.swapGenes(from, to);
-		}
-	}
+  //Pseudocódigo
+  void mutateIndividual(Individual ind) {
+    for (int i = 0; i < mutationPoints; i++) {
+      int n = ind.numGenes();
+      int from = randomBetween(0, n-1);
+      int to = (from + randomBetween(0, n-1)) % n;
+      ind.swapGenes(from, to);
+    }
+  }
   ```
 
 Resultados
@@ -86,7 +86,8 @@ Resultados
 
 Para esta sección hemos utilizado los siguientes parámetros:
 
-|:--------:|:-------:|
+|Parámetro| Valor |
+|--------|-------|
 |Algoritmo de selección| Ruleta|
 |Algoritmo de cruce | ERX |
 |Algoritmo de mutación| Mutación Heurística|
@@ -95,10 +96,10 @@ Para esta sección hemos utilizado los siguientes parámetros:
 
 El resto de parámetros están cogidos de los valores por defecto de la práctica anterior.
 
-- datos12.dat
+- Resultados para el archivo `datos12.dat`:
 
-|Best Fitness | Best Individual |
-|:--------:|:----------------------------:|
+|Mejor Fitness en Ejecución | Mejor Individuo en Ejecución |
+|:--------|:----------------------------|
 | 237560.0 | [3 11 9 4 7 5 2 1 8 6 0 10 ] |
 | 233040.0 | [3 4 10 6 0 7 11 9 8 2 5 1 ] |
 | 252472.0 | [5 9 4 1 6 3 10 8 7 0 11 2 ] |
