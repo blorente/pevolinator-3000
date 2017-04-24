@@ -39,11 +39,8 @@ public class Solver {
 			population.evaluateMinimize(problem.getFitness());
 			elitism = population.saveElite(parameters.elitismPercent(), comp);
 			reporter.report(generation, population, problem.isMinimization());
-			System.out.println("Selecting...");
 			population = selection.select(population);
-			System.out.println("Crossing...");
 			population = cross.cross(population);
-			System.out.println("Mutating...");
 			population = mutation.mutate(population,parameters.getMutationPercent());
 			if (problem.isMinimization())
 				population.evaluateMinimize(problem.getFitness());

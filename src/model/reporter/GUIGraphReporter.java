@@ -51,7 +51,9 @@ public class GUIGraphReporter implements PopulationReporter {
 		plotList("Best on Generation", bestOnGeneration, colorBestGeneration);
 		plotList("Average on Generation", averagesOnGeneration, colorAverages);		
 		fitnessResult.setText("Best fitness: " + absoluteBest.getAbsoluteFitness());
+		System.out.println("Best fitness: " + absoluteBest.getAbsoluteFitness());
 		indivResult.setText("Best individual: " + absoluteBest.getGenome());
+		System.out.println("Best individual: " + absoluteBest.getGenome());
 	}
 
 	@Override
