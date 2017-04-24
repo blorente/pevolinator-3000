@@ -1,7 +1,9 @@
 package model.solvers.cross;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 import model.population.Genome;
@@ -48,8 +50,8 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		Genome newGenomeSel = getSelectedForCrossing(ind, first, last, genomeSize);
 		Genome newGenomeInd = getSelectedForCrossing(selected, first, last, genomeSize);
 		
-		fill(newGenomeInd, selected.getGenome(), ind.getGenome(), genomeSize);
-		fill(newGenomeSel, ind.getGenome(), selected.getGenome(), genomeSize);
+		fill(newGenomeInd, ind.getGenome(), newGenomeSel, genomeSize);
+		fill(newGenomeSel, selected.getGenome(), newGenomeInd, genomeSize);
 		
 		Genome indNonConflict = new Genome(newGenomeInd); // DEBUG
 		Genome selNonConflict = new Genome(newGenomeSel); // DEBUG
@@ -69,19 +71,28 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		selected.getGenome().copyFromDiscrete(newGenomeSel, 0, genomeSize);		
 		if (!selected.isPermutation()) { System.out.println("SOmethong went wring with selected"); }
 	}
-	
+
 	private void fill(Genome newGenome, Genome parent, Genome otherChain, int genomeSize) {
 		for(int i = 0; i < genomeSize; i++) {
 			if (newGenome.getGenes().get(i).intValue() == -1) {
 				Gene toAdd = parent.getGene(i);
 				int index = newGenome.getGenes().indexOf(toAdd);
 				if (index != -1) {
-					toAdd = otherChain.getGene(index);
+					toAdd = getCorrectGene(index, newGenome, otherChain);
 				}
 				newGenome.setGene(i, toAdd);
-				System.out.println(newGenome);
 			}
 		}		
+	}
+
+	private Gene getCorrectGene(int index, Genome newGenome, Genome otherChain) {
+		Gene toAdd = otherChain.getGene(index);
+		int otherIndex = newGenome.getGenes().indexOf(toAdd);
+		while (otherIndex != -1) {
+			toAdd = otherChain.getGene(otherIndex);
+			otherIndex = newGenome.getGenes().indexOf(toAdd);			
+		}
+		return toAdd;
 	}
 
 	private Genome getSelectedForCrossing(Individual ind, int first, int last, int genomeSize) {
