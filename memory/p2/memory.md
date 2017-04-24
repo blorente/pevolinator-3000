@@ -86,7 +86,7 @@ Resultados
 
 #### Resultados para el archivo `datos12.dat`:
 
-![Data 12](./graphics/data12.png)
+(Ver figura 1)
 
 |Varaiable | Valor |
 |:------|:----|
@@ -95,18 +95,18 @@ Resultados
 
 #### Resultados para el archivo `datos15.dat`:
 
-![Data 15](./graphics/data15.png)
+(Ver figura 2)
 
-|Varaiable | Valor |
+|Variable | Valor |
 |:------|:----|
 |Cruces| 8882 |
 |Mutaciones| 30000|
 
 #### Resultados para el archivo `datos30.dat`:
 
-![Data 30](./graphics/data30.png)
+(Ver figura 3)
 
-|Varaiable | Valor |
+|Variable | Valor |
 |:------|:----|
 |Cruces| 8924 |
 |Mutaciones| 30000|
@@ -243,3 +243,9 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 | Mejor Fitness | Mejor Absoluto | Peor Fitness | Peor Absoluto | Media | Desv. Estándar | 
 |:-------------:|:--------------:|:------------:|:-------------:|:-----:|:--------------:|
 |2064132.0       |[28 10 27 6 26 22 21 19 25 17 3 18 24 13 4 29 12 8 14 20 23 9 7 0 11 16 5 2 15 1]|1910348.0|[21 22 13 1 11 29 6 15 19 26 23 17 25 18 3 4 28 0 20 5 16 14 12 24 9 8 2 7 10 27]|1966661,2|49793,45429|
+
+![Figura 1](./graphics/data12.png)   
+
+![Figura 2](./graphics/data15.png)   
+
+![Figura 3](./graphics/data30.png)   
