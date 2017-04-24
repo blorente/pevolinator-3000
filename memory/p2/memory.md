@@ -84,6 +84,17 @@ Resultados
 
 ### Resultados significativos tras 20 ejecuciones:
 
+Para esta sección hemos utilizado los siguientes parámetros:
+
+|:--------:|:-------:|
+|Algoritmo de selección| Ruleta|
+|Algoritmo de cruce | ERX |
+|Algoritmo de mutación| Mutación Heurística|
+|Tam. población| 100 |
+|Num. generaciones | 300|
+
+El resto de parámetros están cogidos de los valores por defecto de la práctica anterior.
+
 - datos12.dat
 
 |Best Fitness | Best Individual |
