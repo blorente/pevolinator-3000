@@ -82,6 +82,17 @@ Hemos incluído los operadores requeridos de cruce y mutación, de manera que ah
 Resultados
 ------------
 
+### Ejecuciones Significativas
+
+`data12.dat`:
+
+![Data 12](./graphics/data12.png)
+
+|Varaiable | Valor |
+|:------|:----|
+|Cruces| 8905 |
+|Mutaciones| 30000|
+
 ### Resultados significativos tras 20 ejecuciones:
 
 Para esta sección hemos utilizado los siguientes parámetros:
