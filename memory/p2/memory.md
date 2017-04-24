@@ -212,8 +212,8 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 
 #### Resultados para el archivo `datos30.dat`:
 
-|Mejor Fitness en Ejecución | Mejor Individuo en Ejecución                                                            |
-|:-------- :|:----------------------------------------------------------------------------------|
+| Mejor Fitness en Ejecución | Mejor Individuo en Ejecución        |
+|:-------- |:----------------------------------------------------------------------------------|
 | 1948172.0 | [0 8 19 16 29 15 12 18 24 7 3 6 5 25 14 26 9 28 11 20 27 4 10 1 23 17 2 22 21 13] |
 | 1952676.0 | [28 0 21 18 24 25 29 20 15 27 26 19 9 16 5 1 17 7 3 14 11 2 23 22 6 10 8 4 12 13] |
 | 1949684.0 | [20 14 1 10 21 29 13 24 26 17 11 15 22 4 25 2 18 7 9 8 3 16 23 12 28 19 0 5 6 27] |
