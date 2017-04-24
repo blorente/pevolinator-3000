@@ -84,7 +84,7 @@ Resultados
 
 ### Ejecuciones Significativas
 
-`data12.dat`:
+#### Resultados para el archivo `datos12.dat`:
 
 ![Data 12](./graphics/data12.png)
 
@@ -93,12 +93,16 @@ Resultados
 |Cruces| 8905 |
 |Mutaciones| 30000|
 
+#### Resultados para el archivo `datos15.dat`:
+
 ![Data 15](./graphics/data15.png)
 
 |Varaiable | Valor |
 |:------|:----|
 |Cruces| 8882 |
 |Mutaciones| 30000|
+
+#### Resultados para el archivo `datos30.dat`:
 
 ![Data 30](./graphics/data30.png)
 
