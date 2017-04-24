@@ -46,7 +46,7 @@ Hemos incluído los operadores requeridos de cruce y mutación, de manera que ah
 | OX        | Intercambio       |
 | OX Priority Position       | Inversión       |
 | OX Priority Order       | Heurística       |
-| CX       |    -    |
+| CX       | Inversión Especial    |
 | ERX       |    -    |
 | N Point Permutation       |     -    |
 
@@ -96,7 +96,7 @@ Para esta sección hemos utilizado los siguientes parámetros:
 
 El resto de parámetros están cogidos de los valores por defecto de la práctica anterior.
 
-- Resultados para el archivo `datos12.dat`:
+#### Resultados para el archivo `datos12.dat`:
 
 |Mejor Fitness en Ejecución | Mejor Individuo en Ejecución |
 |:--------|:----------------------------|
@@ -125,7 +125,7 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 |:-------------:|:--------------:|:------------:|:-------------:|:-----:|:--------------:|
 |50       |[3 4 0 1 2 ]|50|[3 4 0 1 2 ]|50|0|
 
-- Resultados para el archivo `datos12.dat`:
+#### Resultados para el archivo `datos12.dat`:
 
 |Mejor Fitness en Ejecución | Mejor Individuo en Ejecución |
 |:--------|:----------------------------|
@@ -156,7 +156,7 @@ El resto de parámetros están cogidos de los valores por defecto de la práctic
 |224416.0       |[7 0 5 1 10 9 2 4 8 6 11 3 ]|252472.0|[5 9 4 1 6 3 10 8 7 0 11 2 ]|236167,2381|8149,328009|
 
 
-- Resultados para el archivo `datos15.dat`:
+#### Resultados para el archivo `datos15.dat`:
 
 | Best fitness | Best individual                      |
 | ------------ | ------------------------------------ |
