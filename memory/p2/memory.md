@@ -93,6 +93,20 @@ Resultados
 |Cruces| 8905 |
 |Mutaciones| 30000|
 
+![Data 15](./graphics/data15.png)
+
+|Varaiable | Valor |
+|:------|:----|
+|Cruces| 8882 |
+|Mutaciones| 30000|
+
+![Data 30](./graphics/data30.png)
+
+|Varaiable | Valor |
+|:------|:----|
+|Cruces| 8924 |
+|Mutaciones| 30000|
+
 ### Resultados significativos tras 20 ejecuciones:
 
 Para esta sección hemos utilizado los siguientes parámetros:
