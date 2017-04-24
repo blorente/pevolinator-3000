@@ -2,7 +2,7 @@ package model.reporter;
 
 import model.population.Population;
 
-public class ConsoleReporter implements PopulationReporter {
+public class ConsoleReporter extends PopulationReporter {
     @Override
     public void report(int iteration, Population population, boolean isMinimization) {
         System.out.println("Reporting population " + iteration);

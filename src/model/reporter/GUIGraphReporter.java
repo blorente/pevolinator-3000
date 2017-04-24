@@ -16,7 +16,7 @@ import org.math.plot.plotObjects.BaseLabel;
 import model.population.Individual;
 import model.population.Population;
 
-public class GUIGraphReporter implements PopulationReporter {
+public class GUIGraphReporter extends PopulationReporter {
 	
 	private Plot2DPanel target;
 	private JLabel fitnessResult;
@@ -54,6 +54,8 @@ public class GUIGraphReporter implements PopulationReporter {
 		System.out.println("Best fitness: " + absoluteBest.getAbsoluteFitness());
 		indivResult.setText("Best individual: " + absoluteBest.getGenome());
 		System.out.println("Best individual: " + absoluteBest.getGenome());
+		System.out.println("Number of crosses: " + crosses);
+		System.out.println("Number of mutations: " + mutations);
 	}
 
 	@Override

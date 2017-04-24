@@ -5,7 +5,7 @@ import model.population.Population;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
-public class GUITextReporter implements PopulationReporter  {
+public class GUITextReporter extends PopulationReporter  {
 
     private JTextComponent target;
     private StringBuilder out;

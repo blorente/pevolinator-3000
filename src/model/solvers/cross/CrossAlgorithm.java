@@ -9,6 +9,7 @@ import model.population.Genome;
 import model.population.Individual;
 import model.population.Population;
 import model.population.genes.Gene;
+import model.reporter.PopulationReporter;
 
 
 public abstract class CrossAlgorithm {
@@ -22,7 +23,7 @@ public abstract class CrossAlgorithm {
 	abstract List<Individual> crossPair(Individual ind, Individual selected);
 	abstract boolean isValid(Individual ind);
 	
-	public Population cross(Population population) {		
+	public Population cross(Population population, PopulationReporter reporter) {		
 		Population crossed = new Population();
 		List<Individual> pop = population.getPopulation();
 		Individual selected = null;
@@ -37,6 +38,7 @@ public abstract class CrossAlgorithm {
 							throw new RuntimeException("Yo dawg! You crossed an invalid individual!");
 						}
 					}
+					reporter.reportCross();
 					readyToPair = false;
 					selected = null;
 				} else {

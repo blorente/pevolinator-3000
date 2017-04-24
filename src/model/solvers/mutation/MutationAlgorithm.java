@@ -6,15 +6,17 @@ import java.util.TreeSet;
 
 import model.population.Individual;
 import model.population.Population;
+import model.reporter.PopulationReporter;
 
 public abstract class MutationAlgorithm {
 
-	public Population mutate(Population population, double mutationPercent) {
+	public Population mutate(Population population, double mutationPercent, PopulationReporter reporter) {
 		for (Individual ind : population.getPopulation()) {				
 			mutateIndividual(ind, mutationPercent);
 			if(!isValid(ind)) {
 				throw new RuntimeException("Yo dawg! You mutated an invalid individual!");
 			}
+			reporter.reportMutation();
 		}
 		return population;
 	}
