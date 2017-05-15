@@ -75,4 +75,22 @@ public abstract class Node {
 	public String toString() {
 		return "(" + op + " " + children + ")";
 	}
+	
+	public static Node createNode(Random rand, int maxA) {
+		int totalOps = 0;
+		int totalTerms = 0;
+		
+		for(int i = 0; i < allOperations.length; i++){
+			totalOps += allOperations[i].length;
+		}
+		
+		totalTerms = maxA + (int) Math.pow(2, maxA);
+		
+		int category = rand.nextInt(totalTerms+totalOps);
+		if (category < totalTerms) {
+			return Node.createTerminal(rand, maxA);
+		} else {
+			return Node.createOp(rand);
+		}
+	}
 }

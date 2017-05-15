@@ -108,7 +108,6 @@ public class PopulationFactory {
 			population.addIndividualNoCopy(newInd); 
 		}
 		return population;
-		
 	}
 	
 	public static Node createProgramIndividualComplete(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
@@ -117,6 +116,32 @@ public class PopulationFactory {
 			currNode = Node.createOp(rand);
 			for(int i = 0; i < currNode.arity(); i++){
 				Node child = createProgramIndividualComplete(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
+				child.parent = currNode;
+				currNode.children.add(child);
+			}
+		}else{
+			currNode = Node.createTerminal(rand,maxA);
+		}
+		
+		return currNode;
+	}
+	
+	public static Population createProgramIncremental(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
+		Random rand = new Random();
+		Population population = new Population();
+		for(int i = 0; i < populationSize; i++){
+			Individual newInd = new TreeIndividual(createProgramIndividualIncremental(ifsAllowed, maxDepth,0,rand,maxA));
+			population.addIndividualNoCopy(newInd); 
+		}
+		return population;
+	}
+	
+	public static Node createProgramIndividualIncremental(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
+		Node currNode;
+		if(actualDepth < maxDepth){
+			currNode = Node.createNode(rand, maxA);
+			for(int i = 0; i < currNode.arity(); i++){
+				Node child = createProgramIndividualIncremental(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
 				child.parent = currNode;
 				currNode.children.add(child);
 			}
