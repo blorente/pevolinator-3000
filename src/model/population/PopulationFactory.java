@@ -9,6 +9,8 @@ import java.util.TreeSet;
 import org.math.plot.utils.Array;
 
 import controller.PairTuple;
+import model.population.tree.Node;
+import model.population.tree.TreeIndividual;
 
 public class PopulationFactory {
 
@@ -96,5 +98,32 @@ public class PopulationFactory {
 	        exchangePoints[index] = exchangePoints[i];
 	        exchangePoints[i] = t;
 	    }
+	}
+	
+	public static Population createProgramComplete(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
+		Random rand = new Random();
+		Population population = new Population();
+		for(int i = 0; i < populationSize; i++){
+			Individual newInd = new TreeIndividual(createProgramIndividualComplete(ifsAllowed, maxDepth,0,rand,maxA));
+			population.addIndividualNoCopy(newInd); 
+		}
+		return population;
+		
+	}
+	
+	public static Node createProgramIndividualComplete(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
+		Node currNode;
+		if(actualDepth < maxDepth){
+			currNode = Node.createOp(rand);
+			for(int i = 0; i < currNode.arity(); i++){
+				Node child = createProgramIndividualComplete(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
+				child.parent = currNode;
+				currNode.children.add(child);
+			}
+		}else{
+			currNode = Node.createTerminal(rand,maxA);
+		}
+		
+		return currNode;
 	}
 }

@@ -59,6 +59,10 @@ public class Population {
 		Individual indToAdd = new Individual(new Genome(indiv.getGenome()));
 		individuals.add(indToAdd);
 	}
+	
+	public void addIndividualNoCopy(Individual indiv) {
+		individuals.add(indiv);
+	}
 
     @Override
     public String toString() {

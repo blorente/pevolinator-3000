@@ -25,6 +25,10 @@ public class Individual {
         this.shiftedFitness = other.shiftedFitness;
     }
 
+	public Individual() {
+		
+	}
+
 	public void evaluate(Fitness fitnessMethod) {
 		this.absoluteFitness = fitnessMethod.calculate(genome);
 	}
