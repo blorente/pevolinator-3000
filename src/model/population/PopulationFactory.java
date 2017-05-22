@@ -10,7 +10,7 @@ import org.math.plot.utils.Array;
 
 import controller.PairTuple;
 import model.population.tree.Node;
-import model.population.tree.TreeIndividual;
+import model.population.tree.TreeGenome;
 
 public class PopulationFactory {
 
@@ -104,7 +104,7 @@ public class PopulationFactory {
 		Random rand = new Random();
 		Population population = new Population();
 		for(int i = 0; i < populationSize; i++){
-			Individual newInd = new TreeIndividual(createProgramIndividualComplete(ifsAllowed, maxDepth,0,rand,maxA));
+			Individual newInd = new Individual(new TreeGenome(createProgramIndividualComplete(ifsAllowed, maxDepth,0,rand,maxA)));
 			population.addIndividualNoCopy(newInd); 
 		}
 		return population;
@@ -130,7 +130,7 @@ public class PopulationFactory {
 		Random rand = new Random();
 		Population population = new Population();
 		for(int i = 0; i < populationSize; i++){
-			Individual newInd = new TreeIndividual(createProgramIndividualIncremental(ifsAllowed, maxDepth,0,rand,maxA));
+			Individual newInd = new Individual(new TreeGenome(createProgramIndividualIncremental(ifsAllowed, maxDepth,0,rand,maxA)));
 			population.addIndividualNoCopy(newInd); 
 		}
 		return population;
