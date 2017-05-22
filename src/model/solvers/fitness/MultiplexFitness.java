@@ -3,6 +3,7 @@ package model.solvers.fitness;
 import java.util.Arrays;
 
 import model.population.Genome;
+import model.population.tree.TreeEvaluator;
 import model.population.tree.TreeGenome;
 
 public class MultiplexFitness extends Fitness {
@@ -10,9 +11,11 @@ public class MultiplexFitness extends Fitness {
 	boolean[][] testCases;
 	// D0 D1 D2 D3 A0 A1
 	boolean[] results;
+	int numA;
 	
 	public MultiplexFitness(int numA) {
 		super();
+		this.numA = numA;
 		calculateInputTable(numA);
 	}
 	
@@ -60,6 +63,16 @@ public class MultiplexFitness extends Fitness {
 	@Override
 	public double calculate(Genome genome) {
 		TreeGenome tree = (TreeGenome) genome;
+		int wrong = 0;
+		for (int testCase = 0; testCase < testCases[0].length; testCase++) {
+			boolean testResult = TreeEvaluator.evalTree(tree.root, testCases[testCase], pow(2, numA));
+			if (testResult != results[testCase]) {
+				wrong++;
+			}
+		}
+		
+		// TODO: Bloating and such
+		
 		return 0;
 	}
 	
