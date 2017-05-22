@@ -9,7 +9,12 @@ import model.population.tree.TreeGenome;
 public class MultiplexFitness extends Fitness {
 	
 	boolean[][] testCases;
-	// D0 D1 D2 D3 A0 A1
+	// D0
+	// D1 
+	// D2 
+	// D3 
+	// A0 
+	// A1
 	boolean[] results;
 	int numA;
 	
@@ -20,32 +25,32 @@ public class MultiplexFitness extends Fitness {
 	}
 	
 	private void calculateInputTable(int numA) {
-		int dimX = numA + pow(2, numA);
-		int dimY = pow(2, numA + pow(2, numA));
-		testCases = new boolean[dimX][dimY];
+		int variables = numA + pow(2, numA);
+		int casos = pow(2, numA + pow(2, numA));
+		testCases = new boolean[casos][variables];
 		
 		int segment = 1;
-		int line = segment;
-		for (int i = 0; i < dimX; i++) {
-			line = segment;
-			while (line < dimY) {	
+		int caso = segment;
+		for (int variable = 0; variable < variables; variable++) {
+			caso = segment;
+			while (caso < casos) {	
 				for (int ndx = 0; ndx < segment; ndx++) {
-					testCases[i][line + ndx] = true;
+					testCases[caso + ndx][variable] = true;
 				}
-				line += 2 * segment;				
+				caso += 2 * segment;				
 			}
 			// Change column
 			segment *= 2;
 		}
 		
-		results = new boolean[dimY];
+		results = new boolean[casos];
 		int aStart = pow(2, numA);
-		for (int row = 0; row < dimY; row++) {
+		for (int res = 0; res < casos; res++) {
 			boolean[] selectedIndices = new boolean[numA];			
 			for (int a = 0; a < numA; a++) {
-				selectedIndices[a] = testCases[aStart + a][row];
+				selectedIndices[a] = testCases[res][aStart + a];
 			}
-			results[row] = testCases[toDecimal(selectedIndices)][row];
+			results[res] = testCases[res][toDecimal(selectedIndices)];
 		}
 
 		System.out.println("Test Cases: " + Arrays.deepToString(testCases));
@@ -64,7 +69,7 @@ public class MultiplexFitness extends Fitness {
 	public double calculate(Genome genome) {
 		TreeGenome tree = (TreeGenome) genome;
 		int wrong = 0;
-		for (int testCase = 0; testCase < testCases[0].length; testCase++) {
+		for (int testCase = 0; testCase < testCases.length; testCase++) {
 			boolean testResult = TreeEvaluator.evalTree(tree.root, testCases[testCase], pow(2, numA));
 			if (testResult != results[testCase]) {
 				wrong++;
@@ -73,7 +78,7 @@ public class MultiplexFitness extends Fitness {
 		
 		// TODO: Bloating and such
 		
-		return 0;
+		return wrong;
 	}
 	
 	@Override
