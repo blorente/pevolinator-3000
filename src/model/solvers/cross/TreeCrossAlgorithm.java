@@ -24,8 +24,8 @@ public class TreeCrossAlgorithm extends CrossAlgorithm {
 		System.out.println(one);
 		System.out.println(other);
 		
-		PairTuple<List<Node>, List<Node>> oneNodes = listNodes(one);
-		PairTuple<List<Node>, List<Node>> otherNodes = listNodes(other);
+		PairTuple<List<Node>, List<Node>> oneNodes = one.listNodes();
+		PairTuple<List<Node>, List<Node>> otherNodes = other.listNodes();
 		
 		Node oneNode = selectNode(oneNodes);
 		Node otherNode = selectNode(otherNodes);
@@ -60,28 +60,6 @@ public class TreeCrossAlgorithm extends CrossAlgorithm {
 			ret = nodes.left.get(rand.nextInt(nodes.left.size()));
 		}
 		return ret;
-	}
-
-	private PairTuple<List<Node>, List<Node>> listNodes(TreeGenome rootGenome) {
-		List<Node> operations = new ArrayList<>();
-		List<Node> terminals = new ArrayList<>();
-		for (Node child : rootGenome.root.children) {
-			listNodesRec(child, operations, terminals);
-		}
-		return new PairTuple<>(operations, terminals);
-	}
-
-	private void listNodesRec(Node root, List<Node> operations,
-			List<Node> terminals) {
-		if (root.arity() == 0) {
-			terminals.add(root);
-		} else {
-			operations.add(root);
-		}
-		
-		for (Node child : root.children) {
-			listNodesRec(child, operations, terminals);
-		}
 	}
 
 	@Override
