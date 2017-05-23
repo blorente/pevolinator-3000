@@ -17,6 +17,8 @@ public class MutationAlgorithmData {
     public static final MutationAlgorithmData Heuristic = new MutationAlgorithmData("Heuristic");
     public static final MutationAlgorithmData RoundInsertion = new MutationAlgorithmData("Round Insertion");
     public static final MutationAlgorithmData SpecialReversion = new MutationAlgorithmData("Special Reversion");
+    public static final MutationAlgorithmData TreeTerminal = new MutationAlgorithmData("Tree Terminal");
+    public static final MutationAlgorithmData TreeOperation = new MutationAlgorithmData("Tree Operation");
 
     public static final MutationAlgorithmData[] mutationAlgorithms = {
     		Granular,
@@ -25,7 +27,9 @@ public class MutationAlgorithmData {
     		Reversion,
     		Heuristic,
     		RoundInsertion,
-    		SpecialReversion
+    		SpecialReversion,
+    		TreeTerminal,
+    		TreeOperation
     };
     
     public MutationAlgorithm createAlgorithm(int selected, int mutationPoints, Fitness fitnessFunction) {
@@ -43,6 +47,10 @@ public class MutationAlgorithmData {
     		return new RoundInsertionMutationAlgorithm(mutationPoints);
     	} else if (selected == 6) {
     		return new SpecialReversionMutationAlgorithm(fitnessFunction);
+    	} else if (selected == 7) {
+    		return new TreeTerminalMutationAlgorithm();
+    	} else if (selected == 8) {
+    		return new TreeOperationMutationAlgorithm();
     	}
     	return null;
     }
