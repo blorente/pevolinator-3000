@@ -56,7 +56,7 @@ public class Population {
 	}
 	
 	public void addIndividual(Individual indiv){
-		Individual indToAdd = new Individual(new Genome(indiv.getGenome()));
+		Individual indToAdd = new Individual(indiv.getGenome().returnCopy());
 		individuals.add(indToAdd);
 	}
 	

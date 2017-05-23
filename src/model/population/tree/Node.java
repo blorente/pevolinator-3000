@@ -93,4 +93,9 @@ public abstract class Node {
 			return Node.createOp(rand);
 		}
 	}
+	
+	public void changeChild(Node oneNode, Node otherNode) {
+		int childIndex = children.indexOf(oneNode);
+		children.set(childIndex, otherNode);
+	}
 }

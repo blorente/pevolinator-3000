@@ -35,7 +35,7 @@ public class NPointCrossAlgorithm extends CrossAlgorithm {
 	private void crossIndividuals(Individual ind, Individual selected,
 			SortedSet<Integer> crossIndices) {
 		for (Integer point : crossIndices) {
-			Genome temp = new Genome(ind.getGenome());			
+			Genome temp = ind.getGenome().returnCopy();			
 			ind.getGenome().copyFrom(selected.getGenome(), point.intValue());
 			selected.getGenome().copyFrom(temp, point.intValue());
 		}

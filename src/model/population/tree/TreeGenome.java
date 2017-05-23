@@ -15,4 +15,11 @@ public class TreeGenome extends Genome {
 	public String toString() {
 		return "TreeGenome: " + root;
 	}
+
+	@Override
+	public Genome returnCopy() {
+		return this;
+	}
+	
+	
 }

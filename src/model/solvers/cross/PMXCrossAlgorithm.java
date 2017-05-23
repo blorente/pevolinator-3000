@@ -44,8 +44,6 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		int last = points.last().intValue();
 		int genomeSize = ind.getGenome().getGenes().size();
 		
-		Genome indOrig = new Genome(ind.getGenome()); //debug
-		Genome selOrig = new Genome(selected.getGenome()); //debug
 				
 		Genome newGenomeSel = getSelectedForCrossing(ind, first, last, genomeSize);
 		Genome newGenomeInd = getSelectedForCrossing(selected, first, last, genomeSize);
@@ -53,20 +51,7 @@ public class PMXCrossAlgorithm extends CrossAlgorithm {
 		fill(newGenomeInd, ind.getGenome(), newGenomeSel, genomeSize);
 		fill(newGenomeSel, selected.getGenome(), newGenomeInd, genomeSize);
 		
-		Genome indNonConflict = new Genome(newGenomeInd); // DEBUG
-		Genome selNonConflict = new Genome(newGenomeSel); // DEBUG
-		
 		ind.getGenome().copyFromDiscrete(newGenomeInd, 0, genomeSize);
-		if (!ind.isPermutation()) {  //DEBUG
-			System.out.println("Somethong went wring with ind");
-			System.out.println("Ind original: " + indOrig);
-			System.out.println("Sel original: " + selOrig);
-			System.out.println("Points:       (" + first + ", " + last + ")");
-			System.out.println("indNonConflt: " + indNonConflict);
-			System.out.println("selNonConflt: " + selNonConflict);
-			System.out.println("newGenomeInd: " + newGenomeInd);
-			System.out.println("newGenomeSel: " + newGenomeSel);
-		}
 		
 		selected.getGenome().copyFromDiscrete(newGenomeSel, 0, genomeSize);		
 		if (!selected.isPermutation()) { System.out.println("SOmethong went wring with selected"); }

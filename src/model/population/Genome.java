@@ -122,4 +122,12 @@ public class Genome {
 	public void setGene(int i, Gene gene) {
 		this.genes.set(i, gene);
 	}
+	
+	public Genome returnCopy(){
+		List<Gene> genes = new ArrayList<>(this.genes.size());
+	    for (Gene gene : this.genes) {
+	        genes.add(gene.createCopy(gene));
+        }
+	    return new Genome(genes);
+	}
 }
