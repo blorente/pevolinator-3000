@@ -27,6 +27,7 @@ public class FitnessFunctionData {
 	public static final FitnessFunctionData FourthFunctionData = new FitnessFunctionData("Fourth Function", -1, 0, Fitness.PI());
 	public static final FitnessFunctionData FifthFunctionData = new FitnessFunctionData("Fifth Function", 2, -10.0, 10.0, -10.0, 10.0);
 	public static final FitnessFunctionData HospitalFunctionData = new FitnessFunctionData("Hospital Problem", -2);
+	public static final FitnessFunctionData MultiplexerFunctionData = new FitnessFunctionData("Multiplexer Function", -3);
 	
 	public static final FitnessFunctionData[] fitnessFunctions = {
 		FirstFunctionData,
@@ -34,7 +35,8 @@ public class FitnessFunctionData {
 		ThirdFunctionData,
 		FourthFunctionData,
 		FifthFunctionData,
-		HospitalFunctionData
+		HospitalFunctionData,
+		MultiplexerFunctionData
 	};
 	
 	@Override
@@ -42,7 +44,7 @@ public class FitnessFunctionData {
 		return name;
 	}
 
-	public Fitness createAlgorithm(int funIndex, PairTuple<int[][], int[][]> combinatoricsProblemData) {
+	public Fitness createAlgorithm(int funIndex, PairTuple<int[][], int[][]> combinatoricsProblemData, int numA) {
 		if (funIndex == 0) {
             return new FirstFunctionFitness();
         } else if (funIndex == 1) {
@@ -55,9 +57,10 @@ public class FitnessFunctionData {
             return new FifthFunctionFitness();
         } else if (funIndex == 5) {  
         	return new HospitalFitness(combinatoricsProblemData);
+        } else if (funIndex == 6) {  
+        	return new MultiplexFitness(numA);
         }
 		return new FirstFunctionFitness();
-	}
-	
+	}	
 	
 }

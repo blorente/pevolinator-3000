@@ -95,6 +95,9 @@ public class MainForm {
 	private JLabel fitnessResultsLabel;
 	private JLabel indivResultsLabel;
 	private JPanel resultsLabels;
+	private JPanel muxAPanel;
+	private JLabel lblNewLabel_3;
+	private JTextField muxNumATextField;
 
 	/**
 	 * Launch the application.
@@ -145,6 +148,9 @@ public class MainForm {
         
         HintedInputListener nTextFieldListener = new HintedInputListener(nTextField);
         nTextField.addFocusListener(nTextFieldListener);
+        
+        HintedInputListener muxNumATextFieldListener = new HintedInputListener(muxNumATextField);
+        nTextField.addFocusListener(muxNumATextFieldListener);
 
         HintedInputListener numberOfGenerationsTextFieldListener = new HintedInputListener(numberOfGenerationsTextField);
         numberOfGenerationsTextField.addFocusListener(numberOfGenerationsTextFieldListener);
@@ -172,10 +178,13 @@ public class MainForm {
 		        genomeSize = FitnessFunctionData.fitnessFunctions[cb.getSelectedIndex()].genomeSize;
 		        hideNGenomeSizeEntry();
 				hideInputFileSelector();
+				hideMuxNumAEntry();
 		        if (genomeSize == -1) {
 		        	showNGenomeSizeEntry();
 		        } else if (genomeSize == -2) {
 		        	showInputFileSelector();
+		        } else if (genomeSize == -3) {
+		        	showMuxNumAEntry();
 		        }
 		    }
 		});
@@ -227,6 +236,15 @@ public class MainForm {
 	protected void showNGenomeSizeEntry() {
 		controller.setGenomeSize(gatherGenomeSize());
 		nGenomePanel.setVisible(true);
+	}
+	
+	protected void hideMuxNumAEntry() {
+		muxAPanel.setVisible(false);
+	}
+
+	protected void showMuxNumAEntry() {
+		controller.setMuxNumA(gatherMuxNumA());
+		muxAPanel.setVisible(true);
 	}
 	
 	protected void hideInputFileSelector() {
@@ -303,6 +321,10 @@ public class MainForm {
 	private int gatherGenomeSize() {
 		return FormCheck.readInt(nTextField);
 	}
+	
+	private int gatherMuxNumA() {
+		return FormCheck.readInt(muxNumATextField);
+	}
 
 	private String gatherInputFilePath() {
 		return selectedFileTextField.getText();
@@ -317,7 +339,6 @@ public class MainForm {
 		frmXxPevolinator.setBounds(100, 100, 1106, 662);
 		frmXxPevolinator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-
 		setupFunctions();		
 		frmXxPevolinator.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -344,6 +365,17 @@ public class MainForm {
 		problemSettingsContainer = new JPanel();
 		problemSelectionPanel.add(problemSettingsContainer, BorderLayout.SOUTH);
 		problemSettingsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		muxAPanel = new JPanel();
+		problemSettingsContainer.add(muxAPanel);
+		
+		lblNewLabel_3 = new JLabel("Selection Inputs");
+		muxAPanel.add(lblNewLabel_3);
+		
+		muxNumATextField = new JTextField();
+		muxNumATextField.setText("1");
+		muxAPanel.add(muxNumATextField);
+		muxNumATextField.setColumns(10);
 		
 		inputFileSelectorPanel = new JPanel();
 		problemSettingsContainer.add(inputFileSelectorPanel);
@@ -402,6 +434,7 @@ public class MainForm {
 		nTextField.setColumns(10);
 		hideNGenomeSizeEntry();
 		hideInputFileSelector();
+		hideMuxNumAEntry();
 		
 		solverParametersMutationPanel = new JPanel();
 		solverParametersMutationPanel.setBorder(new TitledBorder(null, "Solver Paremeters", TitledBorder.LEADING, TitledBorder.TOP, null, null));

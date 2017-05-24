@@ -52,7 +52,8 @@ public class TreeCrossAlgorithm extends CrossAlgorithm {
 		Random rand = new Random();
 		int isTerminal = rand.nextInt(10);
 		Node ret = null;
-		if (isTerminal == 9) {
+		// If it's a terminal tree, we want to cross only terminals
+		if (isTerminal == 9 || nodes.left.size() == 0) { 
 			// It's terminal
 			ret = nodes.right.get(rand.nextInt(nodes.right.size()));
 		} else {

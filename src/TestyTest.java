@@ -29,7 +29,6 @@ public class TestyTest {
 		System.out.println(pop);
 		MutationAlgorithm mutator2 = new TreeOperationMutationAlgorithm();
 		pop = mutator2.mutate(pop, 1.0, reporter);
-		System.out.println(pop);
-		 
+		System.out.println(pop);		 
 	}
 }

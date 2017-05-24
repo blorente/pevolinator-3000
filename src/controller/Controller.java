@@ -16,6 +16,7 @@ import model.solvers.mutation.MutationAlgorithm;
 import model.solvers.mutation.MutationAlgorithmData;
 import model.solvers.problems.CombinatoricsProblem;
 import model.solvers.problems.PlainFunctionProblem;
+import model.solvers.problems.MultiplexProblem;
 import model.solvers.problems.Problem;
 import model.solvers.selection.Roulette;
 import model.solvers.selection.SelectionAlgorithm;
@@ -55,6 +56,8 @@ public class Controller {
     private static final int NUMBER_CROSS_POINTS = 1;
     private static final int NUMBER_MUTATION_POINTS = 2;
     
+    private static final int MUX_NUM_A = 1;
+    
     private double mutationPercent;
     private double crossPercent;
     private double elitismPercent;
@@ -65,6 +68,7 @@ public class Controller {
     private int genomeSize;
     private int numberCrossPoints;
     private int numberMutationPoints;
+    private int muxNumA;
     private Fitness fitness;
     private int seed;
 
@@ -86,12 +90,12 @@ public class Controller {
 
     public Controller() {
         this.tolerance = TOLERANCE;
-
         this.genomeSize = GENOME_SIZE;
         this.numberCrossPoints = NUMBER_CROSS_POINTS;
         this.numberMutationPoints = NUMBER_MUTATION_POINTS;
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
+        this.muxNumA = MUX_NUM_A;
         this.minMaxParameters = MinMaxParameters;
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
@@ -104,10 +108,12 @@ public class Controller {
     	SolverParameters parameters = new SolverParameters(crossPercent, mutationPercent, elitismPercent, seed);
         System.out.println(parameters);
         
-        this.fitness = FitnessFunctionData.fitnessFunctions[funIndex].createAlgorithm(funIndex, combinatoricsProblemData);
+        this.fitness = FitnessFunctionData.fitnessFunctions[funIndex].createAlgorithm(funIndex, combinatoricsProblemData, muxNumA);
         if (funIndex == 5) {
         	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
-        } else {
+        } else if (funIndex == 6) {
+        	problem = new MultiplexProblem(populationSize, numberGenerations, fitness, muxNumA);
+        }else {
         	int storedGenomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
         	if (storedGenomeSize > 0) {
         		genomeSize = storedGenomeSize;
@@ -145,8 +151,14 @@ public class Controller {
             funIndex = 4;
         } else if (function.equals(FitnessFunctionData.fitnessFunctions[5].toString())) {    
             funIndex = 5;
+        } else if (function.equals(FitnessFunctionData.fitnessFunctions[6].toString())) {    
+            funIndex = 6;
         }
     }
+    
+    public void setMuxNumA(int numA) {
+		this.muxNumA = numA;
+	}
 
     public void setCrossPercent(double crossPercent) {
         this.crossPercent = crossPercent;
