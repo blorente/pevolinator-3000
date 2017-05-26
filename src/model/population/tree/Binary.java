@@ -25,14 +25,13 @@ public class Binary extends Node {
 		return swap();
 	}
 
-	private Node swap() {
+	private Node swap() {		
 		if (op.equals(binaryNodes[0])) {
-			return new Binary(binaryNodes[1], children.get(0), children.get(1), parent);
+			this.op = binaryNodes[1];			
 		}
-		return new Binary(binaryNodes[0], children.get(0), children.get(1), parent);
+		this.op = binaryNodes[0];
+		return this;
 	}
-
-
 
 	public static Node createRandom(Random rand) {
 		int position = rand.nextInt(binaryNodes.length);

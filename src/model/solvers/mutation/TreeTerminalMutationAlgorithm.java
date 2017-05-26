@@ -10,6 +10,8 @@ import model.population.tree.TreeGenome;
 
 public class TreeTerminalMutationAlgorithm extends MutationAlgorithm {
 
+	private static final boolean DEBUG = false;
+	
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {
 		Random rand = new Random();
@@ -19,21 +21,32 @@ public class TreeTerminalMutationAlgorithm extends MutationAlgorithm {
 		
 		TreeGenome genome = (TreeGenome) ind.getGenome();
 		List<Node> terminals = genome.listNodes().right;
+		if (genome.root.arity() == 0) {
+			// Root is a terminal
+			terminals.add(genome.root);
+		}
 		
-		System.out.println("Indiv to mutate:");
-		System.out.println(genome);
+		if (DEBUG) {
+			System.out.println("Indiv to mutate:");
+			System.out.println(genome);
+		}
 		
 		Node selected = terminals.get(rand.nextInt(terminals.size()));
 		Node mutated = selected.mutate(rand);
-		selected.parent.changeChild(selected, mutated);
+		if (genome.root.arity() != 0) {
+			// It's not the root
+			selected.parent.changeChild(selected, mutated);
+		}
 		
-		System.out.println("Indiv mutated:");
-		System.out.println(genome);
+		if (DEBUG) {
+			System.out.println("Indiv mutated:");
+			System.out.println(genome);
+		}
 	}
 
 	@Override
-	boolean isValid(Individual ind) {
-		return true;
+	boolean isValid(Individual ind) {	
+		return ((TreeGenome)ind.getGenome()).isValidProgramTree();
 	}
 
 }

@@ -43,6 +43,7 @@ import model.solvers.selection.SelectionAlgorithmData;
 import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import model.population.tree.TreeCreationMethods;
 
 public class MainForm {
 
@@ -98,6 +99,10 @@ public class MainForm {
 	private JPanel muxAPanel;
 	private JLabel lblNewLabel_3;
 	private JTextField muxNumATextField;
+	private JPanel muxSelectionInputs;
+	private JPanel treePopulationCreationPanel;
+	private JLabel lblNewLabel_4;
+	private JComboBox treeCreationMethodCB;
 
 	/**
 	 * Launch the application.
@@ -228,6 +233,20 @@ public class MainForm {
 		    }
 		});
     }
+    
+    private void setupTreeCreationMethod() {
+		treeCreationMethodCB = new JComboBox();
+		treeCreationMethodCB.setModel(new DefaultComboBoxModel(TreeCreationMethods.values()));
+		treePopulationCreationPanel.add(treeCreationMethodCB);
+    	treeCreationMethodCB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+		        JComboBox<?> cb = (JComboBox<?>)e.getSource();
+				controller.setTreeCreationMethod(gatherTreeCreationMethod());
+			}
+    		
+    	});
+    }
 	
 	protected void hideNGenomeSizeEntry() {
 		nGenomePanel.setVisible(false);
@@ -244,6 +263,7 @@ public class MainForm {
 
 	protected void showMuxNumAEntry() {
 		controller.setMuxNumA(gatherMuxNumA());
+		controller.setTreeCreationMethod(gatherTreeCreationMethod());
 		muxAPanel.setVisible(true);
 	}
 	
@@ -325,6 +345,10 @@ public class MainForm {
 	private int gatherMuxNumA() {
 		return FormCheck.readInt(muxNumATextField);
 	}
+	
+	private int gatherTreeCreationMethod() {
+		return treeCreationMethodCB.getSelectedIndex();
+	}
 
 	private String gatherInputFilePath() {
 		return selectedFileTextField.getText();
@@ -368,14 +392,26 @@ public class MainForm {
 		
 		muxAPanel = new JPanel();
 		problemSettingsContainer.add(muxAPanel);
+		muxAPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		muxSelectionInputs = new JPanel();
+		muxAPanel.add(muxSelectionInputs);
 		
 		lblNewLabel_3 = new JLabel("Selection Inputs");
-		muxAPanel.add(lblNewLabel_3);
+		muxSelectionInputs.add(lblNewLabel_3);
 		
 		muxNumATextField = new JTextField();
+		muxSelectionInputs.add(muxNumATextField);
 		muxNumATextField.setText("1");
-		muxAPanel.add(muxNumATextField);
 		muxNumATextField.setColumns(10);
+		
+		treePopulationCreationPanel = new JPanel();
+		muxAPanel.add(treePopulationCreationPanel);
+		
+		lblNewLabel_4 = new JLabel("Tree Creation Method");
+		treePopulationCreationPanel.add(lblNewLabel_4);		
+		
+		setupTreeCreationMethod();
 		
 		inputFileSelectorPanel = new JPanel();
 		problemSettingsContainer.add(inputFileSelectorPanel);

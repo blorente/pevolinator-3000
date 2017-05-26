@@ -151,4 +151,12 @@ public class PopulationFactory {
 		
 		return currNode;
 	}
+	
+	public static Population createProgramRampAndHalf(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
+		throw new RuntimeException("Ramp and Half Unimplemented.");
+	}
+	
+	public static Population createProgramWeighed(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
+		throw new RuntimeException("Harcoded weighed creation Unimplemented.");
+	}	
 }

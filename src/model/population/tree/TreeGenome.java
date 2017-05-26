@@ -28,9 +28,7 @@ public class TreeGenome extends Genome {
 	public PairTuple<List<Node>, List<Node>> listNodes() {
 		List<Node> operations = new ArrayList<>();
 		List<Node> terminals = new ArrayList<>();
-		for (Node child : this.root.children) {
-			listNodesRec(child, operations, terminals);
-		}
+		listNodesRec(root, operations, terminals);
 		return new PairTuple<>(operations, terminals);
 	}
 
@@ -47,5 +45,11 @@ public class TreeGenome extends Genome {
 		}
 	}
 	
-	
+	public boolean isValidProgramTree() {
+		boolean valid = true;
+		valid &= root != null;
+		valid &= root.parent == null;
+		valid &= root.isValid();
+		return valid;
+	}
 }

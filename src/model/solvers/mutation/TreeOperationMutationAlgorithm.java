@@ -7,7 +7,9 @@ import model.population.Individual;
 import model.population.tree.Node;
 import model.population.tree.TreeGenome;
 
-public class TreeOperationMutationAlgorithm extends MutationAlgorithm {
+public class TreeOperationMutationAlgorithm extends MutationAlgorithm {	
+
+	private static final boolean DEBUG = true;
 
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {
@@ -16,23 +18,39 @@ public class TreeOperationMutationAlgorithm extends MutationAlgorithm {
 		if (mutates > mutationPercent)
 			return;
 		
-		TreeGenome genome = (TreeGenome) ind.getGenome();
-		List<Node> operations = genome.listNodes().left;
 		
-		System.out.println("Indiv to mutate:");
-		System.out.println(genome);
+		TreeGenome genome = (TreeGenome) ind.getGenome();
+		List<Node> operations = genome.listNodes().left;		
+		
+		if (DEBUG) {
+			System.out.println("Indiv to mutate:");
+			System.out.println(genome);
+		}
+		
+		if (genome.root.arity() == 0) {
+			if (DEBUG) {
+				System.out.println("Indiviual is terminal only. Aborting mutation.");
+			}
+			return;
+		}
 		
 		Node selected = operations.get(rand.nextInt(operations.size()));
 		Node mutated = selected.mutate(rand);
-		selected.parent.changeChild(selected, mutated);
+		if (selected.parent != null) {
+			selected.parent.changeChild(selected, mutated);			
+		} else {
+			genome.root = mutated;
+		}
 		
-		System.out.println("Indiv mutated:");
-		System.out.println(genome);
+		if (DEBUG) {
+			System.out.println("Indiv mutated:");
+			System.out.println(genome);
+		}
 	}
 
 	@Override
-	boolean isValid(Individual ind) {
-		return true;
+	boolean isValid(Individual ind) {	
+		return ((TreeGenome)ind.getGenome()).isValidProgramTree();
 	}
 
 }

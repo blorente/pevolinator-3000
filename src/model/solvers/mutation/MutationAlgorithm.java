@@ -14,7 +14,7 @@ public abstract class MutationAlgorithm {
 		for (Individual ind : population.getPopulation()) {				
 			mutateIndividual(ind, mutationPercent);
 			if(!isValid(ind)) {
-				throw new RuntimeException("Yo dawg! You mutated an invalid individual!");
+				throw new RuntimeException("Invalid individual generated from mutation: " + ind);
 			}
 			reporter.reportMutation();
 		}

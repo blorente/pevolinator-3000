@@ -69,8 +69,7 @@ public abstract class Node {
 	public static Node createTerminal(Random rand,int maxA) {
 		return Terminal.createTerminalAux(rand,maxA);
 	}
-	
-	
+		
 	@Override
 	public String toString() {
 		return "(" + op + " " + children + ")";
@@ -96,6 +95,17 @@ public abstract class Node {
 	
 	public void changeChild(Node oneNode, Node otherNode) {
 		int childIndex = children.indexOf(oneNode);
+		if (childIndex == -1) {
+			throw new RuntimeException("Could not find child " + oneNode + " in " + this);
+		}
 		children.set(childIndex, otherNode);
+	}
+	public boolean isValid() {
+		boolean valid = true;
+		for (Node child : children) {
+			valid &= child.parent == this;
+			valid &= child.isValid();
+		}
+		return valid;
 	}
 }

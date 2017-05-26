@@ -13,9 +13,7 @@ public class Ternary extends Node {
 	
 	public Ternary(String op){
 		this.op = op;
-	}
-
-	
+	}	
 
 	@Override
 	public int arity() {

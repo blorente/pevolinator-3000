@@ -10,6 +10,8 @@ import model.population.tree.Node;
 import model.population.tree.TreeGenome;
 
 public class TreeCrossAlgorithm extends CrossAlgorithm {
+	
+	private static final boolean DEBUG = false;
 
 	public TreeCrossAlgorithm(double crossRate) {
 		super(crossRate);
@@ -20,27 +22,49 @@ public class TreeCrossAlgorithm extends CrossAlgorithm {
 		TreeGenome one = (TreeGenome) ind.getGenome();
 		TreeGenome other = (TreeGenome) selected.getGenome();
 		
-		System.out.println("Indivs to cross:");
-		System.out.println(one);
-		System.out.println(other);
+		if (DEBUG) {
+			System.out.println("Indivs to cross:");
+			System.out.println(one);
+			System.out.println(other);
+		}
 		
 		PairTuple<List<Node>, List<Node>> oneNodes = one.listNodes();
 		PairTuple<List<Node>, List<Node>> otherNodes = other.listNodes();
+		
+		if (oneNodes.right.size() == 0 || 
+				otherNodes.right.size() == 0) {
+			// one or other only has one terminal, cannot cross
+			List<Individual> ret = new ArrayList<>();
+			ret.add(ind);
+			ret.add(selected);
+			return ret;
+		}
 		
 		Node oneNode = selectNode(oneNodes);
 		Node otherNode = selectNode(otherNodes);
 		
 		// Pointer magic
-		oneNode.parent.changeChild(oneNode, otherNode);
-		otherNode.parent.changeChild(otherNode, oneNode);
+		if (oneNode.parent != null) {			
+			oneNode.parent.changeChild(oneNode, otherNode);
+		} else {
+			one.root = otherNode;
+		}
+		
+		if (otherNode.parent != null) {			
+			otherNode.parent.changeChild(otherNode, oneNode);
+		} else {
+			other.root = oneNode;
+		}
 		
 		Node tmp = oneNode.parent;
 		oneNode.parent = otherNode.parent;
 		otherNode.parent = tmp;
 		
-		System.out.println("Indivs after cross:");
-		System.out.println(one);
-		System.out.println(other);
+		if (DEBUG) {
+			System.out.println("Indivs after cross:");
+			System.out.println(one);
+			System.out.println(other);
+		}
 		
 		List<Individual> ret = new ArrayList<>();
 		ret.add(ind);
@@ -64,8 +88,8 @@ public class TreeCrossAlgorithm extends CrossAlgorithm {
 	}
 
 	@Override
-	boolean isValid(Individual ind) {
-		return true;
+	boolean isValid(Individual ind) {		
+		return ((TreeGenome)ind.getGenome()).isValidProgramTree();
 	}
 
 }

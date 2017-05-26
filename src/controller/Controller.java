@@ -57,6 +57,7 @@ public class Controller {
     private static final int NUMBER_MUTATION_POINTS = 2;
     
     private static final int MUX_NUM_A = 1;
+    private static final int TREE_CREATION_METHOD = 0;
     
     private double mutationPercent;
     private double crossPercent;
@@ -69,6 +70,7 @@ public class Controller {
     private int numberCrossPoints;
     private int numberMutationPoints;
     private int muxNumA;
+    private int treeCreationMethod;
     private Fitness fitness;
     private int seed;
 
@@ -80,11 +82,8 @@ public class Controller {
     private MutationAlgorithm mutationAlgorithm;
 
 	private int funIndex;
-
 	private int selectedSelectionAlgorithm;
-
 	private int selectedCrossAlgorithm;
-
 	private int selectedMutationAlgorithm;
 
 
@@ -96,6 +95,7 @@ public class Controller {
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
         this.muxNumA = MUX_NUM_A;
+        this.treeCreationMethod = TREE_CREATION_METHOD;
         this.minMaxParameters = MinMaxParameters;
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
@@ -112,7 +112,7 @@ public class Controller {
         if (funIndex == 5) {
         	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
         } else if (funIndex == 6) {
-        	problem = new MultiplexProblem(populationSize, numberGenerations, fitness, muxNumA);
+        	problem = new MultiplexProblem(populationSize, numberGenerations, fitness, muxNumA, treeCreationMethod);
         }else {
         	int storedGenomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
         	if (storedGenomeSize > 0) {
@@ -209,6 +209,10 @@ public class Controller {
 	
 	public void setMutationAlgorithm(int selectedIndex) {
 		this.selectedMutationAlgorithm = selectedIndex;		
+	}
+	
+	public void setTreeCreationMethod(int selectedIndex) {
+		this.treeCreationMethod = selectedIndex;
 	}
 
 	public void setSeed(int seed) {

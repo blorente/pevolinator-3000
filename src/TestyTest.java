@@ -14,21 +14,19 @@ import model.solvers.selection.SelectionAlgorithm;
 
 public class TestyTest {
 	public static void main(String[] args) {
-		Population pop = PopulationFactory.createProgramComplete(true, 2, 4, 2);
+		Population pop = PopulationFactory.createProgramIncremental(true, 2, 100, 1);
 		Fitness treeFitness = new MultiplexFitness(2);
-		pop.evaluateMinimize(treeFitness);		
-		System.out.println(pop);
-		SelectionAlgorithm selection = new Roulette();
-		pop = selection.select(pop);
 		CrossAlgorithm cross = new TreeCrossAlgorithm(1);
 		PopulationReporter reporter = new ConsoleReporter();
-		pop = cross.cross(pop, reporter);
-		System.out.println(pop);
-		MutationAlgorithm mutator = new TreeTerminalMutationAlgorithm();
-		pop = mutator.mutate(pop, 1.0, reporter);
-		System.out.println(pop);
+		SelectionAlgorithm selection = new Roulette();
 		MutationAlgorithm mutator2 = new TreeOperationMutationAlgorithm();
-		pop = mutator2.mutate(pop, 1.0, reporter);
-		System.out.println(pop);		 
+
+		for (int i = 0; i < 100; i++) {
+			pop.evaluateMinimize(treeFitness);
+			pop = selection.select(pop);
+			pop = cross.cross(pop, reporter);	
+			pop = mutator2.mutate(pop, 1.0, reporter);
+		}
+		System.out.println(pop);
 	}
 }
