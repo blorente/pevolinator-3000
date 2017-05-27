@@ -291,6 +291,9 @@ public class MainForm {
         if (inputFileSelectorPanel.isVisible()) {
         	controller.setInputFilePath(gatherInputFilePath());
         }
+        if (this.muxAPanel.isVisible()) {
+        	controller.setMuxNumA(gatherMuxNumA());    		
+        }
         launchSelectedTab();
     }
 
