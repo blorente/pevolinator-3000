@@ -90,6 +90,40 @@ if (tamañoPrograma > tamañoMedio &&
 
 Se ha extendido el motor de procesamiento para añadir un método propio de creación de individuos. Este método es similar a la creación completa de individuos, con la única diferencia siendo que cada nodo tiene cierta probabilidad predefinida de ser un terminal. En concreto, para cada nodo no-hoja hay una probabilidad del 20% de que sea un terminal. Este método ofrece el punto intermedio perfecto entre la creación incremental, que tiende a árboles pequeños, y la completa, que crea árboles llenos.
 
+### Operadores implementados
+
+Se han implementado los operadores de cruce y mutación vistos en clase, denotados por el prefijo `Tree` en la interfaz gráfica. Todos los métodos están implementados por medio de asignación de referencias en Java, ya que la estructura de los nodos permite acceder fácilmente a sus padres y modificarlos directamente con asignaciones sencillas. 
+
+Por ejemplo, realizar un cruce de subárbol como el visto en clase implica intercambiar las referencias que los padres guardan de sus hijos originales para que apunten a los nuevos nodos, y cambiar los padres de esos nodos para apuntar a los nuevos padres:
+
+```java
+// Seleccionar los nodos a intercambiar
+Node oneNode = selectNode(oneNodes);
+Node otherNode = selectNode(otherNodes);
+
+// Modificar las referencias de los padres 
+// para apuntar a los nuevos hijos.
+if (oneNode.parent != null) {			
+	oneNode.parent.changeChild(oneNode, otherNode);
+} else {
+	one.root = otherNode;
+}
+
+if (otherNode.parent != null) {			
+	otherNode.parent.changeChild(otherNode, oneNode);
+} else {
+	other.root = oneNode;
+}
+
+// Modificar la referencia de los nuevos nodos
+// hacia sus padres
+Node tmp = oneNode.parent;
+oneNode.parent = otherNode.parent;
+otherNode.parent = tmp;
+```
+
+Las mutaciones `Tree Terminal`, `Tree Operation` y `Tree Full` (mutación de terminales, de operaciones y de subárboles respectivamente) modifican el árbol de forma similar.
+
 Resultados
 ------------
 
