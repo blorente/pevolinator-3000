@@ -1,8 +1,11 @@
 package model.solvers.fitness;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import model.population.Genome;
+import model.population.Individual;
+import model.population.Population;
 import model.population.tree.TreeEvaluator;
 import model.population.tree.TreeGenome;
 
@@ -18,9 +21,15 @@ public class MultiplexFitness extends Fitness {
 	boolean[] results;
 	int numA;
 	
+	double averageSize;
+	
+	private static final int PRUNING_AMOUNT = 2;
+	private static final boolean DEBUG = true;
+	
 	public MultiplexFitness(int numA) {
 		super();
 		this.numA = numA;
+		this.averageSize = 0;
 		calculateInputTable(numA);
 	}
 	
@@ -76,11 +85,31 @@ public class MultiplexFitness extends Fitness {
 			}
 		}
 		
-		// TODO: Bloating and such
+		// Tarpeian method for bloating control
+		Random rand = new Random();
+		if (tree.singleListNodes().size() > averageSize &&
+			rand.nextInt(PRUNING_AMOUNT) == 0) {
+			// Miss all cases + 1, infinitely worst fitness 
+			
+			if (DEBUG) {
+				System.out.println("Tarpeian discarded: " + tree.root);
+			}
+			
+			return pow(2, numA + pow(2, numA)) + 1;
+		}
 		
 		return wrong;
 	}
-	
+		
+	@Override
+	public void setCurrentPopulation(Population pop) {
+		for (Individual ind : pop.getPopulation()) {
+			TreeGenome genome = (TreeGenome)ind.getGenome();
+			averageSize += genome.singleListNodes().size();
+		}		
+		averageSize /= pop.getPopulation().size();
+	}
+
 	@Override
 	public boolean isMinimization() {
 		// Contamos el total de fallos de todo el conjunto de entradas,

@@ -13,7 +13,7 @@ public class TreeFullMutationAlgorithm extends MutationAlgorithm {
 	private int maxDepth;
 	private boolean ifsAllowed;
 	private int maxA;
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 	
 	public TreeFullMutationAlgorithm(int maxDepth, boolean ifsAllowed, int maxA){
 		this.maxDepth = maxDepth;

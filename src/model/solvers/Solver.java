@@ -36,7 +36,10 @@ public class Solver {
 		Comparator<Individual> comp = problem.isMinimization() ? (a, b) -> b.compareTo(a) : (a, b) -> a.compareTo(b);
 		reporter.setup();
 		for (int generation = 0; generation < problem.getGenerations(); generation++) {
-			population.evaluateMinimize(problem.getFitness());
+			if (problem.isMinimization())
+				population.evaluateMinimize(problem.getFitness());
+			else 
+				population.evaluateMaximize(problem.getFitness());
 			elitism = population.saveElite(parameters.elitismPercent(), comp);
 			reporter.report(generation, population, problem.isMinimization());
 			population = selection.select(population);

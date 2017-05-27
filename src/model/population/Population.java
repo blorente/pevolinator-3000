@@ -16,6 +16,7 @@ public class Population {
     }
 
 	public void evaluateMinimize(Fitness fitness){
+		fitness.setCurrentPopulation(this);
 		totalFitness = 0.0;
 		double popMax = Double.MIN_VALUE;
 		for (Individual i : individuals){
@@ -30,6 +31,7 @@ public class Population {
 	}
 	
 	public void evaluateMaximize(Fitness fitness){
+		fitness.setCurrentPopulation(this);
 		totalFitness = 0.0;
 		double popMin = Double.MAX_VALUE;
 		for (Individual i : individuals){

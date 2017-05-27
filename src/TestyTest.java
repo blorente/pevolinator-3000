@@ -15,7 +15,7 @@ import model.solvers.selection.SelectionAlgorithm;
 
 public class TestyTest {
 	public static void main(String[] args) {
-		Population pop = PopulationFactory.createProgramRampAndHalf(false, 3, 24, 2);
+		Population pop = PopulationFactory.createProgramComplete(false, 3, 24, 2);
 		System.out.println(pop);
 		Fitness treeFitness = new MultiplexFitness(2);
 		CrossAlgorithm cross = new TreeCrossAlgorithm(1);

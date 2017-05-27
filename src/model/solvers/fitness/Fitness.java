@@ -4,11 +4,16 @@ import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
 
 import model.population.Genome;
+import model.population.Population;
 
 public abstract class Fitness {
 
 	public double calculate(Genome genome) {
 		throw new RuntimeException();
+	}
+	
+	public void setCurrentPopulation(Population pop) {
+		// Do nothing;
 	}
 	
 	public abstract boolean isMinimization();
