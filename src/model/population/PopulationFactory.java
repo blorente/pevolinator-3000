@@ -113,7 +113,7 @@ public class PopulationFactory {
 	public static Node createProgramIndividualComplete(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
 		Node currNode;
 		if(actualDepth < maxDepth){
-			currNode = Node.createOp(rand);
+			currNode = Node.createOp(rand, ifsAllowed);
 			for(int i = 0; i < currNode.arity(); i++){
 				Node child = createProgramIndividualComplete(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
 				child.parent = currNode;
@@ -139,7 +139,7 @@ public class PopulationFactory {
 	public static Node createProgramIndividualIncremental(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
 		Node currNode;
 		if(actualDepth < maxDepth){
-			currNode = Node.createNode(rand, maxA);
+			currNode = Node.createNode(rand, maxA, ifsAllowed);
 			for(int i = 0; i < currNode.arity(); i++){
 				Node child = createProgramIndividualIncremental(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
 				child.parent = currNode;

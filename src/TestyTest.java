@@ -15,13 +15,13 @@ import model.solvers.selection.SelectionAlgorithm;
 
 public class TestyTest {
 	public static void main(String[] args) {
-		Population pop = PopulationFactory.createProgramRampAndHalf(true, 3, 24, 2);
+		Population pop = PopulationFactory.createProgramRampAndHalf(false, 3, 24, 2);
 		System.out.println(pop);
 		Fitness treeFitness = new MultiplexFitness(2);
 		CrossAlgorithm cross = new TreeCrossAlgorithm(1);
 		PopulationReporter reporter = new ConsoleReporter();
 		SelectionAlgorithm selection = new Roulette();
-		MutationAlgorithm mutator2 = new TreeFullMutationAlgorithm(3, true,2);
+		MutationAlgorithm mutator2 = new TreeFullMutationAlgorithm(3, false, 2);
 
 		//for (int i = 0; i < 100; i++) {*/
 			pop.evaluateMinimize(treeFitness);

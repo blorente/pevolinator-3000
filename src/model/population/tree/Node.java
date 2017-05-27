@@ -37,7 +37,7 @@ public abstract class Node {
 	public abstract int arity();
 	public abstract Node mutate(Random rand);
 	
-	public static Node createOp(Random rand){
+	public static Node createOp(Random rand, boolean ifsAllowed){
 		int frequencies[] = new int[allOperations.length];
 		int total = 0;
 		int randNum;
@@ -48,11 +48,10 @@ public abstract class Node {
 			frequencies[i] = total;
 		}
 		
-		/*
 		if (!ifsAllowed) {
-			frequencies[2] = 1000000;
+			frequencies[2] = -1;
+			total -= allOperations[2].length;
 		}
-		*/
 		
 		randNum = rand.nextInt(total);
 		int i = 0;
@@ -83,7 +82,7 @@ public abstract class Node {
 		return "(" + op + " " + children + ")";
 	}
 	
-	public static Node createNode(Random rand, int maxA) {
+	public static Node createNode(Random rand, int maxA, boolean ifsAllowed) {
 		int totalOps = 0;
 		int totalTerms = 0;
 		
@@ -97,7 +96,7 @@ public abstract class Node {
 		if (category < totalTerms) {
 			return Node.createTerminal(rand, maxA);
 		} else {
-			return Node.createOp(rand);
+			return Node.createOp(rand, ifsAllowed);
 		}
 	}
 	
