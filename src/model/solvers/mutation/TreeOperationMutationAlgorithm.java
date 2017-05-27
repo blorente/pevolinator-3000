@@ -9,7 +9,7 @@ import model.population.tree.TreeGenome;
 
 public class TreeOperationMutationAlgorithm extends MutationAlgorithm {	
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 
 	@Override
 	void mutateIndividual(Individual ind, double mutationPercent) {

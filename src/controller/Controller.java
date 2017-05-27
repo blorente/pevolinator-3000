@@ -124,7 +124,7 @@ public class Controller {
         
         this.selectionAlgorithm = SelectionAlgorithmData.selectionAlgorithms[selectedSelectionAlgorithm].algorithm();
         this.crossAlgorithm = CrossAlgorithmData.crossAlgorithms[selectedCrossAlgorithm].createAlgorithm(selectedCrossAlgorithm, numberCrossPoints, crossPercent);
-        this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedMutationAlgorithm].createAlgorithm(selectedMutationAlgorithm, numberMutationPoints, fitness);
+        this.mutationAlgorithm = MutationAlgorithmData.mutationAlgorithms[selectedMutationAlgorithm].createAlgorithm(selectedMutationAlgorithm, numberMutationPoints, fitness); //added 2 more parameters
                 
         Solver solver = new Solver(parameters, problem, selectionAlgorithm, crossAlgorithm, mutationAlgorithm, reporter);
         solver.run();

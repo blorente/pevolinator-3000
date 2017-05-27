@@ -52,4 +52,15 @@ public class TreeGenome extends Genome {
 		valid &= root.isValid();
 		return valid;
 	}
+	
+	public List<Node> singleListNodes(){
+		PairTuple<List<Node>, List<Node>> bothLists = listNodes();
+		List<Node> completeList = new ArrayList<Node>();
+		
+		completeList.addAll(bothLists.left);
+		completeList.addAll(bothLists.right);
+		
+		return completeList;
+		
+	}
 }

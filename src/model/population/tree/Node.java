@@ -33,6 +33,7 @@ public abstract class Node {
 			"D"
 	};
 	
+	
 	public abstract int arity();
 	public abstract Node mutate(Random rand);
 	
@@ -107,5 +108,16 @@ public abstract class Node {
 			valid &= child.isValid();
 		}
 		return valid;
+	}
+	public int depth() {
+		Node parentAux = parent;
+		int counter = 1;
+		
+		while(parentAux != null){
+			parentAux = parent.parent;
+			counter++;
+		}
+		
+		return counter;
 	}
 }

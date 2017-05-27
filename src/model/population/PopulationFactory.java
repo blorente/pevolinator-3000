@@ -153,7 +153,20 @@ public class PopulationFactory {
 	}
 	
 	public static Population createProgramRampAndHalf(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
-		throw new RuntimeException("Ramp and Half Unimplemented.");
+		Random rand = new Random();
+		Population population = new Population();
+		for(int actdepth = 0; actdepth < maxDepth; actdepth++){
+			int halfPop = (populationSize/maxDepth)/2;
+			for(int j = 0; j < halfPop; j++){
+				Individual newInd = new Individual(new TreeGenome(createProgramIndividualComplete(ifsAllowed, actdepth,0,rand,maxA)));
+				population.addIndividualNoCopy(newInd); 
+			}
+			for(int j = 0; j < halfPop; j++){
+				Individual newInd = new Individual(new TreeGenome(createProgramIndividualIncremental(ifsAllowed, actdepth,0,rand,maxA)));
+				population.addIndividualNoCopy(newInd); 
+			}
+		}
+		return population;
 	}
 	
 	public static Population createProgramWeighed(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
