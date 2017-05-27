@@ -46,6 +46,11 @@ public abstract class Node {
 			total += allOperations[i].length;
 			frequencies[i] = total;
 		}
+		
+		if (!ifsAllowed) {
+			frequencies[2] = 1000000;
+		}
+		
 		randNum = rand.nextInt(total);
 		int i = 0;
 		while(notFound){
@@ -100,6 +105,7 @@ public abstract class Node {
 		}
 		children.set(childIndex, otherNode);
 	}
+	
 	public boolean isValid() {
 		boolean valid = true;
 		for (Node child : children) {
