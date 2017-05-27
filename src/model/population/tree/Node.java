@@ -122,7 +122,7 @@ public abstract class Node {
 		int counter = 1;
 		
 		while(parentAux != null){
-			parentAux = parent.parent;
+			parentAux = parentAux.parent;
 			counter++;
 		}
 		

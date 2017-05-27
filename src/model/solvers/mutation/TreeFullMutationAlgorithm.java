@@ -31,14 +31,15 @@ public class TreeFullMutationAlgorithm extends MutationAlgorithm {
 		TreeGenome genome = (TreeGenome) ind.getGenome();
 		List<Node> allNodes = genome.singleListNodes();
 		
+		
+		Node selected = allNodes.get(rand.nextInt(allNodes.size()));
 		if (DEBUG) {
 			System.out.println("Indiv to mutate:");
 			System.out.println(genome);
+			System.out.println("Selected node: " + selected);
 		}
-		
-		Node selected = allNodes.get(rand.nextInt(allNodes.size()));
 		int nodeDepth = selected.depth();
-		Individual mutated = new Individual(new TreeGenome(PopulationFactory.createProgramIndividualComplete(ifsAllowed, (maxDepth-nodeDepth),0,rand,maxA)));
+		Individual mutated = new Individual(new TreeGenome(PopulationFactory.createProgramIndividualIncremental(ifsAllowed, (maxDepth - nodeDepth + 1),0,rand,maxA)));
 		TreeGenome newGenome = (TreeGenome) mutated.getGenome();
 		if(selected.parent == null){
 			genome.root = newGenome.root;
