@@ -78,10 +78,13 @@ public class MultiplexFitness extends Fitness {
 	public double calculate(Genome genome) {
 		TreeGenome tree = (TreeGenome) genome;
 		int wrong = 0;
+		int right = 0;
 		for (int testCase = 0; testCase < testCases.length; testCase++) {
 			boolean testResult = TreeEvaluator.evalTree(tree.root, testCases[testCase], pow(2, numA));
 			if (testResult != results[testCase]) {
 				wrong++;
+			} else {
+				right++;
 			}
 		}
 		
@@ -113,7 +116,7 @@ public class MultiplexFitness extends Fitness {
 	@Override
 	public boolean isMinimization() {
 		// Contamos el total de fallos de todo el conjunto de entradas,
-		// así que es de minimización.
+		// asï¿½ que es de minimizaciï¿½n.
 		return true;
 	}
 
