@@ -44,6 +44,7 @@ import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import model.population.tree.TreeCreationMethods;
+import javax.swing.JCheckBox;
 
 public class MainForm {
 
@@ -103,6 +104,12 @@ public class MainForm {
 	private JPanel treePopulationCreationPanel;
 	private JLabel lblNewLabel_4;
 	private JComboBox treeCreationMethodCB;
+	private JPanel ifsAllowedPanel;
+	private JLabel lblNewLabel_5;
+	private JCheckBox ifsAllowedCheckBox;
+	private JPanel maxTreeDepthPanel;
+	private JLabel lblMaxTreeDepth;
+	private JTextField maxTreeDepthTextField;
 
 	/**
 	 * Launch the application.
@@ -168,6 +175,9 @@ public class MainForm {
         
         HintedInputListener seedTextFieldListener = new HintedInputListener(seedTextField);
         seedTextField.addFocusListener(seedTextFieldListener);
+        
+        HintedInputListener maxTreeDepthTextFieldListener = new HintedInputListener(maxTreeDepthTextField);
+        maxTreeDepthTextField.addFocusListener(maxTreeDepthTextFieldListener);
     }
 
     private void setupFunctions() {
@@ -292,7 +302,9 @@ public class MainForm {
         	controller.setInputFilePath(gatherInputFilePath());
         }
         if (this.muxAPanel.isVisible()) {
-        	controller.setMuxNumA(gatherMuxNumA());    		
+        	controller.setMuxNumA(gatherMuxNumA());  
+        	controller.setIfsAllowed(gatherIfsAllowed());
+        	controller.setMaxTreeDepth(gatherMaxTreeDepth());
         }
         launchSelectedTab();
     }
@@ -356,6 +368,14 @@ public class MainForm {
 	private String gatherInputFilePath() {
 		return selectedFileTextField.getText();
 	}
+	
+	private boolean gatherIfsAllowed() {
+		return ifsAllowedCheckBox.isSelected();
+	}
+	
+	private int gatherMaxTreeDepth() {
+		return FormCheck.readInt(maxTreeDepthTextField);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -413,6 +433,26 @@ public class MainForm {
 		
 		lblNewLabel_4 = new JLabel("Tree Creation Method");
 		treePopulationCreationPanel.add(lblNewLabel_4);		
+		
+		ifsAllowedPanel = new JPanel();
+		muxAPanel.add(ifsAllowedPanel);
+		
+		lblNewLabel_5 = new JLabel("Ifs Allowed?");
+		ifsAllowedPanel.add(lblNewLabel_5);
+		
+		ifsAllowedCheckBox = new JCheckBox("");
+		ifsAllowedPanel.add(ifsAllowedCheckBox);
+		
+		maxTreeDepthPanel = new JPanel();
+		muxAPanel.add(maxTreeDepthPanel);
+		
+		lblMaxTreeDepth = new JLabel("Max Tree Depth");
+		maxTreeDepthPanel.add(lblMaxTreeDepth);
+		
+		maxTreeDepthTextField = new JTextField();
+		maxTreeDepthTextField.setText("3");
+		maxTreeDepthPanel.add(maxTreeDepthTextField);
+		maxTreeDepthTextField.setColumns(10);
 		
 		setupTreeCreationMethod();
 		

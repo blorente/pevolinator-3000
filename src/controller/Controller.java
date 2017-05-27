@@ -58,6 +58,8 @@ public class Controller {
     
     private static final int MUX_NUM_A = 1;
     private static final int TREE_CREATION_METHOD = 0;
+    private static final boolean IFS_ALLOWED = true;
+    private static final int MAX_TREE_DEPTH = 3;
     
     private double mutationPercent;
     private double crossPercent;
@@ -69,8 +71,12 @@ public class Controller {
     private int genomeSize;
     private int numberCrossPoints;
     private int numberMutationPoints;
+    
     private int muxNumA;
     private int treeCreationMethod;
+    private boolean ifsAllowed;
+    private int maxTreeDepth;
+    
     private Fitness fitness;
     private int seed;
 
@@ -94,8 +100,12 @@ public class Controller {
         this.numberMutationPoints = NUMBER_MUTATION_POINTS;
         this.numberGenerations = NUMBER_GENERATIONS;
         this.populationSize = POPULATION_SIZE;
+        
         this.muxNumA = MUX_NUM_A;
         this.treeCreationMethod = TREE_CREATION_METHOD;
+        this.ifsAllowed = IFS_ALLOWED;
+        this.maxTreeDepth = MAX_TREE_DEPTH;
+        
         this.minMaxParameters = MinMaxParameters;
         this.selectionAlgorithm = SelectionAlgorithmData.Roulette.algorithm();
         this.fitness = new FirstFunctionFitness();
@@ -112,7 +122,7 @@ public class Controller {
         if (funIndex == 5) {
         	problem = new CombinatoricsProblem(populationSize, numberGenerations, fitness, fitness.isMinimization(), combinatoricsProblemData);
         } else if (funIndex == 6) {
-        	problem = new MultiplexProblem(populationSize, numberGenerations, fitness, muxNumA, treeCreationMethod);
+        	problem = new MultiplexProblem(populationSize, numberGenerations, fitness, muxNumA, treeCreationMethod, ifsAllowed, maxTreeDepth);
         }else {
         	int storedGenomeSize = FitnessFunctionData.fitnessFunctions[funIndex].genomeSize;
         	if (storedGenomeSize > 0) {
@@ -217,6 +227,14 @@ public class Controller {
 
 	public void setSeed(int seed) {
 		this.seed = seed;
+	}
+	
+	public void setMaxTreeDepth(int amount) {
+		this.maxTreeDepth = amount;
+	}
+	
+	public void setIfsAllowed(boolean allowed) {
+		this.ifsAllowed = allowed;
 	}
 	
 	public void setInputFilePath(String path) {
