@@ -48,9 +48,11 @@ public abstract class Node {
 			frequencies[i] = total;
 		}
 		
+		/*
 		if (!ifsAllowed) {
 			frequencies[2] = 1000000;
 		}
+		*/
 		
 		randNum = rand.nextInt(total);
 		int i = 0;

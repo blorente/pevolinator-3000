@@ -34,7 +34,7 @@ public class MutationAlgorithmData {
     		TreeFull
     };
     
-    public MutationAlgorithm createAlgorithm(int selected, int mutationPoints, Fitness fitnessFunction, int maxDepth, boolean ifsAllowed) {
+    public MutationAlgorithm createAlgorithm(int selected, int mutationPoints, Fitness fitnessFunction, int maxDepth, boolean ifsAllowed, int numA) {
     	if (selected == 0) {
     		return new GranularMutationAlgorithm();
     	} else if (selected == 1) {
@@ -54,7 +54,7 @@ public class MutationAlgorithmData {
     	} else if (selected == 8) {
     		return new TreeOperationMutationAlgorithm();
     	} else if (selected == 9) {
-    		return new TreeFullMutationAlgorithm(maxDepth, ifsAllowed);
+    		return new TreeFullMutationAlgorithm(maxDepth, ifsAllowed, numA);
     	}
     	return null;
     }
