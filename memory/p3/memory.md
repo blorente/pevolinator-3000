@@ -76,3 +76,21 @@ Resultados
 ------------
 
 ### Ejecuciones Significativas
+
+
+Heuristic Lab executions
+-------------------------
+
+Una vez terminado con el trabajo y con las dos primeras partes hemos repetido dichos experimentos en el entorno **Heuristic Lab** de los cuales hemos obtenido los siguientes resultados. Por cada uno de los dos problemas mostramos ambos el arbol del programa que mejor resultado ha conseguido y la gráfica de las fitness en cada generación.
+
+###Primer experimento.
+
+![Árbol 6 entradas](./graphics/tree_6.png)   
+
+![Gráfica de las fitness para 6 entradas](./graphics/qualities_6.png)
+
+###Segundo experimento.
+
+![Árbol 11 entradas](./graphics/tree_11.png)   
+
+![Gráfica de las fitness para 11 entradas](./graphics/qualities_11.png) 
