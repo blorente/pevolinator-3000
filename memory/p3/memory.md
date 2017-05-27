@@ -68,9 +68,27 @@ public static boolean evalTree(Node root, boolean[] variables, int numD) {
 
 Por último, el resultado obtenido se compara con el que obtendría un multiplexor, y se contabiliza si difieren.
 
-### Operadores
+### Control de Bloating
 
+Para le control de bloating se ha utilizado la técnica Tarpeian, mediante la cual se modifica la aptitud de un individuo para descartarlo si su tamaño excede el deseable. Para esta técnica en concreto, el tamaño deseable está marcado por la media de los tamaños de los individuos, y un individuo se descarta con una probabilidad del 50% (n = 2) si su tamaño excede esta media. 
 
+Por lo tanto, asumiendo que el tamaño medio de la población está almacenado en el campo `tamañoMedio`, y la frecuencia de poda es la constante `N`, el algoritmo de control de bloating sería el siguiente:
+
+```java
+// Procesamiento de Aptitud
+// ...
+// Método Tarpeian para el control de bloating
+if (tamañoPrograma > tamañoMedio &&
+	rand.nextInt(N) == 0) {
+	// Devolver una aptitud infinitamente malo
+	return numCasosPrueba + 1;
+}
+// Resto de procesamiento de aptitud
+``` 
+
+### Creación basada en pesos
+
+Se ha extendido el motor de procesamiento para añadir un método propio de creación de individuos. Este método es similar a la creación completa de individuos, con la única diferencia siendo que cada nodo tiene cierta probabilidad predefinida de ser un terminal. En concreto, para cada nodo no-hoja hay una probabilidad del 20% de que sea un terminal. Este método ofrece el punto intermedio perfecto entre la creación incremental, que tiende a árboles pequeños, y la completa, que crea árboles llenos.
 
 Resultados
 ------------
