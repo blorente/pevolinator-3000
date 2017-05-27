@@ -170,6 +170,32 @@ public class PopulationFactory {
 	}
 	
 	public static Population createProgramWeighed(boolean ifsAllowed, int maxDepth,int populationSize,int maxA){
-		throw new RuntimeException("Harcoded weighed creation Unimplemented.");
-	}	
+		Random rand = new Random();
+		Population population = new Population();
+		for(int i = 0; i < populationSize; i++){
+			Individual newInd = new Individual(new TreeGenome(createProgramIndividualWeighed(ifsAllowed, maxDepth,0,rand,maxA)));
+			population.addIndividualNoCopy(newInd); 
+		}
+		return population;
+	}
+	
+	public static Node createProgramIndividualWeighed(boolean ifsAllowed, int maxDepth, int actualDepth, Random rand, int maxA){
+		Node currNode;
+		if(actualDepth < maxDepth){
+			int random = rand.nextInt(10);
+			if(random < 2){
+				currNode = Node.createTerminal(rand,maxA);
+			}else{
+				currNode = Node.createOp(rand, ifsAllowed);
+				for(int i = 0; i < currNode.arity(); i++){
+					Node child = createProgramIndividualComplete(ifsAllowed, maxDepth,actualDepth+1,rand,maxA);
+					child.parent = currNode;
+					currNode.children.add(child);
+				}
+			}
+		}else{
+			currNode = Node.createTerminal(rand,maxA);
+		}
+		return currNode;
+	}
 }
