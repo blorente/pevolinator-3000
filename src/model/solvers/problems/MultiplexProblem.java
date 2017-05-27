@@ -15,7 +15,7 @@ public class MultiplexProblem extends Problem {
 		super(populationSize, numberGenerations, fitness, 1, true);
 		this.numA = numA;
 		this.creationMethod = treeCreationMethod;
-		this.ifsAllowed = false;
+		this.ifsAllowed = ifsAllowed;
 		this.maxDepth = maxTreeDepth;
 	}
 
