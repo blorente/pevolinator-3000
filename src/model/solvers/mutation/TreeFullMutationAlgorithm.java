@@ -39,7 +39,7 @@ public class TreeFullMutationAlgorithm extends MutationAlgorithm {
 			System.out.println("Selected node: " + selected);
 		}
 		int nodeDepth = selected.depth();
-		Individual mutated = new Individual(new TreeGenome(PopulationFactory.createProgramIndividualIncremental(ifsAllowed, (maxDepth - nodeDepth + 1),0,rand,maxA)));
+		Individual mutated = new Individual(new TreeGenome(PopulationFactory.createProgramIndividualWeighed(ifsAllowed, (maxDepth - nodeDepth + 1),0,rand,maxA)));
 		TreeGenome newGenome = (TreeGenome) mutated.getGenome();
 		if(selected.parent == null){
 			genome.root = newGenome.root;
