@@ -132,28 +132,40 @@ Para cada una de las dos primeras dos partes mostramos 5 capturas de pantalla de
 
 ### Multiplexor de 6 entrada
 
-![6 input captura 1](./graphics/2_inp_1.png) 
+#####Ejecucion 1
+![6 input captura 1](./graphics/2_inp_1.png)
 
+#####Ejecucion 2
 ![6 input captura 2](./graphics/2_inp_2.png) 
 
+#####Ejecucion 3
 ![6 input captura 3](./graphics/2_inp_3.png) 
 
+#####Ejecucion 4
 ![6 input captura 4](./graphics/2_inp_4.png) 
 
+#####Ejecucion 5
 ![6 input captura 5](./graphics/2_inp_5.png) 
 
 
 ### Multiplexor de 11 entradas
 
-![11 input captura 1](./graphics/3_inp_1.png) 
+#####Ejecucion 1
+![11 input captura 4](./graphics/3_inp_4.png)
 
-![11 input captura 2](./graphics/3_inp_2.png) 
-
+#####Ejecucion 2
 ![11 input captura 3](./graphics/3_inp_3.png) 
 
-![11 input captura 4](./graphics/3_inp_4.png) 
+#####Ejecucion 3
+![11 input captura 5](./graphics/3_inp_5.png)
 
-![11 input captura 5](./graphics/3_inp_5.png) 
+#####Ejecucion 4
+![11 input captura 2](./graphics/3_inp_2.png)
+
+#####Ejecucion 5
+![11 input captura 1](./graphics/3_inp_1.png) 
+
+
 
 
 Heuristic Lab executions
