@@ -128,6 +128,32 @@ Resultados
 ------------
 
 ### Ejecuciones Significativas
+Para cada una de las dos primeras dos partes mostramos 5 capturas de pantalla de los mejores resultados obtenidos resultados. Debemos resaltar que el número de la mejor fitness expresa él numero de fallos y que es el número que tratamos de minimizar.
+
+### Multiplexor de 6 entrada
+
+![6 input captura 1](./graphics/2_inp_1.png) 
+
+![6 input captura 2](./graphics/2_inp_2.png) 
+
+![6 input captura 3](./graphics/2_inp_3.png) 
+
+![6 input captura 4](./graphics/2_inp_4.png) 
+
+![6 input captura 5](./graphics/2_inp_5.png) 
+
+
+### Multiplexor de 11 entradas
+
+![11 input captura 1](./graphics/3_inp_1.png) 
+
+![11 input captura 2](./graphics/3_inp_2.png) 
+
+![11 input captura 3](./graphics/3_inp_3.png) 
+
+![11 input captura 4](./graphics/3_inp_4.png) 
+
+![11 input captura 5](./graphics/3_inp_5.png) 
 
 
 Heuristic Lab executions
