@@ -70,7 +70,7 @@ Por último, el resultado obtenido se compara con el que obtendría un multiplex
 
 ### Control de Bloating
 
-Para le control de bloating se ha utilizado la técnica Tarpeian, mediante la cual se modifica la aptitud de un individuo para descartarlo si su tamaño excede el deseable. Para esta técnica en concreto, el tamaño deseable está marcado por la media de los tamaños de los individuos, y un individuo se descarta con una probabilidad del 50% (n = 2) si su tamaño excede esta media. 
+Para le control de bloating se ha utilizado la técnica Tarpeian, mediante la cual se modifica la aptitud de un individuo para descartarlo si su tamaño excede el deseable. Para esta técnica en concreto, el tamaño deseable está marcado por la media de los tamaños de los individuos, y un individuo se descarta con una probabilidad del 50% (n = 2) si su tamaño excede esta media.
 
 Por lo tanto, asumiendo que el tamaño medio de la población está almacenado en el campo `tamañoMedio`, y la frecuencia de poda es la constante `N`, el algoritmo de control de bloating sería el siguiente:
 
@@ -84,7 +84,7 @@ if (tamañoPrograma > tamañoMedio &&
 	return numCasosPrueba + 1;
 }
 // Resto de procesamiento de aptitud
-``` 
+```
 
 ### Creación basada en pesos
 
@@ -92,7 +92,7 @@ Se ha extendido el motor de procesamiento para añadir un método propio de crea
 
 ### Operadores implementados
 
-Se han implementado los operadores de cruce y mutación vistos en clase, denotados por el prefijo `Tree` en la interfaz gráfica. Todos los métodos están implementados por medio de asignación de referencias en Java, ya que la estructura de los nodos permite acceder fácilmente a sus padres y modificarlos directamente con asignaciones sencillas. 
+Se han implementado los operadores de cruce y mutación vistos en clase, denotados por el prefijo `Tree` en la interfaz gráfica. Todos los métodos están implementados por medio de asignación de referencias en Java, ya que la estructura de los nodos permite acceder fácilmente a sus padres y modificarlos directamente con asignaciones sencillas.
 
 Por ejemplo, realizar un cruce de subárbol como el visto en clase implica intercambiar las referencias que los padres guardan de sus hijos originales para que apunten a los nuevos nodos, y cambiar los padres de esos nodos para apuntar a los nuevos padres:
 
@@ -101,7 +101,7 @@ Por ejemplo, realizar un cruce de subárbol como el visto en clase implica inter
 Node oneNode = selectNode(oneNodes);
 Node otherNode = selectNode(otherNodes);
 
-// Modificar las referencias de los padres 
+// Modificar las referencias de los padres
 // para apuntar a los nuevos hijos.
 if (oneNode.parent != null) {			
 	oneNode.parent.changeChild(oneNode, otherNode);
@@ -134,27 +134,29 @@ Para cada una de las dos primeras dos partes mostramos 5 capturas de pantalla de
 
 ![6 input captura 1](./graphics/2_inp_1.png)
 
-![6 input captura 2](./graphics/2_inp_2.png) 
+![6 input captura 2](./graphics/2_inp_2.png)
 
-![6 input captura 3](./graphics/2_inp_3.png) 
+![6 input captura 3](./graphics/2_inp_3.png)
 
-![6 input captura 4](./graphics/2_inp_4.png) 
+![6 input captura 4](./graphics/2_inp_4.png)
 
-![6 input captura 5](./graphics/2_inp_5.png) 
+![6 input captura 5](./graphics/2_inp_5.png)
 
+\pagebreak
 
 ### Multiplexor de 11 entradas
 
-![11 input captura 4](./graphics/3_inp_4.png)
-
-![11 input captura 3](./graphics/3_inp_3.png) 
-
-![11 input captura 5](./graphics/3_inp_5.png)
+![11 input captura 1](./graphics/3_inp_1.png)
 
 ![11 input captura 2](./graphics/3_inp_2.png)
 
-![11 input captura 1](./graphics/3_inp_1.png) 
+![11 input captura 3](./graphics/3_inp_3.png)
 
+![11 input captura 4](./graphics/3_inp_4.png)
+
+![11 input captura 5](./graphics/3_inp_5.png)
+
+\pagebreak
 
 Heuristic Lab executions
 -------------------------
@@ -167,10 +169,12 @@ Una vez terminado con el trabajo y con las dos primeras partes hemos repetido di
 
 ![Gráfica de las fitness para 6 entradas](./graphics/qualities_6.png)
 
+\pagebreak
+
 ### Segundo experimento.
 
 ![Árbol 11 entradas](./graphics/tree_11.png)   
 
-![Gráfica de las fitness para 11 entradas](./graphics/qualities_11.png) 
+![Gráfica de las fitness para 11 entradas](./graphics/qualities_11.png)
 
-
+\pagebreak
